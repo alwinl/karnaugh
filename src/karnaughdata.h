@@ -88,28 +88,4 @@ private:
 	bool delete_me;
 };
 
-class KarnaughConfig
-{
-public:
-    KarnaughConfig();
-
-	enum eLANGUAGES { DEFAULT, CROATIAN, DUTCH };
-
-    void SetLanguage( eLANGUAGES lang );
-    void SetShowZeroes( bool on );
-    void SetShowAddress( bool on );
-    void SetInputs( int inputs );
-    void SetSolutionType( KarnaughData::eSolutionType type );
-
-    eLANGUAGES GetLanguage( );
-    bool GetShowZeroes();
-    bool GetShowAddress();
-    int GetInputs();
-    KarnaughData::eSolutionType GetSolutionType();
-
-private:
-	wxConfig config;
-};
-
-
 #endif // KARNAUGHDATA_H

@@ -34,12 +34,13 @@ KarnaughConfig::eLANGUAGES KarnaughConfig::GetLanguage( )
 	if( !config.Read( wxT( "Language" ), &lang ) ) {
 		switch( wxLocale::GetSystemLanguage() ) {
 		case wxLANGUAGE_CROATIAN : SetLanguage( CROATIAN ); return CROATIAN;
+		case wxLANGUAGE_DUTCH : SetLanguage( DUTCH ); return DUTCH;
 		default: SetLanguage( DEFAULT ); return DEFAULT;
 		}
 	}
 
-	if( lang == wxT( "hr" ) )
-		return CROATIAN;
+	if( lang == wxT( "hr" ) ) return CROATIAN;
+	if( lang == wxT( "nl" ) ) return DUTCH;
 
 	return DEFAULT;
 }
@@ -49,6 +50,7 @@ void KarnaughConfig::SetLanguage( KarnaughConfig::eLANGUAGES lang )
 {
 	switch( lang ) {
 	case CROATIAN : config.Write( wxT( "Language" ), wxT("hr") ); break;
+	case DUTCH : config.Write( wxT( "Language" ), wxT("nl") ); break;
 	default:		 config.Write( wxT( "Language" ), wxT("") ); break;
 	}
 

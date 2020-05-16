@@ -31,7 +31,7 @@ class KarnaughConfig
 public:
     KarnaughConfig();
 
-	enum eLANGUAGES { DEFAULT, CROATIAN };
+	enum eLANGUAGES { DEFAULT, CROATIAN, DUTCH };
 
     void SetLanguage( eLANGUAGES lang );
     void SetShowZeroes( bool on );

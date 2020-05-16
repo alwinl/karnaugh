@@ -26,7 +26,7 @@
 #include <wx/treectrl.h>
 
 #include "karnaughdata.h"
-//#include "karnaughconfig.h"
+#include "karnaughconfig.h"
 
 #include "truthtablegrid.h"
 #include "kmapgrid.h"
