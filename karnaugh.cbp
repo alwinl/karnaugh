@@ -60,8 +60,6 @@
 		<Unit filename="src/karnaughconfig.h" />
 		<Unit filename="src/karnaughdata.cpp" />
 		<Unit filename="src/karnaughdata.h" />
-		<Unit filename="src/karnaughmap.cpp" />
-		<Unit filename="src/karnaughmap.h" />
 		<Unit filename="src/kmapgrid.cpp" />
 		<Unit filename="src/kmapgrid.h" />
 		<Unit filename="src/solutiontree.cpp" />
