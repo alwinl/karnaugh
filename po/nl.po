@@ -1,0 +1,163 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-17 05:31+1200\n"
+"PO-Revision-Date: 2020-05-17 05:48+1200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl\n"
+
+#: src/blamframe.cpp:78
+msgid "&About"
+msgstr ""
+
+#: src/blamframe.cpp:87
+msgid "&Program"
+msgstr "&Programma"
+
+#: src/blamframe.cpp:88
+msgid "&Settings"
+msgstr "&Instellingen"
+
+#: src/blamframe.cpp:325
+msgid "About Karnaugh Map Minimizer"
+msgstr ""
+
+#: src/blamframe.cpp:78
+msgid "About the program"
+msgstr ""
+
+#: src/blamframe.cpp:73
+msgid "Croatian"
+msgstr "Kroatisch"
+
+#: src/blamframe.cpp:80
+msgid "E&xit"
+msgstr "Verlaten"
+
+#: src/blamframe.cpp:72
+msgid "English (default)"
+msgstr "Engels"
+
+#: src/blamframe.cpp:80
+msgid "Exit the program"
+msgstr "Programma verlaten"
+
+#: src/blamapp.cpp:31
+msgid "Karnaugh Map Minimizer"
+msgstr "Karnaugh map minimaliseren"
+
+#: src/blamframe.cpp:103
+msgid "Karnaugh map"
+msgstr "Karnaugh map"
+
+#: src/blamframe.cpp:191
+msgid "Karnaugh map solved!"
+msgstr "Karnaugh map opgelost!"
+
+#: src/blamframe.cpp:82
+msgid "Language"
+msgstr "Taal"
+
+#: src/blamframe.cpp:128
+msgid "Number of variables: "
+msgstr "Aantal variablelen"
+
+#: src/blamframe.cpp:120
+msgid "Product of sums"
+msgstr "Product van sommen"
+
+#: src/blamframe.cpp:300 src/blamframe.cpp:308
+msgid "Restart required"
+msgstr "Herstarten nodig"
+
+#: src/blamframe.cpp:82
+msgid "Set language (requires restart)"
+msgstr "Taal keuze ( herstarten nodig)"
+
+#: src/blamframe.cpp:73
+msgid "Set language to croatian"
+msgstr "Gebruik Kroatisch"
+
+#: src/blamframe.cpp:72
+msgid "Set language to english"
+msgstr "Gebruik Engels"
+
+#: src/kmapgrid.cpp:131 src/truthtablegrid.cpp:79
+msgid "Set randomly"
+msgstr ""
+
+#: src/kmapgrid.cpp:129 src/truthtablegrid.cpp:77
+msgid "Set to \"don't care\""
+msgstr ""
+
+#: src/kmapgrid.cpp:128 src/truthtablegrid.cpp:76
+msgid "Set to 0"
+msgstr ""
+
+#: src/kmapgrid.cpp:127 src/truthtablegrid.cpp:75
+msgid "Set to 1"
+msgstr ""
+
+#: src/blamframe.cpp:76
+msgid "Show / hide cell adresses in the K-map"
+msgstr ""
+
+#: src/blamframe.cpp:75
+msgid "Show / hide zero values"
+msgstr ""
+
+#: src/blamframe.cpp:76
+msgid "Show cell adresses"
+msgstr ""
+
+#: src/blamframe.cpp:75
+msgid "Show zeros"
+msgstr ""
+
+#: src/blamframe.cpp:141
+msgid "Solution:"
+msgstr ""
+
+#: src/blamframe.cpp:179
+msgid "Solving, please wait..."
+msgstr ""
+
+#: src/blamframe.cpp:119
+msgid "Sum of products"
+msgstr ""
+
+#: src/blamframe.cpp:323
+msgid ""
+"This is a program for minimizing boolean functions using Karnaugh maps "
+"method.\n"
+"\n"
+"Copyright (C) 2005. Robert Kovacevic"
+msgstr ""
+
+#: src/blamframe.cpp:122
+msgid "Truth table"
+msgstr ""
+
+#: src/blamframe.cpp:130
+msgid "Type of solution: "
+msgstr ""
+
+#: src/blamframe.cpp:94
+msgid "Welcome to Karnaugh Map Minimizer!"
+msgstr ""
+
+#: src/blamframe.cpp:299 src/blamframe.cpp:307
+msgid "You have to restart the program for this change to take effect."
+msgstr ""
