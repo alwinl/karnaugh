@@ -27,6 +27,8 @@
 
 #include "blamframe.h"
 
+#include "solutionentry.h"
+
 BEGIN_EVENT_TABLE( blamFrame, wxFrame )
     EVT_MENU( Menu_File_Quit, blamFrame::OnQuit )
     EVT_MENU( Menu_File_About, blamFrame::OnAbout )

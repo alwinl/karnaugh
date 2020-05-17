@@ -21,6 +21,8 @@
 
 #include "solutiontree.h"
 
+#include "solutionentry.h"
+
 /**
  * @short ADT
  * @author Robert Kovacevic <robert.kovacevic@etfos.hr>

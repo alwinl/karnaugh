@@ -23,7 +23,7 @@
 #include <wx/font.h>
 
 #include "kmapgrid.h"
-
+#include "solutionentry.h"
 
 BEGIN_EVENT_TABLE( KMapGrid, wxGrid )
     EVT_GRID_CELL_RIGHT_CLICK( KMapGrid::DisplayPopup )

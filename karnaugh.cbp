@@ -62,6 +62,8 @@
 		<Unit filename="src/karnaughdata.h" />
 		<Unit filename="src/kmapgrid.cpp" />
 		<Unit filename="src/kmapgrid.h" />
+		<Unit filename="src/solutionentry.cpp" />
+		<Unit filename="src/solutionentry.h" />
 		<Unit filename="src/solutiontree.cpp" />
 		<Unit filename="src/solutiontree.h" />
 		<Unit filename="src/truthtablegrid.cpp" />
