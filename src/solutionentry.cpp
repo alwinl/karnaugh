@@ -71,5 +71,3 @@ std::vector<unsigned int> SolutionEntry::GetAddresses( unsigned int max_address 
 
 	return result;
 }
-
-

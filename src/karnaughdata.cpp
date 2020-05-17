@@ -61,7 +61,6 @@ void KarnaughData::set_solution_type( eSolutionType type )
 	solution_type = type;
 }
 
-
 unsigned int KarnaughData::calc_address( unsigned int row, unsigned int col )
 {
 	return ( GrayEncode(row) << ((no_of_inputs + 1) / 2) ) + GrayEncode(col);
@@ -219,6 +218,7 @@ std::list<SolutionEntry> KarnaughData::FindBestSolution( )
 			dontcares.push_back( address );
 	}
 
+	/** @TODO Solution not quite right on all ones or all zeroes */
 	// we better deal with our special case when the solution list is empty
 	//if( solutions.empty() )
 	// if the solution has one one entry, which spans the whole table, delete this entry

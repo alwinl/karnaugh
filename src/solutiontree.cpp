@@ -42,7 +42,6 @@ public:
 SolutionTree::SolutionTree( wxWindow *parent, wxWindowID id )
 		: wxTreeCtrl( parent, id, wxDefaultPosition, wxDefaultSize, wxSIMPLE_BORDER | wxTR_HAS_BUTTONS )
 {
-	//RemoveAllItems();
 }
 
 std::vector<unsigned int> SolutionTree::GetItemAdresses( const wxTreeItemId & item )
@@ -65,7 +64,6 @@ void SolutionTree::AddItem( KarnaughData::eSolutionType type , SolutionEntry& en
 {
 	std::string result;
 
-	// run through the mask bit shifting rit
 	char current_variable_name  = 'a';
 	unsigned int temp_mask = entry.GetMask();
 	unsigned int temp_number = entry.GetNumber();

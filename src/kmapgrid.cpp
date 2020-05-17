@@ -253,7 +253,7 @@ void KMapGrid::OnMenuRange( wxCommandEvent& event )
 
 void KMapGrid::DisplayPopup( wxGridEvent& event )
 {
-    SelectBlock(event.GetRow(), event.GetCol(), event.GetRow(), event.GetCol() );
+    SelectBlock( event.GetRow(), event.GetCol(), event.GetRow(), event.GetCol() );
     SetGridCursor( event.GetRow(), event.GetCol() );
 
     PopupMenu( stateMenu, event.GetPosition() );

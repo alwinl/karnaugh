@@ -21,8 +21,6 @@
 
 #include "karnaughconfig.h"
 
-//#include "iostream"
-
 KarnaughConfig::KarnaughConfig() : config( wxT( "Karnaugh Map Minimizer" ) )
 {
 }

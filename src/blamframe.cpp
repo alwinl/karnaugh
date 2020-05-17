@@ -33,8 +33,6 @@ BEGIN_EVENT_TABLE( blamFrame, wxFrame )
     EVT_MENU( Menu_File_Quit, blamFrame::OnQuit )
     EVT_MENU( Menu_File_About, blamFrame::OnAbout )
     EVT_MENU_RANGE( Menu_Language_Croatian, Menu_Language_Default, blamFrame::OnMenuLanguage )
-    //EVT_MENU( Menu_Language_Croatian, blamFrame::OnLangCroatian )
-    //EVT_MENU( Menu_Language_Default, blamFrame::OnLangDefault )
     EVT_MENU( Menu_Cell_Adresses, blamFrame::OnCellAdresses )
     EVT_MENU( Menu_Show_Zeros, blamFrame::OnShowZeros )
     EVT_SPINCTRL( Vars_Count, blamFrame::OnVarsChange )
@@ -303,23 +301,6 @@ void blamFrame::OnMenuLanguage( wxCommandEvent& event )
                   _( "Restart required" ), wxOK | wxICON_INFORMATION, this );
 }
 
-/*
-void blamFrame::OnLangCroatian( wxCommandEvent& WXUNUSED( event ) )
-{
-	SetNewLanguage( KarnaughConfig::CROATIAN );
-
-    wxMessageBox( _( "You have to restart the program for this change to take effect." ),
-                  _( "Restart required" ), wxOK | wxICON_INFORMATION, this );
-}
-
-void blamFrame::OnLangDefault( wxCommandEvent& WXUNUSED( event ) )
-{
-	SetNewLanguage( KarnaughConfig::DEFAULT );
-
-    wxMessageBox( _( "You have to restart the program for this change to take effect." ),
-                  _( "Restart required" ), wxOK | wxICON_INFORMATION, this );
-}
-*/
 void blamFrame::OnCellAdresses( wxCommandEvent& WXUNUSED( event ) )
 {
 	SetNewShowAddress( showCellAddress->IsChecked() );

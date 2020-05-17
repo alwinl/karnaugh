@@ -26,8 +26,6 @@
 #include <list>
 #include <string>
 
-#include <wx/config.h>
-
 class SolutionEntry;
 
 class KarnaughData

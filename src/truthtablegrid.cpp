@@ -164,7 +164,7 @@ void TruthTableGrid::OnMenuRange( wxCommandEvent& event )
 	case MENU_SETRAND : SetValue( selection[0], GetNumberCols() - 1, (rand()%2 ) ? KarnaughData::ONE : KarnaughData::ZERO ); break;
 	}
 
-	SendEvent( wxEVT_GRID_CELL_CHANGE, selection[0], GetNumberCols() - 1 );
+	SendEvent( wxEVT_GRID_CELL_CHANGE, selection[0], GetNumberCols() - 1 ); // inform main frame of a change
 }
 
 void TruthTableGrid::DisplayPopup( wxGridEvent& event )
