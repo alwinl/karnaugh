@@ -46,9 +46,7 @@ private:
     enum {
     	Menu_File_Quit = 100,
 		Menu_File_About,
-		Menu_Language_Croatian,
-		Menu_Language_Dutch,
-		Menu_Language_Default,
+		Menu_Set_Language,
 		Menu_Cell_Adresses,
 		Menu_Show_Zeros,
 		Vars_Count,
@@ -60,7 +58,7 @@ private:
 
     void OnQuit( wxCommandEvent& event );
     void OnAbout( wxCommandEvent& event );
-	void OnMenuLanguage( wxCommandEvent& event );
+	void OnSetLanguage( wxCommandEvent& event );
     void OnCellAdresses( wxCommandEvent& event );
     void OnShowZeros( wxCommandEvent& event );
     void OnVarsChange( wxSpinEvent& event );
@@ -81,7 +79,6 @@ private:
 
     KarnaughData data;
     KarnaughConfig config;
-    wxLocale m_locale;
 
 	void SetInputs( unsigned int no_of_inputs );
 	void RunSolver();

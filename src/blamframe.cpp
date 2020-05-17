@@ -27,12 +27,14 @@
 
 #include "blamframe.h"
 
+#include "blamapp.h"
+
 #include "solutionentry.h"
 
 BEGIN_EVENT_TABLE( blamFrame, wxFrame )
     EVT_MENU( Menu_File_Quit, blamFrame::OnQuit )
     EVT_MENU( Menu_File_About, blamFrame::OnAbout )
-    EVT_MENU_RANGE( Menu_Language_Croatian, Menu_Language_Default, blamFrame::OnMenuLanguage )
+    EVT_MENU( Menu_Set_Language, blamFrame::OnSetLanguage )
     EVT_MENU( Menu_Cell_Adresses, blamFrame::OnCellAdresses )
     EVT_MENU( Menu_Show_Zeros, blamFrame::OnShowZeros )
     EVT_SPINCTRL( Vars_Count, blamFrame::OnVarsChange )
@@ -49,16 +51,6 @@ END_EVENT_TABLE()
 blamFrame::blamFrame( )
     : wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), data(4)
 {
-	switch( config.GetLanguage( ) ) {
-	case KarnaughConfig::CROATIAN : m_locale.Init( wxLANGUAGE_CROATIAN ); break;
-	case KarnaughConfig::DUTCH : m_locale.Init( wxLANGUAGE_DUTCH ); break;
-	default:
-		break;
-	}
-
-	m_locale.AddCatalogLookupPathPrefix( "./bin/Debug");
-    m_locale.AddCatalog( wxT( "karnaugh" ) );
-
     /**** Icon *****/
     SetIcon( wxIcon( "wxwin.ico", wxBITMAP_TYPE_ICO ) );
 
@@ -67,11 +59,6 @@ blamFrame::blamFrame( )
 
     wxMenu *menuFile = new wxMenu;
     menuSettings = new wxMenu;
-    menuLanguage = new wxMenu;
-
-    menuLanguage->Append( new wxMenuItem( menuLanguage, Menu_Language_Default, _( "English (default)" ), _( "Set language to English" ), wxITEM_RADIO ) );
-    menuLanguage->Append( new wxMenuItem( menuLanguage, Menu_Language_Croatian, _( "Croatian" ), _( "Set language to Croatian" ), wxITEM_RADIO ) );
-    menuLanguage->Append( new wxMenuItem( menuLanguage, Menu_Language_Dutch, _( "Dutch" ), _( "Set language to Dutch" ), wxITEM_RADIO ) );
 
     showZeroMenuItem = new wxMenuItem( 0, Menu_Show_Zeros, _( "Show zeros" ), _( "Show / hide zero values" ), wxITEM_CHECK );
     showCellAddress = new wxMenuItem( 0, Menu_Cell_Adresses, _( "Show cell adresses" ), _( "Show / hide cell adresses in the K-map" ), wxITEM_CHECK );
@@ -80,8 +67,7 @@ blamFrame::blamFrame( )
     menuFile->AppendSeparator();
     menuFile->Append( new wxMenuItem( 0, Menu_File_Quit, _( "E&xit" ), _( "Exit the program" ) ) );
 
-    menuSettings->Append( -1, _( "Language" ), menuLanguage, _( "Set language (requires restart)" ) );
-    menuSettings->AppendSeparator();
+    menuSettings->Append( new wxMenuItem( 0, Menu_Set_Language, _( "Set language" ), _( "Set language" ) ) );
     menuSettings->Append( showZeroMenuItem );
     menuSettings->Append( showCellAddress );
 
@@ -161,8 +147,6 @@ blamFrame::blamFrame( )
 
     /**** Load configuration ****/
 
-    SetNewLanguage( config.GetLanguage( ) );
-
     SetNewShowAddress( config.GetShowAddress() );
 
     SetNewShowZeroes( config.GetShowZeroes() );
@@ -225,17 +209,6 @@ void blamFrame::SetNewSolutionType( KarnaughData::eSolutionType type )
 	RunSolver();
 }
 
-void blamFrame::SetNewLanguage( KarnaughConfig::eLANGUAGES language )
-{
-	config.SetLanguage( language );
-
-	switch( language ) {
-	case KarnaughConfig::CROATIAN : menuLanguage->Check( Menu_Language_Croatian, true ); break;
-	case KarnaughConfig::DUTCH : menuLanguage->Check( Menu_Language_Dutch, true ); break;
-	default: menuLanguage->Check( Menu_Language_Default, true ); break;
-	}
-}
-
 void blamFrame::SetNewShowAddress( bool on )
 {
 	config.SetShowAddress( on );
@@ -290,15 +263,10 @@ void blamFrame::OnQuit( wxCommandEvent& WXUNUSED( event ) )
     Close( TRUE );
 }
 
-void blamFrame::OnMenuLanguage( wxCommandEvent& event )
+void blamFrame::OnSetLanguage( wxCommandEvent& WXUNUSED( event ) )
 {
-	switch( event.GetId() ) {
-	case Menu_Language_Croatian : SetNewLanguage( KarnaughConfig::CROATIAN ); break;
-	case Menu_Language_Dutch : SetNewLanguage( KarnaughConfig::DUTCH ); break;
-	default: SetNewLanguage( KarnaughConfig::DEFAULT ); break;
-	}
-    wxMessageBox( _( "You have to restart the program for this change to take effect." ),
-                  _( "Restart required" ), wxOK | wxICON_INFORMATION, this );
+	if( wxGetApp().SelectLanguage() )
+		wxGetApp().CreateGUI();
 }
 
 void blamFrame::OnCellAdresses( wxCommandEvent& WXUNUSED( event ) )

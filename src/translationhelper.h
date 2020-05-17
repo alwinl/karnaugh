@@ -19,34 +19,38 @@
  *
  */
 
-#ifndef KARNAUGHCONFIG_H
-#define KARNAUGHCONFIG_H
+#ifndef TRANSLATIONHELPER_H
+#define TRANSLATIONHELPER_H
 
-#include <wx/config.h>
+#include <wx/wx.h>
 
-#include "karnaughdata.h"
+#include <vector>
 
-class KarnaughConfig
+class TranslationHelper
 {
 public:
-    KarnaughConfig();
+    TranslationHelper( wxApp& app );
+    ~TranslationHelper();
 
-	enum eLANGUAGES { DEFAULT, CROATIAN, DUTCH };
+    wxLocale * GetLocale() { return m_locale; }
 
-    //void SetLanguage( eLANGUAGES lang );
-    void SetShowZeroes( bool on );
-    void SetShowAddress( bool on );
-    void SetInputs( int inputs );
-    void SetSolutionType( KarnaughData::eSolutionType type );
-
-    //eLANGUAGES GetLanguage( );
-    bool GetShowZeroes();
-    bool GetShowAddress();
-    int GetInputs();
-    KarnaughData::eSolutionType GetSolutionType();
+    bool AskUserForLanguage( wxWindow * parent );
+    bool Load();
+    void Save( bool bReset = false );
 
 private:
-	wxConfig config;
+    struct LanguageEntry {
+    	long id;
+    	std::string name;
+    };
+
+    wxApp& m_app;
+    wxLocale * m_locale;
+    std::vector<LanguageEntry> languages;
+
+    void GetInstalledLanguages( );
+
+	void set_new_locale( LanguageEntry entry );
 };
 
-#endif // KARNAUGHCONFIG_H
+#endif // TRANSLATIONHELPER_H

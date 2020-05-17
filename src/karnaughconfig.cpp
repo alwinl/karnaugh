@@ -21,10 +21,13 @@
 
 #include "karnaughconfig.h"
 
-KarnaughConfig::KarnaughConfig() : config( wxT( "Karnaugh Map Minimizer" ) )
+#include "blamapp.h"
+
+KarnaughConfig::KarnaughConfig() : config( wxGetApp().GetAppName() )
 {
 }
 
+/*
 KarnaughConfig::eLANGUAGES KarnaughConfig::GetLanguage( )
 {
     wxString lang;
@@ -54,6 +57,7 @@ void KarnaughConfig::SetLanguage( KarnaughConfig::eLANGUAGES lang )
 
 	config.Flush();
 }
+*/
 
 bool KarnaughConfig::GetShowZeroes()
 {

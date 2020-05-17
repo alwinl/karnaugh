@@ -28,11 +28,35 @@ IMPLEMENT_APP( blamapp )
 
 bool blamapp::OnInit()
 {
-    blamFrame *frame = new blamFrame( );
-
-    frame->Show( true );
-
-    SetTopWindow( frame );
+	m_translation_helper = new TranslationHelper( *this );
+	CreateGUI();
 
     return true;
 }
+
+int blamapp::OnExit()
+{
+	delete m_translation_helper;
+	return 0;
+}
+
+void blamapp::CreateGUI()
+{
+	wxWindow * topwindow = GetTopWindow();
+
+	if( topwindow ) {
+		SetTopWindow( NULL );
+		topwindow->Destroy();
+	}
+
+    blamFrame *frame = new blamFrame( );
+
+    SetTopWindow( frame );
+    frame->Show();
+}
+
+bool blamapp::SelectLanguage( )
+{
+    return m_translation_helper->AskUserForLanguage( GetTopWindow() );
+}
+

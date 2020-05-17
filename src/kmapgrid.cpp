@@ -52,7 +52,6 @@ private:
 	unsigned int GrayEncode( unsigned int number ) { return number ^ (number >> 1); }
 };
 
-// Grid cell renderer
 KMapGridCellRenderer::KMapGridCellRenderer()
 {
     font = new wxFont( 7, wxDEFAULT, wxNORMAL, wxNORMAL );

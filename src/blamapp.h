@@ -21,6 +21,10 @@
 #ifndef _BLAM_H_
 #define _BLAM_H_
 
+#include <wx/wx.h>
+
+#include "translationhelper.h"
+
 /**
  * @short BLAM boolean function minimizer app
  * @author Robert Kovacevic <robert.kovacevic@etfos.hr>
@@ -29,8 +33,18 @@
 
 class blamapp : public wxApp
 {
+public:
+    bool SelectLanguage();
+	void CreateGUI();
+
 protected:
     virtual bool OnInit();
+	virtual int OnExit();
+
+private:
+	TranslationHelper * m_translation_helper;
 };
+
+DECLARE_APP(blamapp);
 
 #endif // _BLAM_H_

@@ -66,6 +66,8 @@
 		<Unit filename="src/solutionentry.h" />
 		<Unit filename="src/solutiontree.cpp" />
 		<Unit filename="src/solutiontree.h" />
+		<Unit filename="src/translationhelper.cpp" />
+		<Unit filename="src/translationhelper.h" />
 		<Unit filename="src/truthtablegrid.cpp" />
 		<Unit filename="src/truthtablegrid.h" />
 		<Extensions>
