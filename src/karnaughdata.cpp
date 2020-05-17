@@ -21,20 +21,9 @@
 
 #include "karnaughdata.h"
 
+#include <functional>
+
 #include "solutionentry.h"
-
-
-struct EntryDeleted : public std::unary_function<SolutionEntry, bool>
-{
-	bool operator()( const SolutionEntry& rhs )	{ return rhs.IsDeleted(); }
-};
-
-
-
-
-
-
-
 
 KarnaughData::KarnaughData( unsigned int no_of_inputs )
 {
@@ -197,7 +186,7 @@ void KarnaughData::FindSolution( std::list<SolutionEntry>& solutions )
 		}
 	}
 
-	solutions.remove_if( EntryDeleted() );
+	solutions.remove_if(  std::function<bool( const SolutionEntry& )>( [](const SolutionEntry& rhs) { return rhs.IsDeleted(); } )  );
 }
 
 

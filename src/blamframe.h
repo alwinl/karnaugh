@@ -61,8 +61,6 @@ private:
     void OnQuit( wxCommandEvent& event );
     void OnAbout( wxCommandEvent& event );
 	void OnMenuLanguage( wxCommandEvent& event );
-    //void OnLangCroatian( wxCommandEvent& event );
-    //void OnLangDefault( wxCommandEvent& event );
     void OnCellAdresses( wxCommandEvent& event );
     void OnShowZeros( wxCommandEvent& event );
     void OnVarsChange( wxSpinEvent& event );
