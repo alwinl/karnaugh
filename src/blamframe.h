@@ -40,7 +40,7 @@
 class blamFrame : public wxFrame
 {
 public:
-    blamFrame( const wxString& title, const wxPoint& pos, const wxSize& size );
+    blamFrame( );
 
 private:
     enum {

@@ -46,8 +46,8 @@ END_EVENT_TABLE()
 /*----------------------------------------
  * Main window object implementation
  */
-blamFrame::blamFrame( const wxString& title, const wxPoint& pos, const wxSize& size )
-    : wxFrame( (wxFrame *)NULL, -1, title, pos, size ), data(4)
+blamFrame::blamFrame( )
+    : wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), data(4)
 {
 	switch( config.GetLanguage( ) ) {
 	case KarnaughConfig::CROATIAN : m_locale.Init( wxLANGUAGE_CROATIAN ); break;

@@ -28,7 +28,7 @@ IMPLEMENT_APP( blamapp )
 
 bool blamapp::OnInit()
 {
-    blamFrame *frame = new blamFrame( _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) );
+    blamFrame *frame = new blamFrame( );
 
     frame->Show( true );
 
