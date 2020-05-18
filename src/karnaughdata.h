@@ -26,7 +26,7 @@
 #include <list>
 #include <string>
 
-class SolutionEntry;
+#include "solutionentry.h"
 
 class KarnaughData
 {
@@ -42,19 +42,22 @@ public:
 
     unsigned int get_dimension( ) const { return no_of_inputs; }
     eSolutionType get_solution_type() const { return solution_type; }
-    std::list<SolutionEntry> FindBestSolution( );
+    std::vector<SolutionEntry> FindBestSolution( );
+
+    SolutionEntry get_solution( unsigned int index );
 
 	unsigned int calc_address( unsigned int row, unsigned int col );
 	unsigned int calc_row( unsigned int address );
 	unsigned int calc_col( unsigned int address );
 
-	std::vector<std::string> generate_row_labels();
-	std::vector<std::string> generate_col_labels();
+	std::string generate_row_label( unsigned int row );
+	std::string generate_col_label( unsigned int col );
 
 private:
 	unsigned int no_of_inputs;
 	std::vector<eCellValues> table;
 	eSolutionType solution_type;
+	std::vector<SolutionEntry> the_solution;
 
 	unsigned int GrayEncode( unsigned int number );
 	std::vector<unsigned int> number_to_binaryvector( unsigned int code, unsigned int length );

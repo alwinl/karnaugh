@@ -99,20 +99,8 @@ void KMapGridCellRenderer::Draw( wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, c
 }
 
 
-
-/** \brief KMapGrid constructor
- *
- * \param parent wxWindow*
- * \param id wxWindowID
- * \param vars unsigned int
- * \param pos const wxPoint&
- * \param size const wxSize&
- * \param style long
- * \param name const wxString&
- *
- */
 KMapGrid::KMapGrid( wxWindow* parent, wxWindowID id, const wxSize& size )
-    : wxGrid( parent, id, wxDefaultPosition, size, wxSIMPLE_BORDER, wxPanelNameStr )
+									: wxGrid( parent, id, wxDefaultPosition, size, wxSIMPLE_BORDER, wxPanelNameStr )
 {
     CreateGrid( 1, 1 );
     SetDefaultCellAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
@@ -191,8 +179,11 @@ void KMapGrid::SetVars( KarnaughData& data, unsigned int vars )
     if( GetNumberCols() > width  ) DeleteCols( 0, GetNumberCols() - width );
     if( GetNumberRows() > height ) DeleteRows( 0, GetNumberRows() - height );
 
-    ColLabels( data.generate_col_labels() );
-    RowLabels( data.generate_row_labels() );
+    for( int row = 0; row < GetNumberRows(); ++row )
+		SetRowLabelValue( row, data.generate_row_label( row ) );
+
+    for( int col = 0; col < GetNumberCols(); ++col )
+		SetColLabelValue( col, data.generate_col_label( col ) );
 
 	ResetBackgroundColour( KarnaughData::SOP, 0 );
 
@@ -202,22 +193,6 @@ void KMapGrid::SetVars( KarnaughData& data, unsigned int vars )
 
     ForceRefresh();
     AdjustScrollbars();
-}
-
-void KMapGrid::RowLabels( std::vector<std::string> labels )
-{
-	int row = 0;
-
-	for( std::string& label : labels )
-		SetRowLabelValue( row++, label );
-}
-
-void KMapGrid::ColLabels( std::vector<std::string> labels )
-{
-	int col = 0;
-
-	for( std::string& label : labels )
-		SetColLabelValue( col++, label );
 }
 
 KarnaughData::eCellValues KMapGrid::GetUserInput( wxGridEvent& event )

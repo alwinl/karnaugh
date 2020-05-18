@@ -55,8 +55,9 @@ void blamapp::CreateGUI()
     frame->Show();
 }
 
-bool blamapp::SelectLanguage( )
+void blamapp::SelectLanguage( )
 {
-    return m_translation_helper->AskUserForLanguage( GetTopWindow() );
+    if( m_translation_helper->AskUserForLanguage( GetTopWindow() ) )
+		CreateGUI();
 }
 

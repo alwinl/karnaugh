@@ -48,8 +48,7 @@ END_EVENT_TABLE()
 /*----------------------------------------
  * Main window object implementation
  */
-blamFrame::blamFrame( )
-    : wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), data(4)
+blamFrame::blamFrame( ) : wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), data(4)
 {
     /**** Icon *****/
     SetIcon( wxIcon( "wxwin.ico", wxBITMAP_TYPE_ICO ) );
@@ -148,13 +147,7 @@ blamFrame::blamFrame( )
     /**** Load configuration ****/
 
     SetNewShowAddress( config.GetShowAddress() );
-
     SetNewShowZeroes( config.GetShowZeroes() );
-
-    menuSettings->Check( Menu_Show_Zeros, config.GetShowZeroes() );
-	kmap_grid->SetShowZeros( config.GetShowZeroes() );
-	truthTable->SetShowZeros( config.GetShowZeroes() );
-
     SetInputs( config.GetInputs() );
     SetNewSolutionType( config.GetSolutionType() );
 }
@@ -163,14 +156,15 @@ void blamFrame::RunSolver()
 {
     SetStatusText( _( "Solving, please wait..." ) );
 
-    std::list<SolutionEntry> solutions = data.FindBestSolution();
+    std::vector<SolutionEntry> solutions = data.FindBestSolution();
 
     treeSolution->RemoveAllItems();
     kmap_grid->ResetBackgroundColour( data.get_solution_type(), solutions.size() );
 
+    unsigned int id = 0;
 	for( SolutionEntry& entry : solutions ) {
 		kmap_grid->SetBackgroundColour( data, entry );
-		treeSolution->AddItem( data.get_solution_type(), entry, 1 << data.get_dimension() );
+		treeSolution->AddItem( data.get_solution_type(), entry, id++ );
 	}
 
     SetStatusText( _( "Karnaugh map solved!" ) );
@@ -226,6 +220,18 @@ void blamFrame::SetNewShowZeroes( bool on )
 	truthTable->SetShowZeros( on );
 }
 
+void blamFrame::SetSolutionSelection( unsigned int index )
+{
+	kmap_grid->ResetSelection();
+
+	SolutionEntry entry = data.get_solution( index );
+	if( entry == InvalidEntry )
+		return;
+
+	for( unsigned int adress : entry.GetAddresses( 1 << data.get_dimension() ) )
+		kmap_grid->AddCellToSelection( data.calc_row(adress), data.calc_col(adress) );
+}
+
 
 
 void blamFrame::OnVarsChange( wxSpinEvent& event )
@@ -250,12 +256,7 @@ void blamFrame::OnSolutionTypeChange( wxCommandEvent& event )
 
 void blamFrame::OnSolSelect( wxTreeEvent& event )
 {
-	kmap_grid->ResetSelection();
-
-    if( !treeSolution->IsRootItem( event.GetItem() ) ) {
-		for( unsigned int adress : treeSolution->GetItemAdresses( event.GetItem() ) )
-			kmap_grid->AddCellToSelection( data.calc_row(adress), data.calc_col(adress) );
-    }
+	SetSolutionSelection( treeSolution->GetEntryID( event.GetItem() ) );
 }
 
 void blamFrame::OnQuit( wxCommandEvent& WXUNUSED( event ) )
@@ -265,8 +266,7 @@ void blamFrame::OnQuit( wxCommandEvent& WXUNUSED( event ) )
 
 void blamFrame::OnSetLanguage( wxCommandEvent& WXUNUSED( event ) )
 {
-	if( wxGetApp().SelectLanguage() )
-		wxGetApp().CreateGUI();
+	wxGetApp().SelectLanguage();
 }
 
 void blamFrame::OnCellAdresses( wxCommandEvent& WXUNUSED( event ) )

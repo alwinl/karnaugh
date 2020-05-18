@@ -21,20 +21,12 @@
 
 #include "solutiontree.h"
 
-#include "solutionentry.h"
-
-/**
- * @short ADT
- * @author Robert Kovacevic <robert.kovacevic@etfos.hr>
- * @version 0.1
- */
 class SolveTreeItemData : public wxTreeItemData
 {
 public:
-    SolveTreeItemData() : wxTreeItemData() {};
-    SolveTreeItemData(std::vector<unsigned int> adresses ) : wxTreeItemData() {this->adresses = adresses; };
+    SolveTreeItemData( unsigned int id ) : wxTreeItemData() { this->id = id; };
 
-    std::vector<unsigned int> adresses;
+    unsigned int id;
 };
 
 
@@ -44,9 +36,12 @@ SolutionTree::SolutionTree( wxWindow *parent, wxWindowID id )
 {
 }
 
-std::vector<unsigned int> SolutionTree::GetItemAdresses( const wxTreeItemId & item )
+unsigned long SolutionTree::GetEntryID( const wxTreeItemId & item )
 {
-	return ((SolveTreeItemData*)GetItemData( item ))->adresses;
+	if( GetRootItem() == item )
+		return -1;
+
+	return ((SolveTreeItemData*)GetItemData( item ))->id;
 }
 
 void SolutionTree::RemoveAllItems()
@@ -60,7 +55,7 @@ void SolutionTree::RemoveAllItems()
     Expand( GetRootItem() );
 }
 
-void SolutionTree::AddItem( KarnaughData::eSolutionType type , SolutionEntry& entry, unsigned int max_address )
+void SolutionTree::AddItem( KarnaughData::eSolutionType type , SolutionEntry& entry, unsigned long entry_id )
 {
 	std::string result;
 
@@ -101,7 +96,7 @@ void SolutionTree::AddItem( KarnaughData::eSolutionType type , SolutionEntry& en
 			RootLabel.Append( wxT(")") );
 		}
 
-		AppendItem( GetRootItem(), result, -1, -1, new SolveTreeItemData(entry.GetAddresses( max_address )) );
+		AppendItem( GetRootItem(), result, -1, -1, new SolveTreeItemData( entry_id ) );
 	}
 
 	SetItemText( GetRootItem(), RootLabel );

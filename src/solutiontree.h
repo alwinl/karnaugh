@@ -22,13 +22,11 @@
 #ifndef SOLUTIONTREE_H
 #define SOLUTIONTREE_H
 
-#include <vector>
-#include <string>
-
 #include <wx/wx.h>
 #include <wx/treectrl.h>
 
 #include "karnaughdata.h"
+#include "solutionentry.h"
 
 /** \brief custom tree to display the solutions
  */
@@ -36,14 +34,10 @@ class SolutionTree : public wxTreeCtrl
 {
 public:
     SolutionTree( wxWindow *parent, wxWindowID id );
-    virtual ~SolutionTree() {};
 
 	void RemoveAllItems( );
-	void AddItem( KarnaughData::eSolutionType type, SolutionEntry& entry, unsigned int max_address );
-
-	bool IsRootItem( const wxTreeItemId & item ) { return GetRootItem() == item; }
-
-	std::vector<unsigned int> GetItemAdresses( const wxTreeItemId & item );
+	void AddItem( KarnaughData::eSolutionType type, SolutionEntry& entry, unsigned long ID );
+	unsigned long GetEntryID( const wxTreeItemId & item );
 
 private:
 	wxString RootLabel;
