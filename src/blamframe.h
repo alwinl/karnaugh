@@ -84,6 +84,7 @@ private:
 	void RunSolver();
 	void SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value );
 	void SetNewSolutionType( KarnaughData::eSolutionType type );
+	void SetSolutionSelection( unsigned int index );
 	void SetNewLanguage( KarnaughConfig::eLANGUAGES language );
 	void SetNewShowAddress( bool on );
 	void SetNewShowZeroes( bool on );

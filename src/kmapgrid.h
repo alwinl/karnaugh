@@ -54,9 +54,6 @@ public:
 	void ResetSelection();
 	void AddCellToSelection( unsigned int row, unsigned int col );
 
-	void RowLabels( std::vector<std::string> labels );
-	void ColLabels( std::vector<std::string> labels );
-
 private:
 	enum eMenuIds { MENU_SET1 = 100, MENU_SET0, MENU_SETDC, MENU_SETRAND };
 
@@ -68,6 +65,5 @@ private:
 
     DECLARE_EVENT_TABLE()
 };
-
 
 #endif // _KMAP_H_

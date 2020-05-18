@@ -58,5 +58,4 @@ private:
     DECLARE_EVENT_TABLE()
 };
 
-
 #endif // _TRUTHTABLE_H_

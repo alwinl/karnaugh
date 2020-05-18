@@ -47,4 +47,6 @@ private:
 	bool delete_me;
 };
 
+static SolutionEntry InvalidEntry(-1, -1);
+
 #endif // SOLUTIONENTRY_H

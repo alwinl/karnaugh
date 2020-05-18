@@ -34,7 +34,7 @@
 class blamapp : public wxApp
 {
 public:
-    bool SelectLanguage();
+    void SelectLanguage();
 	void CreateGUI();
 
 protected:

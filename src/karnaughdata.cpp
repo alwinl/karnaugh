@@ -50,6 +50,11 @@ void KarnaughData::set_solution_type( eSolutionType type )
 	solution_type = type;
 }
 
+SolutionEntry KarnaughData::get_solution( unsigned int index )
+{
+	return (index < the_solution.size()) ? the_solution[index] : InvalidEntry;
+}
+
 unsigned int KarnaughData::calc_address( unsigned int row, unsigned int col )
 {
 	return ( GrayEncode(row) << ((no_of_inputs + 1) / 2) ) + GrayEncode(col);
@@ -116,27 +121,15 @@ std::string KarnaughData::index_to_greycode_string( unsigned int index, unsigned
 	return result;
 }
 
-
-std::vector<std::string> KarnaughData::generate_row_labels()
+std::string KarnaughData::generate_row_label( unsigned int row )
 {
-	std::vector<std::string> result;
-
-	for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
-		result.push_back( index_to_greycode_string( row, no_of_inputs / 2) );
-
-	return result;
+	return index_to_greycode_string( row, no_of_inputs / 2 );
 }
 
-std::vector<std::string> KarnaughData::generate_col_labels()
+std::string KarnaughData::generate_col_label( unsigned int col )
 {
-	std::vector<std::string> result;
-
-	for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col )
-		result.push_back( index_to_greycode_string( col, (no_of_inputs + 1) / 2) );
-
-	return result;
+	return index_to_greycode_string( col, (no_of_inputs + 1) / 2 );
 }
-
 
 /*
 	fill list with maxterms, number is address and mask (mask is (1 << no_of_inputs) - 1 )
@@ -189,8 +182,7 @@ void KarnaughData::FindSolution( std::list<SolutionEntry>& solutions )
 	solutions.remove_if(  std::function<bool( const SolutionEntry& )>( [](const SolutionEntry& rhs) { return rhs.IsDeleted(); } )  );
 }
 
-
-std::list<SolutionEntry> KarnaughData::FindBestSolution( )
+std::vector<SolutionEntry> KarnaughData::FindBestSolution( )
 {
 	std::list<SolutionEntry> solutions;
 	std::vector<unsigned int> dontcares;
@@ -253,5 +245,9 @@ std::list<SolutionEntry> KarnaughData::FindBestSolution( )
 			best_solution = scenario_list;
 	}
 
-	return best_solution;
+	the_solution.clear();
+	the_solution.reserve( best_solution.size() );
+	std::copy( std::begin(best_solution), std::end(best_solution), std::back_inserter(the_solution) );
+
+	return the_solution;
 }
