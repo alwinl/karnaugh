@@ -39,13 +39,11 @@ public:
 
 	enum eLANGUAGES { DEFAULT, CROATIAN, DUTCH };
 
-    //void SetLanguage( eLANGUAGES lang );
     void SetShowZeroes( bool on );
     void SetShowAddress( bool on );
     void SetInputs( int inputs );
     void SetSolutionType( KarnaughData::eSolutionType type );
 
-    //eLANGUAGES GetLanguage( );
     bool GetShowZeroes();
     bool GetShowAddress();
     int GetInputs();

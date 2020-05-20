@@ -21,12 +21,12 @@
 #include <wx/wx.h>
 #include <wx/config.h>
 
-#include "blamapp.h"
-#include "blamframe.h"
+#include "karnaughapplication.h"
+#include "karnaughwindow.h"
 
-IMPLEMENT_APP( blamapp )
+IMPLEMENT_APP( KarnaughApplication )
 
-bool blamapp::OnInit()
+bool KarnaughApplication::OnInit()
 {
 	config = new KarnaughConfig( *this );
 	data = new KarnaughData( config->GetInputs() );
@@ -36,7 +36,7 @@ bool blamapp::OnInit()
     return true;
 }
 
-int blamapp::OnExit()
+int KarnaughApplication::OnExit()
 {
 	delete config;
 	delete data;
@@ -44,7 +44,7 @@ int blamapp::OnExit()
 	return 0;
 }
 
-void blamapp::CreateGUI()
+void KarnaughApplication::CreateGUI()
 {
 	wxWindow * topwindow = GetTopWindow();
 
@@ -53,7 +53,7 @@ void blamapp::CreateGUI()
 		topwindow->Destroy();
 	}
 
-    frame = new blamFrame( *this, *data );
+    frame = new KarnaughWindow( *this, *data );
 
 	frame->SetNewShowAddress( config->GetShowAddress() );
     frame->SetNewShowZeroes( config->GetShowZeroes() );
@@ -67,20 +67,20 @@ void blamapp::CreateGUI()
     frame->Show();
 }
 
-void blamapp::SelectLanguage( )
+void KarnaughApplication::SelectLanguage( )
 {
     if( config->AskUserForLanguage( GetTopWindow() ) )
 		CreateGUI();
 }
 
-void blamapp::SetNewValue( unsigned int address, KarnaughData::eCellValues new_value )
+void KarnaughApplication::SetNewValue( unsigned int address, KarnaughData::eCellValues new_value )
 {
 	data->set_value( address, new_value );
 
 	frame->SetNewValue( address, new_value );
 }
 
-void blamapp::SetInputs( unsigned int no_of_inputs )
+void KarnaughApplication::SetInputs( unsigned int no_of_inputs )
 {
 	config->SetInputs( no_of_inputs );
 	data->set_dimension( no_of_inputs );
@@ -88,7 +88,7 @@ void blamapp::SetInputs( unsigned int no_of_inputs )
 	frame->SetInputs( no_of_inputs );
 }
 
-void blamapp::SetNewSolutionType( KarnaughData::eSolutionType type )
+void KarnaughApplication::SetNewSolutionType( KarnaughData::eSolutionType type )
 {
 	config->SetSolutionType( type );
 	data->set_solution_type( type );
@@ -96,21 +96,21 @@ void blamapp::SetNewSolutionType( KarnaughData::eSolutionType type )
 	frame->SetNewSolutionType( type );
 }
 
-void blamapp::SetNewShowAddress( bool on )
+void KarnaughApplication::SetNewShowAddress( bool on )
 {
 	config->SetShowAddress( on );
 
 	frame->SetNewShowAddress( on );
 }
 
-void blamapp::SetNewShowZeroes( bool on )
+void KarnaughApplication::SetNewShowZeroes( bool on )
 {
 	config->SetShowZeroes( on );
 
 	frame->SetNewShowZeroes( on );
 }
 
-void blamapp::SetSolutionSelection( unsigned int index )
+void KarnaughApplication::SetSolutionSelection( unsigned int index )
 {
 	frame->SetSolutionSelection( data->GetEntryAddresses( index ) );
 }

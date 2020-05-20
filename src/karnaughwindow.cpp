@@ -25,26 +25,26 @@
 #include <wx/spinctrl.h>
 #include <wx/config.h>
 
-#include "blamframe.h"
+#include "karnaughwindow.h"
 
-#include "blamapp.h"
+#include "karnaughapplication.h"
 #include "solutionentry.h"
 
-BEGIN_EVENT_TABLE( blamFrame, wxFrame )
-    EVT_MENU( Menu_File_Quit, blamFrame::OnQuit )
-    EVT_MENU( Menu_File_About, blamFrame::OnAbout )
-    EVT_MENU( Menu_Set_Language, blamFrame::OnSetLanguage )
-    EVT_MENU( Menu_Cell_Adresses, blamFrame::OnCellAdresses )
-    EVT_MENU( Menu_Show_Zeros, blamFrame::OnShowZeros )
-    EVT_SPINCTRL( Vars_Count, blamFrame::OnVarsChange )
-    EVT_GRID_CMD_CELL_CHANGE( Truth_Table, blamFrame::OnTruthTChange )
-    EVT_GRID_CMD_CELL_CHANGE( Karnaugh_Map, blamFrame::OnKMapChange )
-    EVT_TREE_SEL_CHANGED( Sol_Tree, blamFrame::OnSolSelect )
-    EVT_CHOICE( Solution_Type, blamFrame::OnSolutionTypeChange )
+BEGIN_EVENT_TABLE( KarnaughWindow, wxFrame )
+    EVT_MENU( Menu_File_Quit, KarnaughWindow::OnQuit )
+    EVT_MENU( Menu_File_About, KarnaughWindow::OnAbout )
+    EVT_MENU( Menu_Set_Language, KarnaughWindow::OnSetLanguage )
+    EVT_MENU( Menu_Cell_Adresses, KarnaughWindow::OnCellAdresses )
+    EVT_MENU( Menu_Show_Zeros, KarnaughWindow::OnShowZeros )
+    EVT_SPINCTRL( Vars_Count, KarnaughWindow::OnVarsChange )
+    EVT_GRID_CMD_CELL_CHANGE( Truth_Table, KarnaughWindow::OnTruthTChange )
+    EVT_GRID_CMD_CELL_CHANGE( Karnaugh_Map, KarnaughWindow::OnKMapChange )
+    EVT_TREE_SEL_CHANGED( Sol_Tree, KarnaughWindow::OnSolSelect )
+    EVT_CHOICE( Solution_Type, KarnaughWindow::OnSolutionTypeChange )
 END_EVENT_TABLE()
 
 
-blamFrame::blamFrame( blamapp& app_init, KarnaughData& data_init )
+KarnaughWindow::KarnaughWindow( KarnaughApplication& app_init, KarnaughData& data_init )
 	: wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), data( data_init ), app(app_init)
 {
     /**** Icon *****/
@@ -141,7 +141,7 @@ blamFrame::blamFrame( blamapp& app_init, KarnaughData& data_init )
     SetAutoLayout( true );
 }
 
-void blamFrame::RunSolver()
+void KarnaughWindow::RunSolver()
 {
     SetStatusText( _( "Solving, please wait..." ) );
 
@@ -159,7 +159,7 @@ void blamFrame::RunSolver()
     SetStatusText( _( "Karnaugh map solved!" ) );
 }
 
-void blamFrame::SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value )
+void KarnaughWindow::SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value )
 {
     truthTable->SetValue( adress, new_value );
     kmap_grid->SetValue( data.calc_row(adress), data.calc_col(adress), new_value );
@@ -167,7 +167,7 @@ void blamFrame::SetNewValue( unsigned int adress, KarnaughData::eCellValues new_
     RunSolver();
 }
 
-void blamFrame::SetInputs( unsigned int no_of_inputs )
+void KarnaughWindow::SetInputs( unsigned int no_of_inputs )
 {
     numberOfVariables->SetValue( no_of_inputs );
     truthTable->SetVars( no_of_inputs );
@@ -177,27 +177,27 @@ void blamFrame::SetInputs( unsigned int no_of_inputs )
     RunSolver();
 }
 
-void blamFrame::SetNewSolutionType( KarnaughData::eSolutionType type )
+void KarnaughWindow::SetNewSolutionType( KarnaughData::eSolutionType type )
 {
     solutionType->SetSelection( type == KarnaughData::SOP ? 0 : 1 );
 
 	RunSolver();
 }
 
-void blamFrame::SetNewShowAddress( bool on )
+void KarnaughWindow::SetNewShowAddress( bool on )
 {
     menuSettings->Check( Menu_Cell_Adresses, on );
 	kmap_grid->SetCellAdresses( on );
 }
 
-void blamFrame::SetNewShowZeroes( bool on )
+void KarnaughWindow::SetNewShowZeroes( bool on )
 {
     menuSettings->Check( Menu_Show_Zeros, on );
 	kmap_grid->SetShowZeros( on );
 	truthTable->SetShowZeros( on );
 }
 
-void blamFrame::SetSolutionSelection( SolutionAddresses addresses )
+void KarnaughWindow::SetSolutionSelection( SolutionAddresses addresses )
 {
 	kmap_grid->ResetSelection();
 
@@ -207,52 +207,52 @@ void blamFrame::SetSolutionSelection( SolutionAddresses addresses )
 
 
 
-void blamFrame::OnVarsChange( wxSpinEvent& event )
+void KarnaughWindow::OnVarsChange( wxSpinEvent& event )
 {
 	app.SetInputs( numberOfVariables->GetValue() );
 }
 
-void blamFrame::OnTruthTChange( wxGridEvent& event )
+void KarnaughWindow::OnTruthTChange( wxGridEvent& event )
 {
 	app.SetNewValue( event.GetRow(), truthTable->GetUserInput( event ) );
 }
 
-void blamFrame::OnKMapChange( wxGridEvent& event )
+void KarnaughWindow::OnKMapChange( wxGridEvent& event )
 {
 	app.SetNewValue( data.calc_address( event.GetRow(), event.GetCol() ), kmap_grid->GetUserInput( event ) );
 }
 
-void blamFrame::OnSolutionTypeChange( wxCommandEvent& event )
+void KarnaughWindow::OnSolutionTypeChange( wxCommandEvent& event )
 {
 	app.SetNewSolutionType( event.GetSelection() ? KarnaughData::POS : KarnaughData::SOP );
 }
 
-void blamFrame::OnSolSelect( wxTreeEvent& event )
+void KarnaughWindow::OnSolSelect( wxTreeEvent& event )
 {
 	app.SetSolutionSelection( treeSolution->GetEntryID( event.GetItem() ) );
 }
 
-void blamFrame::OnQuit( wxCommandEvent& WXUNUSED( event ) )
+void KarnaughWindow::OnQuit( wxCommandEvent& WXUNUSED( event ) )
 {
     Close( TRUE );
 }
 
-void blamFrame::OnSetLanguage( wxCommandEvent& WXUNUSED( event ) )
+void KarnaughWindow::OnSetLanguage( wxCommandEvent& WXUNUSED( event ) )
 {
 	app.SelectLanguage();
 }
 
-void blamFrame::OnCellAdresses( wxCommandEvent& WXUNUSED( event ) )
+void KarnaughWindow::OnCellAdresses( wxCommandEvent& WXUNUSED( event ) )
 {
 	app.SetNewShowAddress( showCellAddress->IsChecked() );
 }
 
-void blamFrame::OnShowZeros( wxCommandEvent& WXUNUSED( event ) )
+void KarnaughWindow::OnShowZeros( wxCommandEvent& WXUNUSED( event ) )
 {
 	app.SetNewShowZeroes( showZeroMenuItem->IsChecked() );
 }
 
-void blamFrame::OnAbout( wxCommandEvent& WXUNUSED( event ) )
+void KarnaughWindow::OnAbout( wxCommandEvent& WXUNUSED( event ) )
 {
     wxMessageBox( _( "This is a program for minimizing boolean functions using Karnaugh maps method."
                      "\n\nCopyright (C) 2005. Robert Kovacevic" ),

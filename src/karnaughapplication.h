@@ -18,80 +18,45 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef _BLAMFRAME_H_
-#define _BLAMFRAME_H_
+#ifndef _BLAM_H_
+#define _BLAM_H_
 
 #include <wx/wx.h>
-#include <wx/spinctrl.h>
-#include <wx/treectrl.h>
 
-#include "karnaughdata.h"
 #include "karnaughconfig.h"
+#include "karnaughdata.h"
 
-#include "truthtablegrid.h"
-#include "kmapgrid.h"
-#include "solutiontree.h"
-
-#include "blamapp.h"
+class KarnaughWindow;
 
 /**
- * @short Application Main Frame
+ * @short BLAM boolean function minimizer app
  * @author Robert Kovacevic <robert.kovacevic@etfos.hr>
  * @version 0.1
  */
-class blamFrame : public wxFrame
+
+class KarnaughApplication : public wxApp
 {
 public:
-    blamFrame( blamapp& app_init, KarnaughData& data_init );
+    void SelectLanguage();
+	void CreateGUI();
 
+	void SetNewValue( unsigned int address, KarnaughData::eCellValues new_value );
 	void SetInputs( unsigned int no_of_inputs );
-	void RunSolver();
-	void SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value );
+	void SetSolutionSelection( unsigned int index );
 	void SetNewSolutionType( KarnaughData::eSolutionType type );
-	void SetSolutionSelection( SolutionAddresses addresses );
-	void SetNewLanguage( KarnaughConfig::eLANGUAGES language );
 	void SetNewShowAddress( bool on );
 	void SetNewShowZeroes( bool on );
 
+protected:
+    virtual bool OnInit();
+	virtual int OnExit();
+
 private:
-    enum {
-    	Menu_File_Quit = 100,
-		Menu_File_About,
-		Menu_Set_Language,
-		Menu_Cell_Adresses,
-		Menu_Show_Zeros,
-		Vars_Count,
-		Truth_Table,
-		Karnaugh_Map,
-		Sol_Tree,
-		Solution_Type
-	};
-
-    void OnQuit( wxCommandEvent& event );
-    void OnAbout( wxCommandEvent& event );
-	void OnSetLanguage( wxCommandEvent& event );
-    void OnCellAdresses( wxCommandEvent& event );
-    void OnShowZeros( wxCommandEvent& event );
-    void OnVarsChange( wxSpinEvent& event );
-    void OnTruthTChange( wxGridEvent& event );
-    void OnKMapChange( wxGridEvent& event );
-    void OnSolSelect( wxTreeEvent& event );
-    void OnSolutionTypeChange( wxCommandEvent& event );
-
-    wxMenu *menuLanguage;
-    wxMenu *menuSettings;
-    wxMenuItem * showZeroMenuItem;
-    wxMenuItem * showCellAddress;
-    wxSpinCtrl* numberOfVariables;
-    wxChoice* solutionType;
-    KMapGrid* kmap_grid;
-    SolutionTree * treeSolution;
-    TruthTableGrid* truthTable;
-
-    KarnaughData& data;
-    blamapp& app;
-
-    DECLARE_EVENT_TABLE()
+	KarnaughData * data;
+	KarnaughConfig * config;
+	KarnaughWindow *frame;
 };
 
-#endif // _BLAMFRAME_H_
+DECLARE_APP(KarnaughApplication);
+
+#endif // _BLAM_H_
