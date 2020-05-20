@@ -152,7 +152,7 @@ void KarnaughWindow::RunSolver()
 
     unsigned int id = 0;
 	for( SolutionEntry& entry : solutions ) {
-		kmap_grid->SetBackgroundColour( data, entry );
+		kmap_grid->SetBackgroundColour( data.get_solution_type() == KarnaughData::SOP, data.GetEntryAddresses(entry) );
 		treeSolution->AddItem( (data.get_solution_type() == KarnaughData::SOP), entry.GetMask(), entry.GetNumber(), id++ );
 	}
 

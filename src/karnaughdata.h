@@ -28,7 +28,8 @@
 
 #include "solutionentry.h"
 
-typedef std::vector<std::pair<unsigned int, unsigned int>> SolutionAddresses;
+typedef std::pair<unsigned int, unsigned int> SolutionAddress;
+typedef std::vector<SolutionAddress> SolutionAddresses;
 
 class KarnaughData
 {

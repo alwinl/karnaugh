@@ -34,11 +34,17 @@ KarnaughData::KarnaughData( unsigned int no_of_inputs )
 
 void KarnaughData::set_value( unsigned int address, KarnaughData::eCellValues new_value )
 {
+	if( address > (1 << no_of_inputs) )
+		return;
+
 	table[address] = new_value;
 }
 
 void KarnaughData::set_dimension( unsigned int no_of_inputs )
 {
+	if( no_of_inputs > 8 )
+		no_of_inputs = 8;
+
 	this->no_of_inputs = no_of_inputs;
 
 	for( eCellValues& cell : table )
@@ -50,12 +56,6 @@ void KarnaughData::set_solution_type( eSolutionType type )
 	solution_type = type;
 }
 
-/*
-SolutionEntry KarnaughData::get_solution( unsigned int index )
-{
-	return (index < the_solution.size()) ? the_solution[index] : InvalidEntry;
-}
-*/
 unsigned int KarnaughData::calc_address( unsigned int row, unsigned int col )
 {
 	return ( GrayEncode(row) << ((no_of_inputs + 1) / 2) ) + GrayEncode(col);
@@ -276,5 +276,3 @@ SolutionAddresses KarnaughData::GetEntryAddresses( SolutionEntry& entry )
 
 	return addresses;
 }
-
-

@@ -142,14 +142,14 @@ void KMapGrid::ResetBackgroundColour( bool isSOP, unsigned int solution_size )
     ForceRefresh();
 }
 
-void KMapGrid::SetBackgroundColour( KarnaughData& data, SolutionEntry& entry )
+void KMapGrid::SetBackgroundColour( bool isSOP, SolutionAddresses addresses )
 {
-	for( unsigned int address : entry.GetAddresses( 1 << data.get_dimension() ) ) {
-		wxColour current = GetCellBackgroundColour( data.calc_row(address), data.calc_col(address) );
-		if( data.get_solution_type() == KarnaughData::SOP )
-			SetCellBackgroundColour( data.calc_row(address), data.calc_col(address), wxColour( current.Red()-40, current.Green()-30, current.Blue() ) );
+	for( SolutionAddress address : addresses ) {
+		wxColour current = GetCellBackgroundColour( address.first, address.second );
+		if( isSOP )
+			SetCellBackgroundColour( address.first, address.second, wxColour( current.Red()-40, current.Green()-30, current.Blue() ) );
 		else
-			SetCellBackgroundColour( data.calc_row(address), data.calc_col(address), wxColour( current.Red()+40, current.Green()+30, current.Blue() ) );
+			SetCellBackgroundColour( address.first, address.second, wxColour( current.Red()+40, current.Green()+30, current.Blue() ) );
 	}
 
     ForceRefresh();
