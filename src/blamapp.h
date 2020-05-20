@@ -23,7 +23,6 @@
 
 #include <wx/wx.h>
 
-#include "translationhelper.h"
 #include "karnaughconfig.h"
 #include "karnaughdata.h"
 
@@ -53,7 +52,6 @@ protected:
 	virtual int OnExit();
 
 private:
-	TranslationHelper * m_translation_helper;
 	KarnaughData * data;
 	KarnaughConfig * config;
 	blamFrame *frame;

@@ -22,6 +22,10 @@
 #ifndef KARNAUGHCONFIG_H
 #define KARNAUGHCONFIG_H
 
+#include <string>
+#include <vector>
+
+#include <wx/wx.h>
 #include <wx/config.h>
 
 #include "karnaughdata.h"
@@ -47,8 +51,25 @@ public:
     int GetInputs();
     KarnaughData::eSolutionType GetSolutionType();
 
+    bool AskUserForLanguage( wxWindow * parent );
+
+
 private:
+    struct LanguageEntry {
+    	long id;
+    	std::string name;
+    };
+
+    wxApp& m_app;
+    wxLocale * m_locale;
+    std::vector<LanguageEntry> languages;
+
 	wxConfig config;
+
+    void GetInstalledLanguages( );
+	bool GetLanguage();
+	void SetLanguage( bool bReset );
+	void set_new_locale( LanguageEntry entry );
 };
 
 #endif // KARNAUGHCONFIG_H

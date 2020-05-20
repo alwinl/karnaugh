@@ -244,12 +244,12 @@ void blamFrame::OnSetLanguage( wxCommandEvent& WXUNUSED( event ) )
 
 void blamFrame::OnCellAdresses( wxCommandEvent& WXUNUSED( event ) )
 {
-	SetNewShowAddress( showCellAddress->IsChecked() );
+	app.SetNewShowAddress( showCellAddress->IsChecked() );
 }
 
 void blamFrame::OnShowZeros( wxCommandEvent& WXUNUSED( event ) )
 {
-	SetNewShowZeroes( showZeroMenuItem->IsChecked() );
+	app.SetNewShowZeroes( showZeroMenuItem->IsChecked() );
 }
 
 void blamFrame::OnAbout( wxCommandEvent& WXUNUSED( event ) )

@@ -28,7 +28,6 @@ IMPLEMENT_APP( blamapp )
 
 bool blamapp::OnInit()
 {
-	m_translation_helper = new TranslationHelper( *this );
 	config = new KarnaughConfig( *this );
 	data = new KarnaughData( config->GetInputs() );
 
@@ -39,7 +38,6 @@ bool blamapp::OnInit()
 
 int blamapp::OnExit()
 {
-	delete m_translation_helper;
 	delete config;
 	delete data;
 
@@ -71,7 +69,7 @@ void blamapp::CreateGUI()
 
 void blamapp::SelectLanguage( )
 {
-    if( m_translation_helper->AskUserForLanguage( GetTopWindow() ) )
+    if( config->AskUserForLanguage( GetTopWindow() ) )
 		CreateGUI();
 }
 
