@@ -55,37 +55,34 @@ void SolutionTree::RemoveAllItems()
     Expand( GetRootItem() );
 }
 
-void SolutionTree::AddItem( KarnaughData::eSolutionType type , SolutionEntry& entry, unsigned long entry_id )
+void SolutionTree::AddItem( bool isSOP, unsigned int mask, unsigned int number, unsigned long entry_id )
 {
 	std::string result;
 
-	char current_variable_name  = 'a';
-	unsigned int temp_mask = entry.GetMask();
-	unsigned int temp_number = entry.GetNumber();
+	for( char current_variable_name  = 'a'; mask; ++current_variable_name ) {
 
-	for( ;temp_mask; ) {
-		if( temp_mask & 0x01 ) {		// this variable is unique
-			if( !result.empty() && (type == KarnaughData::SOP))
+		if( mask & 0x01 ) {		// this variable is unique
+
+			if( isSOP && !result.empty() )
 				result.push_back( '+' );
 
 			result.push_back( current_variable_name );
 
-			if( (type == KarnaughData::SOP) && !(temp_number & 0x01) )
+			if( isSOP && !(number & 0x01) )
 				result.push_back( '\'' );
 
-			if( (type == KarnaughData::POS) && (temp_number & 0x01) )
+			if( !isSOP && (number & 0x01) )
 				result.push_back( '\'' );
 		}
 
-		++current_variable_name;
-		temp_mask >>= 1;
-		temp_number >>= 1;
+		mask >>= 1;
+		number >>= 1;
 	}
 
 	if( result.empty() ) {			// there are no unique variables for this solution, this means that the solve is either X = 0 or X = 1, depending on the solution type
-		RootLabel.Append( (type == KarnaughData::POS) ? wxT("0") : wxT("1") );
+		RootLabel.Append( isSOP ? wxT("1") : wxT("0") );
 	} else {
-		if( type == KarnaughData::SOP ) {
+		if( isSOP ) {
 			if( RootLabel != wxT("X = ") )
 				RootLabel.Append( wxT(" + ") );
 
@@ -102,5 +99,3 @@ void SolutionTree::AddItem( KarnaughData::eSolutionType type , SolutionEntry& en
 	SetItemText( GetRootItem(), RootLabel );
 	Expand( GetRootItem() );
 }
-
-

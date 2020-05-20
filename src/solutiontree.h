@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Alwin Leerling <dna.leerling@gmail.com>
+ * Copyright 2020 Alwin Leerling <dna.leerling@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,9 +25,6 @@
 #include <wx/wx.h>
 #include <wx/treectrl.h>
 
-#include "karnaughdata.h"
-#include "solutionentry.h"
-
 /** \brief custom tree to display the solutions
  */
 class SolutionTree : public wxTreeCtrl
@@ -36,7 +33,7 @@ public:
     SolutionTree( wxWindow *parent, wxWindowID id );
 
 	void RemoveAllItems( );
-	void AddItem( KarnaughData::eSolutionType type, SolutionEntry& entry, unsigned long ID );
+	void AddItem( bool isSOP, unsigned int mask, unsigned int number, unsigned long entry_id );
 	unsigned long GetEntryID( const wxTreeItemId & item );
 
 private:

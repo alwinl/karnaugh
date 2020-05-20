@@ -26,10 +26,12 @@
 
 #include "karnaughdata.h"
 
+class wxApp;
+
 class KarnaughConfig
 {
 public:
-    KarnaughConfig();
+    KarnaughConfig( wxApp& app );
 
 	enum eLANGUAGES { DEFAULT, CROATIAN, DUTCH };
 

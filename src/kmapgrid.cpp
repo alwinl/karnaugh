@@ -129,10 +129,10 @@ void KMapGrid::SetValue( unsigned int row, unsigned int col, KarnaughData::eCell
 	}
 }
 
-void KMapGrid::ResetBackgroundColour( KarnaughData::eSolutionType type, unsigned int solution_size )
+void KMapGrid::ResetBackgroundColour( bool isSOP, unsigned int solution_size )
 {
 	wxColour the_colour = GetDefaultCellBackgroundColour();
-	if( type == KarnaughData::POS )
+	if( !isSOP )
 		the_colour = wxColour( the_colour.Red()-(solution_size * 40), the_colour.Green()-(solution_size * 30), the_colour.Blue() );
 
 	for( int row = 0; row < GetNumberRows(); ++row )
@@ -185,7 +185,7 @@ void KMapGrid::SetVars( KarnaughData& data, unsigned int vars )
     for( int col = 0; col < GetNumberCols(); ++col )
 		SetColLabelValue( col, data.generate_col_label( col ) );
 
-	ResetBackgroundColour( KarnaughData::SOP, 0 );
+	ResetBackgroundColour( true, 0 );
 
 	for( int row = 0; row < GetNumberRows(); ++row )
 		for( int col = 0; col < GetNumberCols(); ++col )

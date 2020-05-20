@@ -23,7 +23,7 @@
 
 #include "blamapp.h"
 
-KarnaughConfig::KarnaughConfig() : config( wxGetApp().GetAppName() )
+KarnaughConfig::KarnaughConfig( wxApp& app ) : config( app.GetAppName() )
 {
 }
 

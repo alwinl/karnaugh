@@ -39,7 +39,7 @@ class KMapGridCellRenderer;
 class KMapGrid : public wxGrid
 {
 public:
-    KMapGrid( wxWindow* parent, wxWindowID id, const wxSize& size = wxDefaultSize );
+    KMapGrid( wxWindow* parent, wxWindowID id, const wxSize& size );
 
     void SetVars( KarnaughData& data, unsigned int vars );
     void SetShowZeros( bool on );
@@ -48,7 +48,7 @@ public:
     void SetValue( unsigned int row, unsigned int col, KarnaughData::eCellValues value );
 	KarnaughData::eCellValues GetUserInput( wxGridEvent& event );
 
-    void ResetBackgroundColour( KarnaughData::eSolutionType type, unsigned int solution_size );
+    void ResetBackgroundColour( bool isSOP, unsigned int solution_size );
 	void SetBackgroundColour( KarnaughData& data, SolutionEntry& entry );
 
 	void ResetSelection();

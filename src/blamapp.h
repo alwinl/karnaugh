@@ -24,6 +24,10 @@
 #include <wx/wx.h>
 
 #include "translationhelper.h"
+#include "karnaughconfig.h"
+#include "karnaughdata.h"
+
+class blamFrame;
 
 /**
  * @short BLAM boolean function minimizer app
@@ -37,12 +41,22 @@ public:
     void SelectLanguage();
 	void CreateGUI();
 
+	void SetNewValue( unsigned int address, KarnaughData::eCellValues new_value );
+	void SetInputs( unsigned int no_of_inputs );
+	void SetSolutionSelection( unsigned int index );
+	void SetNewSolutionType( KarnaughData::eSolutionType type );
+	void SetNewShowAddress( bool on );
+	void SetNewShowZeroes( bool on );
+
 protected:
     virtual bool OnInit();
 	virtual int OnExit();
 
 private:
 	TranslationHelper * m_translation_helper;
+	KarnaughData * data;
+	KarnaughConfig * config;
+	blamFrame *frame;
 };
 
 DECLARE_APP(blamapp);

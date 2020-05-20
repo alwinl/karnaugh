@@ -28,7 +28,6 @@
 #include "blamframe.h"
 
 #include "blamapp.h"
-
 #include "solutionentry.h"
 
 BEGIN_EVENT_TABLE( blamFrame, wxFrame )
@@ -45,10 +44,8 @@ BEGIN_EVENT_TABLE( blamFrame, wxFrame )
 END_EVENT_TABLE()
 
 
-/*----------------------------------------
- * Main window object implementation
- */
-blamFrame::blamFrame( ) : wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), data(4)
+blamFrame::blamFrame( blamapp& app_init, KarnaughData& data_init )
+	: wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), data( data_init ), app(app_init)
 {
     /**** Icon *****/
     SetIcon( wxIcon( "wxwin.ico", wxBITMAP_TYPE_ICO ) );
@@ -127,7 +124,6 @@ blamFrame::blamFrame( ) : wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimiz
     rightSizer->Add( new wxStaticText( mainPanel, -1, _( "Solution:" ) ), 0, wxEXPAND | wxTOP, 0 );
     rightSizer->Add( treeSolution, 1, wxEXPAND | wxTOP, 5 );
 
-
     wxBoxSizer* mainSizer = new wxBoxSizer( wxHORIZONTAL );
 
     mainSizer->Add( leftSizer, 1, wxEXPAND | wxALL, 10 );
@@ -143,13 +139,6 @@ blamFrame::blamFrame( ) : wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimiz
 
     SetSizerAndFit( panelSizer );
     SetAutoLayout( true );
-
-    /**** Load configuration ****/
-
-    SetNewShowAddress( config.GetShowAddress() );
-    SetNewShowZeroes( config.GetShowZeroes() );
-    SetInputs( config.GetInputs() );
-    SetNewSolutionType( config.GetSolutionType() );
 }
 
 void blamFrame::RunSolver()
@@ -159,12 +148,12 @@ void blamFrame::RunSolver()
     std::vector<SolutionEntry> solutions = data.FindBestSolution();
 
     treeSolution->RemoveAllItems();
-    kmap_grid->ResetBackgroundColour( data.get_solution_type(), solutions.size() );
+    kmap_grid->ResetBackgroundColour( (data.get_solution_type() == KarnaughData::SOP), solutions.size() );
 
     unsigned int id = 0;
 	for( SolutionEntry& entry : solutions ) {
 		kmap_grid->SetBackgroundColour( data, entry );
-		treeSolution->AddItem( data.get_solution_type(), entry, id++ );
+		treeSolution->AddItem( (data.get_solution_type() == KarnaughData::SOP), entry.GetMask(), entry.GetNumber(), id++ );
 	}
 
     SetStatusText( _( "Karnaugh map solved!" ) );
@@ -172,9 +161,7 @@ void blamFrame::RunSolver()
 
 void blamFrame::SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value )
 {
-	data.set_value( adress, new_value );
-
-    truthTable->SetValue( adress, new_value );	// By querying and resetting we validate the user data
+    truthTable->SetValue( adress, new_value );
     kmap_grid->SetValue( data.calc_row(adress), data.calc_col(adress), new_value );
 
     RunSolver();
@@ -182,9 +169,6 @@ void blamFrame::SetNewValue( unsigned int adress, KarnaughData::eCellValues new_
 
 void blamFrame::SetInputs( unsigned int no_of_inputs )
 {
-	config.SetInputs( no_of_inputs );
-	data.set_dimension( no_of_inputs );
-
     numberOfVariables->SetValue( no_of_inputs );
     truthTable->SetVars( no_of_inputs );
     kmap_grid->SetVars( data, no_of_inputs );
@@ -195,9 +179,6 @@ void blamFrame::SetInputs( unsigned int no_of_inputs )
 
 void blamFrame::SetNewSolutionType( KarnaughData::eSolutionType type )
 {
-	config.SetSolutionType( type );
-	data.set_solution_type( type );
-
     solutionType->SetSelection( type == KarnaughData::SOP ? 0 : 1 );
 
 	RunSolver();
@@ -205,58 +186,50 @@ void blamFrame::SetNewSolutionType( KarnaughData::eSolutionType type )
 
 void blamFrame::SetNewShowAddress( bool on )
 {
-	config.SetShowAddress( on );
-
     menuSettings->Check( Menu_Cell_Adresses, on );
 	kmap_grid->SetCellAdresses( on );
 }
 
 void blamFrame::SetNewShowZeroes( bool on )
 {
-	config.SetShowZeroes( on );
-
     menuSettings->Check( Menu_Show_Zeros, on );
 	kmap_grid->SetShowZeros( on );
 	truthTable->SetShowZeros( on );
 }
 
-void blamFrame::SetSolutionSelection( unsigned int index )
+void blamFrame::SetSolutionSelection( SolutionAddresses addresses )
 {
 	kmap_grid->ResetSelection();
 
-	SolutionEntry entry = data.get_solution( index );
-	if( entry == InvalidEntry )
-		return;
-
-	for( unsigned int adress : entry.GetAddresses( 1 << data.get_dimension() ) )
-		kmap_grid->AddCellToSelection( data.calc_row(adress), data.calc_col(adress) );
+	for( auto address : addresses )
+		kmap_grid->AddCellToSelection( address.first, address.second );
 }
 
 
 
 void blamFrame::OnVarsChange( wxSpinEvent& event )
 {
-	SetInputs( numberOfVariables->GetValue() );
+	app.SetInputs( numberOfVariables->GetValue() );
 }
 
 void blamFrame::OnTruthTChange( wxGridEvent& event )
 {
-	SetNewValue( event.GetRow(), truthTable->GetUserInput( event ) );
+	app.SetNewValue( event.GetRow(), truthTable->GetUserInput( event ) );
 }
 
 void blamFrame::OnKMapChange( wxGridEvent& event )
 {
-	SetNewValue( data.calc_address( event.GetRow(), event.GetCol() ), kmap_grid->GetUserInput( event ) );
+	app.SetNewValue( data.calc_address( event.GetRow(), event.GetCol() ), kmap_grid->GetUserInput( event ) );
 }
 
 void blamFrame::OnSolutionTypeChange( wxCommandEvent& event )
 {
-	SetNewSolutionType( event.GetSelection() ? KarnaughData::POS : KarnaughData::SOP );
+	app.SetNewSolutionType( event.GetSelection() ? KarnaughData::POS : KarnaughData::SOP );
 }
 
 void blamFrame::OnSolSelect( wxTreeEvent& event )
 {
-	SetSolutionSelection( treeSolution->GetEntryID( event.GetItem() ) );
+	app.SetSolutionSelection( treeSolution->GetEntryID( event.GetItem() ) );
 }
 
 void blamFrame::OnQuit( wxCommandEvent& WXUNUSED( event ) )
@@ -266,7 +239,7 @@ void blamFrame::OnQuit( wxCommandEvent& WXUNUSED( event ) )
 
 void blamFrame::OnSetLanguage( wxCommandEvent& WXUNUSED( event ) )
 {
-	wxGetApp().SelectLanguage();
+	app.SelectLanguage();
 }
 
 void blamFrame::OnCellAdresses( wxCommandEvent& WXUNUSED( event ) )

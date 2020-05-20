@@ -41,11 +41,11 @@ public:
     void SetVars( int vars );
     void SetShowZeros( bool s );
 
-    KarnaughData::eCellValues GetUserInput( wxGridEvent& event );
     void SetValue( unsigned int index, KarnaughData::eCellValues );
+    KarnaughData::eCellValues GetUserInput( wxGridEvent& event );
 
 private:
-	enum eMenuIds { MENU_SET1=100, MENU_SET0, MENU_SETDC, MENU_SETRAND };
+	enum eMenuIds { MENU_SET1 = 100, MENU_SET0, MENU_SETDC, MENU_SETRAND };
 
     void DisplayPopup( wxGridEvent& event );
 	void OnMenuRange( wxCommandEvent& event );

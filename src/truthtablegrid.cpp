@@ -23,8 +23,6 @@
 
 #include "truthtablegrid.h"
 
-DEFINE_EVENT_TYPE( wxEVT_VALUE_CHANGE )
-
 BEGIN_EVENT_TABLE( TruthTableGrid, wxGrid )
     EVT_GRID_CELL_RIGHT_CLICK( TruthTableGrid::DisplayPopup )
     EVT_MENU_RANGE(MENU_SET1, MENU_SETRAND, TruthTableGrid::OnMenuRange )
@@ -80,7 +78,6 @@ TruthTableGrid::TruthTableGrid( wxWindow* parent, wxWindowID id, const wxSize& s
 
     srand( static_cast<unsigned>( time( 0 ) ) );
 }
-
 
 void TruthTableGrid::SetValue( unsigned int row, unsigned int col, KarnaughData::eCellValues value )
 {

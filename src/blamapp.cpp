@@ -29,6 +29,9 @@ IMPLEMENT_APP( blamapp )
 bool blamapp::OnInit()
 {
 	m_translation_helper = new TranslationHelper( *this );
+	config = new KarnaughConfig( *this );
+	data = new KarnaughData( config->GetInputs() );
+
 	CreateGUI();
 
     return true;
@@ -37,6 +40,9 @@ bool blamapp::OnInit()
 int blamapp::OnExit()
 {
 	delete m_translation_helper;
+	delete config;
+	delete data;
+
 	return 0;
 }
 
@@ -49,7 +55,15 @@ void blamapp::CreateGUI()
 		topwindow->Destroy();
 	}
 
-    blamFrame *frame = new blamFrame( );
+    frame = new blamFrame( *this, *data );
+
+	frame->SetNewShowAddress( config->GetShowAddress() );
+    frame->SetNewShowZeroes( config->GetShowZeroes() );
+    frame->SetInputs( config->GetInputs() );
+    frame->SetNewSolutionType( config->GetSolutionType() );
+
+    for( int index = 0; index < (1 << config->GetInputs() ); ++index )
+		frame->SetNewValue( index, data->get_value(index) );
 
     SetTopWindow( frame );
     frame->Show();
@@ -59,5 +73,47 @@ void blamapp::SelectLanguage( )
 {
     if( m_translation_helper->AskUserForLanguage( GetTopWindow() ) )
 		CreateGUI();
+}
+
+void blamapp::SetNewValue( unsigned int address, KarnaughData::eCellValues new_value )
+{
+	data->set_value( address, new_value );
+
+	frame->SetNewValue( address, new_value );
+}
+
+void blamapp::SetInputs( unsigned int no_of_inputs )
+{
+	config->SetInputs( no_of_inputs );
+	data->set_dimension( no_of_inputs );
+
+	frame->SetInputs( no_of_inputs );
+}
+
+void blamapp::SetNewSolutionType( KarnaughData::eSolutionType type )
+{
+	config->SetSolutionType( type );
+	data->set_solution_type( type );
+
+	frame->SetNewSolutionType( type );
+}
+
+void blamapp::SetNewShowAddress( bool on )
+{
+	config->SetShowAddress( on );
+
+	frame->SetNewShowAddress( on );
+}
+
+void blamapp::SetNewShowZeroes( bool on )
+{
+	config->SetShowZeroes( on );
+
+	frame->SetNewShowZeroes( on );
+}
+
+void blamapp::SetSolutionSelection( unsigned int index )
+{
+	frame->SetSolutionSelection( data->GetEntryAddresses( index ) );
 }
 

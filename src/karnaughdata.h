@@ -28,6 +28,8 @@
 
 #include "solutionentry.h"
 
+typedef std::vector<std::pair<unsigned int, unsigned int>> SolutionAddresses;
+
 class KarnaughData
 {
 public:
@@ -42,9 +44,11 @@ public:
 
     unsigned int get_dimension( ) const { return no_of_inputs; }
     eSolutionType get_solution_type() const { return solution_type; }
+    eCellValues get_value( unsigned int address ) const { return table[address]; };
     std::vector<SolutionEntry> FindBestSolution( );
 
-    SolutionEntry get_solution( unsigned int index );
+	SolutionAddresses GetEntryAddresses( unsigned int index );
+	SolutionAddresses GetEntryAddresses( SolutionEntry& entry );
 
 	unsigned int calc_address( unsigned int row, unsigned int col );
 	unsigned int calc_row( unsigned int address );

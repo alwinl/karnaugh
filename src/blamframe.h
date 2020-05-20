@@ -32,6 +32,8 @@
 #include "kmapgrid.h"
 #include "solutiontree.h"
 
+#include "blamapp.h"
+
 /**
  * @short Application Main Frame
  * @author Robert Kovacevic <robert.kovacevic@etfos.hr>
@@ -40,7 +42,16 @@
 class blamFrame : public wxFrame
 {
 public:
-    blamFrame( );
+    blamFrame( blamapp& app_init, KarnaughData& data_init );
+
+	void SetInputs( unsigned int no_of_inputs );
+	void RunSolver();
+	void SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value );
+	void SetNewSolutionType( KarnaughData::eSolutionType type );
+	void SetSolutionSelection( SolutionAddresses addresses );
+	void SetNewLanguage( KarnaughConfig::eLANGUAGES language );
+	void SetNewShowAddress( bool on );
+	void SetNewShowZeroes( bool on );
 
 private:
     enum {
@@ -77,17 +88,8 @@ private:
     SolutionTree * treeSolution;
     TruthTableGrid* truthTable;
 
-    KarnaughData data;
-    KarnaughConfig config;
-
-	void SetInputs( unsigned int no_of_inputs );
-	void RunSolver();
-	void SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value );
-	void SetNewSolutionType( KarnaughData::eSolutionType type );
-	void SetSolutionSelection( unsigned int index );
-	void SetNewLanguage( KarnaughConfig::eLANGUAGES language );
-	void SetNewShowAddress( bool on );
-	void SetNewShowZeroes( bool on );
+    KarnaughData& data;
+    blamapp& app;
 
     DECLARE_EVENT_TABLE()
 };

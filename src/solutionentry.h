@@ -40,6 +40,7 @@ public:
 	bool MaskEqual( SolutionEntry& rhs ) const;
 	bool IsDeleted() const;
 	bool operator==( SolutionEntry& rhs ) const;
+	bool operator!=( SolutionEntry& rhs ) const { return ! operator==( rhs ); };
 
 private:
 	unsigned int mask;
@@ -47,6 +48,6 @@ private:
 	bool delete_me;
 };
 
-static SolutionEntry InvalidEntry(-1, -1);
+//static SolutionEntry InvalidEntry(-1, -1);
 
 #endif // SOLUTIONENTRY_H

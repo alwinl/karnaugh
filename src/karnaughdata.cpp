@@ -50,11 +50,12 @@ void KarnaughData::set_solution_type( eSolutionType type )
 	solution_type = type;
 }
 
+/*
 SolutionEntry KarnaughData::get_solution( unsigned int index )
 {
 	return (index < the_solution.size()) ? the_solution[index] : InvalidEntry;
 }
-
+*/
 unsigned int KarnaughData::calc_address( unsigned int row, unsigned int col )
 {
 	return ( GrayEncode(row) << ((no_of_inputs + 1) / 2) ) + GrayEncode(col);
@@ -251,3 +252,29 @@ std::vector<SolutionEntry> KarnaughData::FindBestSolution( )
 
 	return the_solution;
 }
+
+SolutionAddresses KarnaughData::GetEntryAddresses( unsigned int index )
+{
+	SolutionAddresses addresses;
+
+	if( index < the_solution.size() ) {
+		SolutionEntry entry = the_solution[index];
+
+		for( unsigned int adress : entry.GetAddresses( 1 << no_of_inputs ) )
+			addresses.push_back( std::make_pair( calc_row(adress), calc_col(adress)) );
+	}
+
+	return addresses;
+}
+
+SolutionAddresses KarnaughData::GetEntryAddresses( SolutionEntry& entry )
+{
+	SolutionAddresses addresses;
+
+	for( unsigned int adress : entry.GetAddresses( 1 << no_of_inputs ) )
+		addresses.push_back( std::make_pair( calc_row(adress), calc_col(adress)) );
+
+	return addresses;
+}
+
+
