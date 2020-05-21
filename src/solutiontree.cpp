@@ -63,7 +63,7 @@ void SolutionTree::AddItem( bool isSOP, unsigned int mask, unsigned int number, 
 
 		if( mask & 0x01 ) {		// this variable is unique
 
-			if( isSOP && !result.empty() )
+			if( !isSOP && !result.empty() )
 				result.push_back( '+' );
 
 			result.push_back( current_variable_name );

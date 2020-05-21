@@ -52,8 +52,8 @@
 		<Unit filename="po/hr.po" />
 		<Unit filename="po/karnaugh.pot" />
 		<Unit filename="po/nl.po" />
-		<Unit filename="src/karnaughapplication.cpp" />
-		<Unit filename="src/karnaughapplication.h" />
+		<Unit filename="src/karnaughapp.cpp" />
+		<Unit filename="src/karnaughapp.h" />
 		<Unit filename="src/karnaughconfig.cpp" />
 		<Unit filename="src/karnaughconfig.h" />
 		<Unit filename="src/karnaughdata.cpp" />

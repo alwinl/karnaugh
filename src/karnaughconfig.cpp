@@ -26,7 +26,7 @@
 #include <wx/config.h>
 #include <wx/intl.h>
 
-#include "karnaughapplication.h"
+#include "karnaughapp.h"
 
 KarnaughConfig::KarnaughConfig( wxApp& app ) : m_app(app), config( app.GetAppName() )
 {

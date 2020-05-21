@@ -34,7 +34,7 @@ KarnaughData::KarnaughData( unsigned int no_of_inputs )
 
 void KarnaughData::set_value( unsigned int address, KarnaughData::eCellValues new_value )
 {
-	if( address > (1 << no_of_inputs) )
+	if( address > (unsigned int)(1 << no_of_inputs) )
 		return;
 
 	table[address] = new_value;

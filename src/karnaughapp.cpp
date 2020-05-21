@@ -21,12 +21,13 @@
 #include <wx/wx.h>
 #include <wx/config.h>
 
-#include "karnaughapplication.h"
+#include "karnaughapp.h"
 #include "karnaughwindow.h"
+#include "karnaughconfig.h"
 
-IMPLEMENT_APP( KarnaughApplication )
+IMPLEMENT_APP( KarnaughApp )
 
-bool KarnaughApplication::OnInit()
+bool KarnaughApp::OnInit()
 {
 	config = new KarnaughConfig( *this );
 	data = new KarnaughData( config->GetInputs() );
@@ -36,7 +37,7 @@ bool KarnaughApplication::OnInit()
     return true;
 }
 
-int KarnaughApplication::OnExit()
+int KarnaughApp::OnExit()
 {
 	delete config;
 	delete data;
@@ -44,7 +45,7 @@ int KarnaughApplication::OnExit()
 	return 0;
 }
 
-void KarnaughApplication::CreateGUI()
+void KarnaughApp::CreateGUI()
 {
 	wxWindow * topwindow = GetTopWindow();
 
@@ -67,20 +68,20 @@ void KarnaughApplication::CreateGUI()
     frame->Show();
 }
 
-void KarnaughApplication::SelectLanguage( )
+void KarnaughApp::SelectLanguage( )
 {
     if( config->AskUserForLanguage( GetTopWindow() ) )
 		CreateGUI();
 }
 
-void KarnaughApplication::SetNewValue( unsigned int address, KarnaughData::eCellValues new_value )
+void KarnaughApp::SetNewValue( unsigned int address, KarnaughData::eCellValues new_value )
 {
 	data->set_value( address, new_value );
 
 	frame->SetNewValue( address, new_value );
 }
 
-void KarnaughApplication::SetInputs( unsigned int no_of_inputs )
+void KarnaughApp::SetInputs( unsigned int no_of_inputs )
 {
 	config->SetInputs( no_of_inputs );
 	data->set_dimension( no_of_inputs );
@@ -88,7 +89,7 @@ void KarnaughApplication::SetInputs( unsigned int no_of_inputs )
 	frame->SetInputs( no_of_inputs );
 }
 
-void KarnaughApplication::SetNewSolutionType( KarnaughData::eSolutionType type )
+void KarnaughApp::SetNewSolutionType( KarnaughData::eSolutionType type )
 {
 	config->SetSolutionType( type );
 	data->set_solution_type( type );
@@ -96,21 +97,21 @@ void KarnaughApplication::SetNewSolutionType( KarnaughData::eSolutionType type )
 	frame->SetNewSolutionType( type );
 }
 
-void KarnaughApplication::SetNewShowAddress( bool on )
+void KarnaughApp::SetNewShowAddress( bool on )
 {
 	config->SetShowAddress( on );
 
 	frame->SetNewShowAddress( on );
 }
 
-void KarnaughApplication::SetNewShowZeroes( bool on )
+void KarnaughApp::SetNewShowZeroes( bool on )
 {
 	config->SetShowZeroes( on );
 
 	frame->SetNewShowZeroes( on );
 }
 
-void KarnaughApplication::SetSolutionSelection( unsigned int index )
+void KarnaughApp::SetSolutionSelection( unsigned int index )
 {
 	frame->SetSolutionSelection( data->GetEntryAddresses( index ) );
 }

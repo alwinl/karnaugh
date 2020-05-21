@@ -23,16 +23,16 @@
 
 #include <wx/wx.h>
 #include <wx/spinctrl.h>
+#include <wx/grid.h>
 #include <wx/treectrl.h>
 
 #include "karnaughdata.h"
-#include "karnaughconfig.h"
 
-#include "truthtablegrid.h"
-#include "kmapgrid.h"
-#include "solutiontree.h"
+class KarnaughApp;
+class TruthTableGrid;
+class KMapGrid;
+class SolutionTree;
 
-#include "karnaughapplication.h"
 
 /**
  * @short Application Main Frame
@@ -42,14 +42,13 @@
 class KarnaughWindow : public wxFrame
 {
 public:
-    KarnaughWindow( KarnaughApplication& app_init, KarnaughData& data_init );
+    KarnaughWindow( KarnaughApp& app_init, KarnaughData& data_init );
 
 	void SetInputs( unsigned int no_of_inputs );
 	void RunSolver();
 	void SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value );
 	void SetNewSolutionType( KarnaughData::eSolutionType type );
 	void SetSolutionSelection( SolutionAddresses addresses );
-	void SetNewLanguage( KarnaughConfig::eLANGUAGES language );
 	void SetNewShowAddress( bool on );
 	void SetNewShowZeroes( bool on );
 
@@ -89,7 +88,7 @@ private:
     TruthTableGrid* truthTable;
 
     KarnaughData& data;
-    KarnaughApplication& app;
+    KarnaughApp& app;
 
     DECLARE_EVENT_TABLE()
 };

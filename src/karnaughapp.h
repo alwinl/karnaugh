@@ -18,15 +18,15 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef _BLAM_H_
-#define _BLAM_H_
+#ifndef _KARNAUGHAPP_H_
+#define _KARNAUGHAPP_H_
 
 #include <wx/wx.h>
 
-#include "karnaughconfig.h"
 #include "karnaughdata.h"
 
 class KarnaughWindow;
+class KarnaughConfig;
 
 /**
  * @short BLAM boolean function minimizer app
@@ -34,7 +34,7 @@ class KarnaughWindow;
  * @version 0.1
  */
 
-class KarnaughApplication : public wxApp
+class KarnaughApp : public wxApp
 {
 public:
     void SelectLanguage();
@@ -54,9 +54,7 @@ protected:
 private:
 	KarnaughData * data;
 	KarnaughConfig * config;
-	KarnaughWindow *frame;
+	KarnaughWindow * frame;
 };
 
-DECLARE_APP(KarnaughApplication);
-
-#endif // _BLAM_H_
+#endif // _KARNAUGHAPP_H_

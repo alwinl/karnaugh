@@ -27,8 +27,12 @@
 
 #include "karnaughwindow.h"
 
-#include "karnaughapplication.h"
+#include "karnaughapp.h"
 #include "solutionentry.h"
+
+#include "truthtablegrid.h"
+#include "kmapgrid.h"
+#include "solutiontree.h"
 
 BEGIN_EVENT_TABLE( KarnaughWindow, wxFrame )
     EVT_MENU( Menu_File_Quit, KarnaughWindow::OnQuit )
@@ -44,7 +48,7 @@ BEGIN_EVENT_TABLE( KarnaughWindow, wxFrame )
 END_EVENT_TABLE()
 
 
-KarnaughWindow::KarnaughWindow( KarnaughApplication& app_init, KarnaughData& data_init )
+KarnaughWindow::KarnaughWindow( KarnaughApp& app_init, KarnaughData& data_init )
 	: wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), data( data_init ), app(app_init)
 {
     /**** Icon *****/
