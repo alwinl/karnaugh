@@ -42,9 +42,9 @@ class SolutionTree;
 class KarnaughWindow : public wxFrame
 {
 public:
-    KarnaughWindow( KarnaughApp& app_init, KarnaughData& data_init );
+    KarnaughWindow( KarnaughApp& app_init );
 
-	void SetInputs( unsigned int no_of_inputs );
+	void SetInputs( KarnaughData& data, unsigned int no_of_inputs );
 	void SetNewValue( unsigned int adress, GridAddress grid_adress, KarnaughData::eCellValues new_value );
 	void SetNewSolutionType( bool isSOP );
 	void SetSolutionSelection( SolutionAddresses addresses );
@@ -91,7 +91,6 @@ private:
     SolutionTree * treeSolution;
     TruthTableGrid* truthTable;
 
-    KarnaughData& data;
     KarnaughApp& app;
 
     DECLARE_EVENT_TABLE()

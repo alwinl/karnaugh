@@ -54,11 +54,11 @@ void KarnaughApp::CreateGUI()
 		topwindow->Destroy();
 	}
 
-    frame = new KarnaughWindow( *this, *data );
+    frame = new KarnaughWindow( *this );
 
 	frame->SetNewShowAddress( config->GetShowAddress() );
     frame->SetNewShowZeroes( config->GetShowZeroes() );
-    frame->SetInputs( config->GetInputs() );
+    frame->SetInputs( *data, config->GetInputs() );
     frame->SetNewSolutionType( config->GetSolutionType() );
 
     for( int index = 0; index < (1 << config->GetInputs() ); ++index )
@@ -83,12 +83,17 @@ void KarnaughApp::SetNewValue( unsigned int address, KarnaughData::eCellValues n
 	RunSolver();
 }
 
+void KarnaughApp::SetNewValue( int row, int col, KarnaughData::eCellValues new_value )
+{
+	SetNewValue( data->calc_address( row, col ), new_value );
+}
+
 void KarnaughApp::SetInputs( unsigned int no_of_inputs )
 {
 	config->SetInputs( no_of_inputs );
 	data->set_dimension( no_of_inputs );
 
-	frame->SetInputs( no_of_inputs );
+	frame->SetInputs( *data, no_of_inputs );
 
 	RunSolver();
 }

@@ -48,8 +48,8 @@ BEGIN_EVENT_TABLE( KarnaughWindow, wxFrame )
 END_EVENT_TABLE()
 
 
-KarnaughWindow::KarnaughWindow( KarnaughApp& app_init, KarnaughData& data_init )
-	: wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), data( data_init ), app(app_init)
+KarnaughWindow::KarnaughWindow( KarnaughApp& app_init )
+	: wxFrame( (wxFrame *)NULL, -1, _( "Karnaugh Map Minimizer" ), wxDefaultPosition, wxSize( 450,700 ) ), app(app_init)
 {
     /**** Icon *****/
     SetIcon( wxIcon( "wxwin.ico", wxBITMAP_TYPE_ICO ) );
@@ -173,7 +173,7 @@ void KarnaughWindow::SetNewValue( unsigned int adress, GridAddress grid_adress, 
     kmap_grid->SetValue( grid_adress.first, grid_adress.second, new_value );
 }
 
-void KarnaughWindow::SetInputs( unsigned int no_of_inputs )
+void KarnaughWindow::SetInputs( KarnaughData& data, unsigned int no_of_inputs )
 {
     numberOfVariables->SetValue( no_of_inputs );
     truthTable->SetVars( no_of_inputs );
@@ -221,7 +221,7 @@ void KarnaughWindow::OnTruthTChange( wxGridEvent& event )
 
 void KarnaughWindow::OnKMapChange( wxGridEvent& event )
 {
-	app.SetNewValue( data.calc_address( event.GetRow(), event.GetCol() ), kmap_grid->GetUserInput( event ) );
+	app.SetNewValue( event.GetRow(), event.GetCol(), kmap_grid->GetUserInput( event ) );
 }
 
 void KarnaughWindow::OnSolutionTypeChange( wxCommandEvent& event )

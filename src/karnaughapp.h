@@ -41,6 +41,7 @@ public:
 	void CreateGUI();
 
 	void SetNewValue( unsigned int address, KarnaughData::eCellValues new_value );
+	void SetNewValue( int row, int col, KarnaughData::eCellValues new_value );
 	void SetInputs( unsigned int no_of_inputs );
 	void SetSolutionSelection( unsigned int index );
 	void SetNewSolutionType( KarnaughData::eSolutionType type );
