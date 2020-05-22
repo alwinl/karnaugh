@@ -80,9 +80,7 @@ void KarnaughApp::SetNewValue( unsigned int address, KarnaughData::eCellValues n
 
 	frame->SetNewValue( address, data->calc_address( address ), new_value );
 
-	frame->PreSolver();
-    std::vector<SolutionEntry> solutions = data->FindBestSolution();
-	frame->PostSolver( solutions, data->get_solution_type() == KarnaughData::SOP );
+	RunSolver();
 }
 
 void KarnaughApp::SetInputs( unsigned int no_of_inputs )
@@ -92,9 +90,7 @@ void KarnaughApp::SetInputs( unsigned int no_of_inputs )
 
 	frame->SetInputs( no_of_inputs );
 
-	frame->PreSolver();
-    std::vector<SolutionEntry> solutions = data->FindBestSolution();
-	frame->PostSolver( solutions, data->get_solution_type() == KarnaughData::SOP );
+	RunSolver();
 }
 
 void KarnaughApp::SetNewSolutionType( KarnaughData::eSolutionType type )
@@ -104,9 +100,7 @@ void KarnaughApp::SetNewSolutionType( KarnaughData::eSolutionType type )
 
 	frame->SetNewSolutionType( type == KarnaughData::SOP );
 
-	frame->PreSolver();
-    std::vector<SolutionEntry> solutions = data->FindBestSolution();
-	frame->PostSolver( solutions, data->get_solution_type() == KarnaughData::SOP );
+	RunSolver();
 }
 
 void KarnaughApp::SetNewShowAddress( bool on )
@@ -121,6 +115,13 @@ void KarnaughApp::SetNewShowZeroes( bool on )
 	config->SetShowZeroes( on );
 
 	frame->SetNewShowZeroes( on );
+}
+
+void KarnaughApp::RunSolver( )
+{
+	frame->PreSolver();
+    std::vector<SolutionEntry> solutions = data->FindBestSolution();
+	frame->PostSolver( solutions, data->get_solution_type() == KarnaughData::SOP );
 }
 
 void KarnaughApp::SetSolutionSelection( unsigned int index )

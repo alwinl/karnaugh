@@ -55,6 +55,8 @@ private:
 	KarnaughData * data;
 	KarnaughConfig * config;
 	KarnaughWindow * frame;
+
+	void RunSolver();
 };
 
 #endif // _KARNAUGHAPP_H_
