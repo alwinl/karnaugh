@@ -55,8 +55,7 @@ public:
 	unsigned int calc_row( unsigned int address );
 	unsigned int calc_col( unsigned int address );
 
-	std::string generate_row_label( unsigned int row );
-	std::string generate_col_label( unsigned int col );
+	std::string index_to_greycode_string( unsigned int index, unsigned int length );
 
 private:
 	unsigned int no_of_inputs;
@@ -66,7 +65,6 @@ private:
 
 	unsigned int GrayEncode( unsigned int number );
 	std::vector<unsigned int> number_to_binaryvector( unsigned int code, unsigned int length );
-	std::string index_to_greycode_string( unsigned int index, unsigned int length );
 
 	void FindSolution( std::list<SolutionEntry>& solutions );
 };

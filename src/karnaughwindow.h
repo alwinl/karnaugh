@@ -45,7 +45,6 @@ public:
     KarnaughWindow( KarnaughApp& app_init, KarnaughData& data_init );
 
 	void SetInputs( unsigned int no_of_inputs );
-	void RunSolver();
 	void SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value );
 	void SetNewSolutionType( KarnaughData::eSolutionType type );
 	void SetSolutionSelection( SolutionAddresses addresses );
@@ -89,6 +88,8 @@ private:
 
     KarnaughData& data;
     KarnaughApp& app;
+
+	void RunSolver();
 
     DECLARE_EVENT_TABLE()
 };

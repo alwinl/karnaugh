@@ -180,10 +180,10 @@ void KMapGrid::SetVars( KarnaughData& data, unsigned int vars )
     if( GetNumberRows() > height ) DeleteRows( 0, GetNumberRows() - height );
 
     for( int row = 0; row < GetNumberRows(); ++row )
-		SetRowLabelValue( row, data.generate_row_label( row ) );
+		SetRowLabelValue( row, data.index_to_greycode_string( row, vars / 2 ) );
 
     for( int col = 0; col < GetNumberCols(); ++col )
-		SetColLabelValue( col, data.generate_col_label( col ) );
+		SetColLabelValue( col, data.index_to_greycode_string( col, (vars + 1) / 2 ) );
 
 	ResetBackgroundColour( true, 0 );
 

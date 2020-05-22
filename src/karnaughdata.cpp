@@ -122,33 +122,6 @@ std::string KarnaughData::index_to_greycode_string( unsigned int index, unsigned
 	return result;
 }
 
-std::string KarnaughData::generate_row_label( unsigned int row )
-{
-	return index_to_greycode_string( row, no_of_inputs / 2 );
-}
-
-std::string KarnaughData::generate_col_label( unsigned int col )
-{
-	return index_to_greycode_string( col, (no_of_inputs + 1) / 2 );
-}
-
-/*
-	fill list with maxterms, number is address and mask (mask is (1 << no_of_inputs) - 1 )
-	for each item in list
-		for each item_second following the item
-			if item_second.mask == item.mask
-				xor_number = (item_second.number xor item.number) & item.mask
-				if( count_bits( xor_number ) == 1 )
-					make new item with
-						number = item.number & ~ xor_number
-						mask = item.mask & ~xor_number
-					push back item
-					mark item and item_second to be deleted
-
-	copy non deleted items to a new list
-	return the new list
-*/
-
 void KarnaughData::FindSolution( std::list<SolutionEntry>& solutions )
 {
 	for( std::list<SolutionEntry>::iterator it = solutions.begin(); it != solutions.end(); ++it ) {
