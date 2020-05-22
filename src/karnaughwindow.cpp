@@ -145,12 +145,13 @@ KarnaughWindow::KarnaughWindow( KarnaughApp& app_init, KarnaughData& data_init )
     SetAutoLayout( true );
 }
 
-void KarnaughWindow::RunSolver( bool isSOP )
+void KarnaughWindow::PreSolver()
 {
     SetStatusText( _( "Solving, please wait..." ) );
+}
 
-    std::vector<SolutionEntry> solutions = data.FindBestSolution();
-
+void KarnaughWindow::PostSolver( std::vector<SolutionEntry> solutions, bool isSOP )
+{
     treeSolution->RemoveAllItems();
     kmap_grid->ResetBackgroundColour( isSOP, solutions.size() );
 
@@ -167,7 +168,6 @@ void KarnaughWindow::SetNewValue( unsigned int adress, GridAddress grid_adress, 
 {
     truthTable->SetValue( adress, new_value );
     kmap_grid->SetValue( grid_adress.first, grid_adress.second, new_value );
-//    kmap_grid->SetValue( data.calc_row(adress), data.calc_col(adress), new_value );
 }
 
 void KarnaughWindow::SetInputs( unsigned int no_of_inputs )

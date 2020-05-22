@@ -64,8 +64,6 @@ void KarnaughApp::CreateGUI()
     for( int index = 0; index < (1 << config->GetInputs() ); ++index )
 		frame->SetNewValue( index, data->calc_address(index), data->get_value(index) );
 
-	frame->RunSolver( config->GetSolutionType() == KarnaughData::SOP );
-
     SetTopWindow( frame );
     frame->Show();
 }
@@ -81,7 +79,10 @@ void KarnaughApp::SetNewValue( unsigned int address, KarnaughData::eCellValues n
 	data->set_value( address, new_value );
 
 	frame->SetNewValue( address, data->calc_address( address ), new_value );
-	frame->RunSolver( data->get_solution_type() == KarnaughData::SOP );
+
+	frame->PreSolver();
+    std::vector<SolutionEntry> solutions = data->FindBestSolution();
+	frame->PostSolver( solutions, data->get_solution_type() == KarnaughData::SOP );
 }
 
 void KarnaughApp::SetInputs( unsigned int no_of_inputs )
@@ -90,7 +91,10 @@ void KarnaughApp::SetInputs( unsigned int no_of_inputs )
 	data->set_dimension( no_of_inputs );
 
 	frame->SetInputs( no_of_inputs );
-	frame->RunSolver( data->get_solution_type() == KarnaughData::SOP );
+
+	frame->PreSolver();
+    std::vector<SolutionEntry> solutions = data->FindBestSolution();
+	frame->PostSolver( solutions, data->get_solution_type() == KarnaughData::SOP );
 }
 
 void KarnaughApp::SetNewSolutionType( KarnaughData::eSolutionType type )
@@ -99,7 +103,10 @@ void KarnaughApp::SetNewSolutionType( KarnaughData::eSolutionType type )
 	data->set_solution_type( type );
 
 	frame->SetNewSolutionType( type == KarnaughData::SOP );
-	frame->RunSolver( type == KarnaughData::SOP );
+
+	frame->PreSolver();
+    std::vector<SolutionEntry> solutions = data->FindBestSolution();
+	frame->PostSolver( solutions, data->get_solution_type() == KarnaughData::SOP );
 }
 
 void KarnaughApp::SetNewShowAddress( bool on )
