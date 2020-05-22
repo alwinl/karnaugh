@@ -50,8 +50,11 @@ public:
 	void SetSolutionSelection( SolutionAddresses addresses );
 	void SetNewShowAddress( bool on );
 	void SetNewShowZeroes( bool on );
-	void PreSolver();
-	void PostSolver( std::vector<SolutionEntry> solutions, bool isSOP );
+
+	void PreSolver( );
+	void PostSolverStart( bool isSOP, unsigned int solution_size );
+	void PostSolverAdd( SolutionEntry& entry, bool isSOP, SolutionAddresses addresses, unsigned int id );
+	void PostSolverFinish();
 
 private:
     enum {

@@ -119,9 +119,19 @@ void KarnaughApp::SetNewShowZeroes( bool on )
 
 void KarnaughApp::RunSolver( )
 {
-	frame->PreSolver();
+	frame->PreSolver( );
+
     std::vector<SolutionEntry> solutions = data->FindBestSolution();
-	frame->PostSolver( solutions, data->get_solution_type() == KarnaughData::SOP );
+
+	frame->PostSolverStart( data->get_solution_type() == KarnaughData::SOP, solutions.size() );
+
+    unsigned int id = 0;
+	for( SolutionEntry& entry : solutions ) {
+		frame->PostSolverAdd( entry, data->get_solution_type() == KarnaughData::SOP, data->GetEntryAddresses(entry), id );
+		++id;
+	}
+
+	frame->PostSolverFinish();
 }
 
 void KarnaughApp::SetSolutionSelection( unsigned int index )
