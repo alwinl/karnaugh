@@ -177,7 +177,14 @@ void KarnaughWindow::SetInputs( KarnaughData& data, unsigned int no_of_inputs )
 {
     numberOfVariables->SetValue( no_of_inputs );
     truthTable->SetVars( no_of_inputs );
-    kmap_grid->SetVars( data, no_of_inputs );
+    kmap_grid->SetVars( no_of_inputs );
+
+    for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
+		kmap_grid->SetLabel( row, data.index_to_greycode_string( row, no_of_inputs / 2 ), true );
+
+    for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col )
+		kmap_grid->SetLabel( col, data.index_to_greycode_string( col, (no_of_inputs + 1) / 2 ), false );
+
     treeSolution->RemoveAllItems();
 }
 

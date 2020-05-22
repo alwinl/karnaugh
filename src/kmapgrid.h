@@ -41,7 +41,8 @@ class KMapGrid : public wxGrid
 public:
     KMapGrid( wxWindow* parent, wxWindowID id, const wxSize& size );
 
-    void SetVars( KarnaughData& data, unsigned int vars );
+    void SetVars( unsigned int vars );
+	void SetLabel( int index, std::string label, bool isRow );
     void SetShowZeros( bool on );
     void SetCellAdresses( bool on );
 

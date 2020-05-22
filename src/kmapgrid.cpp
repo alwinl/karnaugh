@@ -166,7 +166,7 @@ void KMapGrid::ResetSelection()
 	ClearSelection();
 }
 
-void KMapGrid::SetVars( KarnaughData& data, unsigned int vars )
+void KMapGrid::SetVars( unsigned int vars )
 {
     ClearGrid();
 
@@ -179,12 +179,6 @@ void KMapGrid::SetVars( KarnaughData& data, unsigned int vars )
     if( GetNumberCols() > width  ) DeleteCols( 0, GetNumberCols() - width );
     if( GetNumberRows() > height ) DeleteRows( 0, GetNumberRows() - height );
 
-    for( int row = 0; row < GetNumberRows(); ++row )
-		SetRowLabelValue( row, data.index_to_greycode_string( row, vars / 2 ) );
-
-    for( int col = 0; col < GetNumberCols(); ++col )
-		SetColLabelValue( col, data.index_to_greycode_string( col, (vars + 1) / 2 ) );
-
 	ResetBackgroundColour( true, 0 );
 
 	for( int row = 0; row < GetNumberRows(); ++row )
@@ -193,6 +187,14 @@ void KMapGrid::SetVars( KarnaughData& data, unsigned int vars )
 
     ForceRefresh();
     AdjustScrollbars();
+}
+
+void KMapGrid::SetLabel( int index, std::string label, bool isRow )
+{
+	if( isRow )
+		SetRowLabelValue( index, label );
+	else
+		SetColLabelValue( index, label );
 }
 
 KarnaughData::eCellValues KMapGrid::GetUserInput( wxGridEvent& event )
