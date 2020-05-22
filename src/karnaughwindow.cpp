@@ -145,19 +145,19 @@ KarnaughWindow::KarnaughWindow( KarnaughApp& app_init, KarnaughData& data_init )
     SetAutoLayout( true );
 }
 
-void KarnaughWindow::RunSolver()
+void KarnaughWindow::RunSolver( bool isSOP )
 {
     SetStatusText( _( "Solving, please wait..." ) );
 
     std::vector<SolutionEntry> solutions = data.FindBestSolution();
 
     treeSolution->RemoveAllItems();
-    kmap_grid->ResetBackgroundColour( (data.get_solution_type() == KarnaughData::SOP), solutions.size() );
+    kmap_grid->ResetBackgroundColour( isSOP, solutions.size() );
 
     unsigned int id = 0;
 	for( SolutionEntry& entry : solutions ) {
-		kmap_grid->SetBackgroundColour( data.get_solution_type() == KarnaughData::SOP, data.GetEntryAddresses(entry) );
-		treeSolution->AddItem( (data.get_solution_type() == KarnaughData::SOP), entry.GetMask(), entry.GetNumber(), id++ );
+		kmap_grid->SetBackgroundColour( isSOP, data.GetEntryAddresses(entry) );
+		treeSolution->AddItem( isSOP, entry.GetMask(), entry.GetNumber(), id++ );
 	}
 
     SetStatusText( _( "Karnaugh map solved!" ) );
@@ -167,8 +167,6 @@ void KarnaughWindow::SetNewValue( unsigned int adress, KarnaughData::eCellValues
 {
     truthTable->SetValue( adress, new_value );
     kmap_grid->SetValue( data.calc_row(adress), data.calc_col(adress), new_value );
-
-    RunSolver();
 }
 
 void KarnaughWindow::SetInputs( unsigned int no_of_inputs )
@@ -177,15 +175,11 @@ void KarnaughWindow::SetInputs( unsigned int no_of_inputs )
     truthTable->SetVars( no_of_inputs );
     kmap_grid->SetVars( data, no_of_inputs );
     treeSolution->RemoveAllItems();
-
-    RunSolver();
 }
 
-void KarnaughWindow::SetNewSolutionType( KarnaughData::eSolutionType type )
+void KarnaughWindow::SetNewSolutionType( bool isSOP )
 {
-    solutionType->SetSelection( type == KarnaughData::SOP ? 0 : 1 );
-
-	RunSolver();
+    solutionType->SetSelection( isSOP ? 0 : 1 );
 }
 
 void KarnaughWindow::SetNewShowAddress( bool on )

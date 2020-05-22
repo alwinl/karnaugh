@@ -46,10 +46,11 @@ public:
 
 	void SetInputs( unsigned int no_of_inputs );
 	void SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value );
-	void SetNewSolutionType( KarnaughData::eSolutionType type );
+	void SetNewSolutionType( bool isSOP );
 	void SetSolutionSelection( SolutionAddresses addresses );
 	void SetNewShowAddress( bool on );
 	void SetNewShowZeroes( bool on );
+	void RunSolver( bool isSOP );
 
 private:
     enum {
@@ -88,8 +89,6 @@ private:
 
     KarnaughData& data;
     KarnaughApp& app;
-
-	void RunSolver();
 
     DECLARE_EVENT_TABLE()
 };
