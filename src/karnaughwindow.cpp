@@ -180,12 +180,17 @@ void KarnaughWindow::SetInputs( KarnaughData& data, unsigned int no_of_inputs )
     kmap_grid->SetVars( no_of_inputs );
 
     for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
-		kmap_grid->SetLabel( row, data.index_to_greycode_string( row, no_of_inputs / 2 ), true );
+		SetGridLabel( row, data.index_to_greycode_string( row, no_of_inputs / 2 ), true );
 
     for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col )
-		kmap_grid->SetLabel( col, data.index_to_greycode_string( col, (no_of_inputs + 1) / 2 ), false );
+		SetGridLabel( col, data.index_to_greycode_string( col, (no_of_inputs + 1) / 2 ), false );
 
     treeSolution->RemoveAllItems();
+}
+
+void KarnaughWindow::SetGridLabel( int index, std::string label, bool isRow )
+{
+	kmap_grid->SetLabel( index, label, isRow );
 }
 
 void KarnaughWindow::SetNewSolutionType( bool isSOP )
