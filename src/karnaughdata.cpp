@@ -83,6 +83,16 @@ unsigned int KarnaughData::calc_col( unsigned int address )
 	return -1;
 }
 
+GridAddress KarnaughData::calc_address( unsigned int address )
+{
+	for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
+		for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col )
+			if( calc_address( row, col ) == address )
+				return GridAddress( row, col );
+
+	return InvalidGridAddress;
+}
+
 unsigned int KarnaughData::GrayEncode( unsigned int number )
 {
 	return number ^ (number >> 1);
@@ -234,7 +244,7 @@ SolutionAddresses KarnaughData::GetEntryAddresses( unsigned int index )
 		SolutionEntry entry = the_solution[index];
 
 		for( unsigned int adress : entry.GetAddresses( 1 << no_of_inputs ) )
-			addresses.push_back( std::make_pair( calc_row(adress), calc_col(adress)) );
+			addresses.push_back( SolutionAddress( calc_row(adress), calc_col(adress)) );
 	}
 
 	return addresses;
@@ -245,7 +255,7 @@ SolutionAddresses KarnaughData::GetEntryAddresses( SolutionEntry& entry )
 	SolutionAddresses addresses;
 
 	for( unsigned int adress : entry.GetAddresses( 1 << no_of_inputs ) )
-		addresses.push_back( std::make_pair( calc_row(adress), calc_col(adress)) );
+		addresses.push_back( SolutionAddress( calc_row(adress), calc_col(adress)) );
 
 	return addresses;
 }

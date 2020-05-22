@@ -62,7 +62,7 @@ void KarnaughApp::CreateGUI()
     frame->SetNewSolutionType( config->GetSolutionType() );
 
     for( int index = 0; index < (1 << config->GetInputs() ); ++index )
-		frame->SetNewValue( index, data->get_value(index) );
+		frame->SetNewValue( index, data->calc_address(index), data->get_value(index) );
 
 	frame->RunSolver( config->GetSolutionType() == KarnaughData::SOP );
 
@@ -80,7 +80,7 @@ void KarnaughApp::SetNewValue( unsigned int address, KarnaughData::eCellValues n
 {
 	data->set_value( address, new_value );
 
-	frame->SetNewValue( address, new_value );
+	frame->SetNewValue( address, data->calc_address( address ), new_value );
 	frame->RunSolver( data->get_solution_type() == KarnaughData::SOP );
 }
 

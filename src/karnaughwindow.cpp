@@ -163,10 +163,11 @@ void KarnaughWindow::RunSolver( bool isSOP )
     SetStatusText( _( "Karnaugh map solved!" ) );
 }
 
-void KarnaughWindow::SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value )
+void KarnaughWindow::SetNewValue( unsigned int adress, GridAddress grid_adress, KarnaughData::eCellValues new_value )
 {
     truthTable->SetValue( adress, new_value );
-    kmap_grid->SetValue( data.calc_row(adress), data.calc_col(adress), new_value );
+    kmap_grid->SetValue( grid_adress.first, grid_adress.second, new_value );
+//    kmap_grid->SetValue( data.calc_row(adress), data.calc_col(adress), new_value );
 }
 
 void KarnaughWindow::SetInputs( unsigned int no_of_inputs )

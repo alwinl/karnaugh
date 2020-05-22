@@ -45,7 +45,7 @@ public:
     KarnaughWindow( KarnaughApp& app_init, KarnaughData& data_init );
 
 	void SetInputs( unsigned int no_of_inputs );
-	void SetNewValue( unsigned int adress, KarnaughData::eCellValues new_value );
+	void SetNewValue( unsigned int adress, GridAddress grid_adress, KarnaughData::eCellValues new_value );
 	void SetNewSolutionType( bool isSOP );
 	void SetSolutionSelection( SolutionAddresses addresses );
 	void SetNewShowAddress( bool on );

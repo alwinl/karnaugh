@@ -29,6 +29,7 @@
 #include "solutionentry.h"
 
 typedef std::pair<unsigned int, unsigned int> SolutionAddress;
+typedef std::pair<unsigned int, unsigned int> GridAddress;
 typedef std::vector<SolutionAddress> SolutionAddresses;
 
 class KarnaughData
@@ -52,6 +53,8 @@ public:
 	SolutionAddresses GetEntryAddresses( SolutionEntry& entry );
 
 	unsigned int calc_address( unsigned int row, unsigned int col );
+	GridAddress calc_address( unsigned int address );
+
 	unsigned int calc_row( unsigned int address );
 	unsigned int calc_col( unsigned int address );
 
@@ -68,5 +71,7 @@ private:
 
 	void FindSolution( std::list<SolutionEntry>& solutions );
 };
+
+static GridAddress InvalidGridAddress(-1, -1);
 
 #endif // KARNAUGHDATA_H
