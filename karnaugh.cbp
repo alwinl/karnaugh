@@ -48,6 +48,7 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename="README" />
 		<Unit filename="po/en.po" />
 		<Unit filename="po/hr.po" />
 		<Unit filename="po/karnaugh.pot" />

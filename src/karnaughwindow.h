@@ -1,30 +1,29 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Robert Kovacevic                                *
- *   robert.kovacevic@etfos.hr                                             *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/*
+ * Copyright 2020 Alwin Leerling <dna.leerling@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ */
 
-#ifndef _BLAMFRAME_H_
-#define _BLAMFRAME_H_
+#ifndef KARNAUGHWINDOW_H
+#define KARNAUGHWINDOW_H
 
 #include <wx/wx.h>
-#include <wx/spinctrl.h>
 #include <wx/grid.h>
 #include <wx/treectrl.h>
+#include <wx/spinctrl.h>
 
 #include "karnaughdata.h"
 
@@ -33,19 +32,13 @@ class TruthTableGrid;
 class KMapGrid;
 class SolutionTree;
 
-
-/**
- * @short Application Main Frame
- * @author Robert Kovacevic <robert.kovacevic@etfos.hr>
- * @version 0.1
- */
 class KarnaughWindow : public wxFrame
 {
 public:
     KarnaughWindow( KarnaughApp& app_init );
 
 	void SetInputs( unsigned int no_of_inputs );
-	void SetGridLabel( int index, std::string label, bool isRow );
+	void SetGridLabel( int index, wxString label, bool isRow );
 	void SetNewValue( unsigned int adress, GridAddress grid_adress, KarnaughData::eCellValues new_value );
 	void SetNewSolutionType( bool isSOP );
 	void SetSolutionSelection( SolutionAddresses addresses );
@@ -97,4 +90,4 @@ private:
     DECLARE_EVENT_TABLE()
 };
 
-#endif // _BLAMFRAME_H_
+#endif // KARNAUGHWINDOW_H

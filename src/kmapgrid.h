@@ -1,28 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Robert Kovacevic                                *
- *   robert.kovacevic@etfos.hr                                             *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/*
+ * Copyright 2020 Alwin Leerling <dna.leerling@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ */
 
-#ifndef _KMAP_H_
-#define _KMAP_H_
-
-#include <vector>
-#include <string>
+#ifndef KMAPGRID_H
+#define KMAPGRID_H
 
 #include <wx/wx.h>
 #include <wx/grid.h>
@@ -31,18 +27,13 @@
 
 class KMapGridCellRenderer;
 
-/**
- * @short Karnaugh Map grid control
- * @author Robert Kovacevic <robert.kovacevic@etfos.hr>
- * @version 0.1
- */
 class KMapGrid : public wxGrid
 {
 public:
     KMapGrid( wxWindow* parent, wxWindowID id, const wxSize& size );
 
     void SetVars( unsigned int vars );
-	void SetLabel( int index, std::string label, bool isRow );
+	void SetLabel( int index, wxString label, bool isRow );
     void SetShowZeros( bool on );
     void SetCellAdresses( bool on );
 
@@ -67,4 +58,4 @@ private:
     DECLARE_EVENT_TABLE()
 };
 
-#endif // _KMAP_H_
+#endif // KMAPGRID_H

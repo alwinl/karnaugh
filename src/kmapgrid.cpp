@@ -1,29 +1,25 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Robert Kovacevic                                *
- *   robert.kovacevic@etfos.hr                                             *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
-
-#include <wx/wx.h>
-#include <wx/grid.h>
-#include <wx/font.h>
+/*
+ * Copyright 2020 Alwin Leerling <dna.leerling@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ */
 
 #include "kmapgrid.h"
-#include "solutionentry.h"
+
+#include <wx/font.h>
 
 BEGIN_EVENT_TABLE( KMapGrid, wxGrid )
     EVT_GRID_CELL_RIGHT_CLICK( KMapGrid::DisplayPopup )
@@ -189,7 +185,7 @@ void KMapGrid::SetVars( unsigned int vars )
     AdjustScrollbars();
 }
 
-void KMapGrid::SetLabel( int index, std::string label, bool isRow )
+void KMapGrid::SetLabel( int index, wxString label, bool isRow )
 {
 	if( isRow )
 		SetRowLabelValue( index, label );
