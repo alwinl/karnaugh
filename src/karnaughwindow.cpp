@@ -173,17 +173,11 @@ void KarnaughWindow::SetNewValue( unsigned int adress, GridAddress grid_adress, 
     kmap_grid->SetValue( grid_adress.first, grid_adress.second, new_value );
 }
 
-void KarnaughWindow::SetInputs( KarnaughData& data, unsigned int no_of_inputs )
+void KarnaughWindow::SetInputs( unsigned int no_of_inputs )
 {
     numberOfVariables->SetValue( no_of_inputs );
     truthTable->SetVars( no_of_inputs );
     kmap_grid->SetVars( no_of_inputs );
-
-    for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
-		SetGridLabel( row, data.index_to_greycode_string( row, no_of_inputs / 2 ), true );
-
-    for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col )
-		SetGridLabel( col, data.index_to_greycode_string( col, (no_of_inputs + 1) / 2 ), false );
 
     treeSolution->RemoveAllItems();
 }

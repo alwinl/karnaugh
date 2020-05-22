@@ -44,7 +44,7 @@ class KarnaughWindow : public wxFrame
 public:
     KarnaughWindow( KarnaughApp& app_init );
 
-	void SetInputs( KarnaughData& data, unsigned int no_of_inputs );
+	void SetInputs( unsigned int no_of_inputs );
 	void SetGridLabel( int index, std::string label, bool isRow );
 	void SetNewValue( unsigned int adress, GridAddress grid_adress, KarnaughData::eCellValues new_value );
 	void SetNewSolutionType( bool isSOP );

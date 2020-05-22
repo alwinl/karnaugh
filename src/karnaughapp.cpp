@@ -58,10 +58,20 @@ void KarnaughApp::CreateGUI()
 
 	frame->SetNewShowAddress( config->GetShowAddress() );
     frame->SetNewShowZeroes( config->GetShowZeroes() );
-    frame->SetInputs( *data, config->GetInputs() );
+
+    unsigned int no_of_inputs = config->GetInputs();
+
+	frame->SetInputs( no_of_inputs );
+
+    for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
+		frame->SetGridLabel( row, data->index_to_greycode_string( row, no_of_inputs / 2 ), true );
+
+    for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col )
+		frame->SetGridLabel( col, data->index_to_greycode_string( col, (no_of_inputs + 1) / 2 ), false );
+
     frame->SetNewSolutionType( config->GetSolutionType() );
 
-    for( int index = 0; index < (1 << config->GetInputs() ); ++index )
+    for( int index = 0; index < (1 << no_of_inputs ); ++index )
 		frame->SetNewValue( index, data->calc_address(index), data->get_value(index) );
 
     SetTopWindow( frame );
@@ -93,7 +103,13 @@ void KarnaughApp::SetInputs( unsigned int no_of_inputs )
 	config->SetInputs( no_of_inputs );
 	data->set_dimension( no_of_inputs );
 
-	frame->SetInputs( *data, no_of_inputs );
+	frame->SetInputs( no_of_inputs );
+
+    for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
+		frame->SetGridLabel( row, data->index_to_greycode_string( row, no_of_inputs / 2 ), true );
+
+    for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col )
+		frame->SetGridLabel( col, data->index_to_greycode_string( col, (no_of_inputs + 1) / 2 ), false );
 
 	RunSolver();
 }
