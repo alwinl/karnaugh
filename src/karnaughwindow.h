@@ -50,6 +50,8 @@ public:
 	void PostSolverAdd( SolutionEntry& entry, bool isSOP, GridAddresses addresses, unsigned int id );
 	void PostSolverFinish();
 
+	long GetLanguageChoice( wxArrayString languages );
+
 private:
     enum { QUIT_MENU = 100, ABOUT_MENU, SET_LANGUAGE_MENU, SHOW_CELL_ADDRESS_MENU, SHOW_ZERO_MENU,
 							INPUT_VAR_SPINNER, TRUTHTABLE_GRID, KMAP_GRID, SOLUTION_TREE, SOLUTIONTYPE_COMBO };

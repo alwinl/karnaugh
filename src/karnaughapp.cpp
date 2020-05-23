@@ -77,8 +77,13 @@ void KarnaughApp::CreateGUI()
 
 void KarnaughApp::SelectLanguage( )
 {
-    if( config->AskUserForLanguage( GetTopWindow() ) )
-		CreateGUI();
+	long index = frame->GetLanguageChoice( config->GetLanguages() );
+
+	if( index == -1 )
+		return;
+
+	config->SetNewLocale( index );
+	CreateGUI();
 }
 
 void KarnaughApp::SetNewValue( unsigned int address, KarnaughData::eCellValues new_value )

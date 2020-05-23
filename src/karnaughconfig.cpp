@@ -109,8 +109,6 @@ void KarnaughConfig::GetInstalledLanguages( )
 
     for( bool cont = dir.GetFirst( &filename, wxEmptyString, wxDIR_DIRS ); cont; cont = dir.GetNext( &filename ) ) {
 
-        //wxLogTrace( wxTraceMask(), _( "TranslationHelper: Directory found = \"%s\"" ), filename.GetData() );
-
 		const wxLanguageInfo * langinfo = wxLocale::FindLanguageInfo( filename );
         if( langinfo != NULL ) {
             if( wxFileExists( dir.GetName() + wxFileName::GetPathSeparator() + filename
@@ -135,27 +133,22 @@ void KarnaughConfig::SetNewLocale( LanguageEntry entry )
 	m_locale->AddCatalogLookupPathPrefix( wxPathOnly( m_app.argv[0] ) );
 	m_locale->AddCatalog( m_app.GetAppName() );
 
-	//wxLogTrace( wxTraceMask(), _( "TranslationHelper: Path Prefix = \"%s\"" ), wxPathOnly( m_app.argv[0] ).GetData() );
-	//wxLogTrace( wxTraceMask(), _( "TranslationHelper: Catalog Name = \"%s\"" ), m_app.GetAppName().GetData() );
-	//wxLogTrace( wxTraceMask(), _( "TranslationHelper: Setting language to = \"%s\"" ), entry.name );
-
 	SetLanguage( false );
 }
 
-bool KarnaughConfig::AskUserForLanguage( wxWindow * parent )
+void KarnaughConfig::SetNewLocale( long index )
+{
+	SetNewLocale( languages[index] );
+}
+
+
+wxArrayString KarnaughConfig::GetLanguages( )
 {
     wxArrayString names;
     for( LanguageEntry& entry : languages )
 		names.Add( entry.name );
 
-    long index = wxGetSingleChoiceIndex( _( "Select the language" ), _( "Language" ), names, parent,
-				wxDefaultCoord, wxDefaultCoord, true, 400, 1300 );
-
-    if( index == -1 )
-		return false;
-
-	SetNewLocale( languages[index] );
-	return true;
+	return names;
 }
 
 bool KarnaughConfig::GetLanguage()

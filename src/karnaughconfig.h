@@ -45,7 +45,8 @@ public:
     int GetInputs();
     KarnaughData::eSolutionType GetSolutionType();
 
-    bool AskUserForLanguage( wxWindow * parent );
+	wxArrayString GetLanguages( );
+	void SetNewLocale( long index );
 
 private:
     struct LanguageEntry {

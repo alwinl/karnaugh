@@ -201,6 +201,15 @@ void KarnaughWindow::SetSolutionSelection( GridAddresses addresses )
 		gridKMap->AddCellToSelection( address.first, address.second );
 }
 
+long KarnaughWindow::GetLanguageChoice( wxArrayString languages )
+{
+	wxSingleChoiceDialog dialog( this, _( "Select the language" ), _( "Language" ), languages );
+
+	dialog.SetSize( wxCHOICE_WIDTH, wxCHOICE_HEIGHT * 2 );
+
+    return dialog.ShowModal() == wxID_OK ? dialog.GetSelection() : -1;
+}
+
 void KarnaughWindow::OnInputVarChange( wxSpinEvent& event )
 {
 	app.SetInputs( event.GetPosition() );
