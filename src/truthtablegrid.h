@@ -44,7 +44,7 @@ private:
     void DisplayPopup( wxGridEvent& event );
 	void OnMenuRange( wxCommandEvent& event );
 
-    wxMenu* stateMenu;
+    wxMenu* mnuPopup;
     TruthTableGridCellRenderer * renderer;
 
 	void SetValue( unsigned int row, unsigned int col, KarnaughData::eCellValues value );

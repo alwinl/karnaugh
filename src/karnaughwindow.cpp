@@ -28,16 +28,16 @@
 #include "solutiontree.h"
 
 BEGIN_EVENT_TABLE( KarnaughWindow, wxFrame )
-    EVT_MENU( Menu_File_Quit, KarnaughWindow::OnQuit )
-    EVT_MENU( Menu_File_About, KarnaughWindow::OnAbout )
-    EVT_MENU( Menu_Set_Language, KarnaughWindow::OnSetLanguage )
-    EVT_MENU( Menu_Cell_Adresses, KarnaughWindow::OnCellAdresses )
-    EVT_MENU( Menu_Show_Zeros, KarnaughWindow::OnShowZeros )
-    EVT_SPINCTRL( Vars_Count, KarnaughWindow::OnVarsChange )
-    EVT_GRID_CMD_CELL_CHANGE( Truth_Table, KarnaughWindow::OnTruthTChange )
-    EVT_GRID_CMD_CELL_CHANGE( Karnaugh_Map, KarnaughWindow::OnKMapChange )
-    EVT_TREE_SEL_CHANGED( Sol_Tree, KarnaughWindow::OnSolSelect )
-    EVT_CHOICE( Solution_Type, KarnaughWindow::OnSolutionTypeChange )
+    EVT_MENU( QUIT_MENU, KarnaughWindow::OnQuit )
+    EVT_MENU( ABOUT_MENU, KarnaughWindow::OnAbout )
+    EVT_MENU( SET_LANGUAGE_MENU, KarnaughWindow::OnSetLanguage )
+    EVT_MENU( SHOW_CELL_ADDRESS_MENU, KarnaughWindow::OnShowCellAddress )
+    EVT_MENU( SHOW_ZERO_MENU, KarnaughWindow::OnShowZero )
+    EVT_SPINCTRL( INPUT_VAR_SPINNER, KarnaughWindow::OnInputVarChange )
+    EVT_GRID_CMD_CELL_CHANGE( TRUTHTABLE_GRID, KarnaughWindow::OnTruthTableChange )
+    EVT_GRID_CMD_CELL_CHANGE( KMAP_GRID, KarnaughWindow::OnKMapChange )
+    EVT_TREE_SEL_CHANGED( SOLUTION_TREE, KarnaughWindow::OnSolutionSelect )
+    EVT_CHOICE( SOLUTIONTYPE_COMBO, KarnaughWindow::OnSolutionTypeChange )
 END_EVENT_TABLE()
 
 
@@ -51,21 +51,16 @@ KarnaughWindow::KarnaughWindow( KarnaughApp& app_init )
     wxMenuBar *menuBar = new wxMenuBar;
 
     wxMenu *menuFile = new wxMenu;
-    menuSettings = new wxMenu;
-
-    showZeroMenuItem = new wxMenuItem( 0, Menu_Show_Zeros, _( "Show zeros" ), _( "Show / hide zero values" ), wxITEM_CHECK );
-    showCellAddress = new wxMenuItem( 0, Menu_Cell_Adresses, _( "Show cell adresses" ), _( "Show / hide cell adresses in the K-map" ), wxITEM_CHECK );
-
-    menuFile->Append( new wxMenuItem( 0, Menu_File_About, _( "&About" ), _( "About the program" ) ) );
+    menuFile->Append( new wxMenuItem( 0, ABOUT_MENU, _( "&About" ), _( "About the program" ) ) );
     menuFile->AppendSeparator();
-    menuFile->Append( new wxMenuItem( 0, Menu_File_Quit, _( "E&xit" ), _( "Exit the program" ) ) );
-
-    menuSettings->Append( new wxMenuItem( 0, Menu_Set_Language, _( "Set language" ), _( "Set language" ) ) );
-    menuSettings->Append( showZeroMenuItem );
-    menuSettings->Append( showCellAddress );
-
+    menuFile->Append( new wxMenuItem( 0, QUIT_MENU, _( "E&xit" ), _( "Exit the program" ) ) );
     menuBar->Append( menuFile, _( "&Program" ) );
-    menuBar->Append( menuSettings, _( "&Settings" ) );
+
+    mnuSettings = new wxMenu;
+    mnuSettings->Append( new wxMenuItem( 0, SET_LANGUAGE_MENU, _( "Set language" ), _( "Set language" ) ) );
+    mnuSettings->Append( new wxMenuItem( 0, SHOW_ZERO_MENU, _( "Show zeros" ), _( "Show / hide zero values" ), wxITEM_CHECK ) );
+    mnuSettings->Append( new wxMenuItem( 0, SHOW_CELL_ADDRESS_MENU, _( "Show cell adresses" ), _( "Show / hide cell adresses in the K-map" ), wxITEM_CHECK ) );
+    menuBar->Append( mnuSettings, _( "&Settings" ) );
 
     SetMenuBar( menuBar );
 
@@ -82,33 +77,33 @@ KarnaughWindow::KarnaughWindow( KarnaughApp& app_init )
 
 	methodBook->AddPage( kmapPanel, _( "Karnaugh map" ) );
 
-    truthTable = new TruthTableGrid( mainPanel, Truth_Table, wxSize( 170,450 ) );
-    kmap_grid = new KMapGrid( kmapPanel, Karnaugh_Map, wxSize( 100,150 ) );
-    treeSolution = new SolutionTree( mainPanel, Sol_Tree );
+    gridTruthTable = new TruthTableGrid( mainPanel, TRUTHTABLE_GRID, wxSize( 170,450 ) );
+    gridKMap = new KMapGrid( kmapPanel, KMAP_GRID, wxSize( 100,150 ) );
+    treeSolution = new SolutionTree( mainPanel, SOLUTION_TREE );
 
     wxBoxSizer* kmapSizer = new wxBoxSizer( wxVERTICAL );
 
-    kmapSizer->Add( kmap_grid, 1, wxEXPAND | wxALL, 5 );
+    kmapSizer->Add( gridKMap, 1, wxEXPAND | wxALL, 5 );
 
     kmapPanel->SetSizer( kmapSizer );
 
-    numberOfVariables = new wxSpinCtrl( mainPanel, Vars_Count );
-    numberOfVariables->SetRange( 1, 8 );
+    spnInputVariables = new wxSpinCtrl( mainPanel, INPUT_VAR_SPINNER );
+    spnInputVariables->SetRange( 1, 8 );
 
-    solutionType = new wxChoice( mainPanel, Solution_Type );
-    solutionType->Append( _( "Sum of products" ) );
-    solutionType->Append( _( "Product of sums" ) );
+    cbxSolutionType = new wxChoice( mainPanel, SOLUTIONTYPE_COMBO );
+    cbxSolutionType->Append( _( "Sum of products" ) );
+    cbxSolutionType->Append( _( "Product of sums" ) );
 
     wxStaticBoxSizer* leftSizer = new wxStaticBoxSizer( new wxStaticBox( mainPanel, -1, _( "Truth table" ) ), wxVERTICAL );
 
-    leftSizer->Add( truthTable, 1, wxEXPAND | wxALL, 5 );
+    leftSizer->Add( gridTruthTable, 1, wxEXPAND | wxALL, 5 );
 
     wxBoxSizer* rightSizerTop = new wxBoxSizer( wxHORIZONTAL );
 
     rightSizerTop->Add( new wxStaticText( mainPanel, -1, _( "Number of variables: " ) ), 0, wxCENTER | wxRIGHT, 10 );
-    rightSizerTop->Add( numberOfVariables, 0, wxCENTER );
+    rightSizerTop->Add( spnInputVariables, 0, wxCENTER );
     rightSizerTop->Add( new wxStaticText( mainPanel, -1, _( "Type of solution: " ) ), 0, wxCENTER | wxLEFT | wxRIGHT, 10 );
-    rightSizerTop->Add( solutionType, 1,  wxCENTER );
+    rightSizerTop->Add( cbxSolutionType, 1,  wxCENTER );
 
     wxBoxSizer* rightSizerBottom = new wxBoxSizer( wxHORIZONTAL );
 
@@ -146,12 +141,12 @@ void KarnaughWindow::PreSolver( )
 void KarnaughWindow::PostSolverStart( bool isSOP, unsigned int solution_size )
 {
     treeSolution->RemoveAllItems( isSOP, solution_size );
-    kmap_grid->ResetBackgroundColour( isSOP, solution_size );
+    gridKMap->ResetBackgroundColour( isSOP, solution_size );
 }
 
 void KarnaughWindow::PostSolverAdd( SolutionEntry& entry, bool isSOP, GridAddresses addresses, unsigned int id )
 {
-	kmap_grid->SetBackgroundColour( isSOP, addresses );
+	gridKMap->SetBackgroundColour( isSOP, addresses );
 	treeSolution->AddItem( isSOP, entry.GetMask(), entry.GetNumber(), id );
 }
 
@@ -162,63 +157,63 @@ void KarnaughWindow::PostSolverFinish()
 
 void KarnaughWindow::SetNewValue( unsigned int adress, GridAddress grid_adress, KarnaughData::eCellValues new_value )
 {
-    truthTable->SetValue( adress, new_value );
-    kmap_grid->SetValue( grid_adress.first, grid_adress.second, new_value );
+    gridTruthTable->SetValue( adress, new_value );
+    gridKMap->SetValue( grid_adress.first, grid_adress.second, new_value );
 }
 
 void KarnaughWindow::SetInputs( bool isSOP, unsigned int no_of_inputs )
 {
-    numberOfVariables->SetValue( no_of_inputs );
-    truthTable->SetVars( no_of_inputs );
-    kmap_grid->SetVars( no_of_inputs );
+    spnInputVariables->SetValue( no_of_inputs );
+    gridTruthTable->SetVars( no_of_inputs );
+    gridKMap->SetVars( no_of_inputs );
 
     treeSolution->RemoveAllItems( isSOP, 0 );
 }
 
 void KarnaughWindow::SetGridLabel( int index, wxString label, bool isRow )
 {
-	kmap_grid->SetLabel( index, label, isRow );
+	gridKMap->SetLabel( index, label, isRow );
 }
 
 void KarnaughWindow::SetNewSolutionType( bool isSOP )
 {
-    solutionType->SetSelection( isSOP ? 0 : 1 );
+    cbxSolutionType->SetSelection( isSOP ? 0 : 1 );
 }
 
 void KarnaughWindow::SetNewShowAddress( bool on )
 {
-    menuSettings->Check( Menu_Cell_Adresses, on );
-	kmap_grid->SetCellAdresses( on );
+    mnuSettings->Check( SHOW_CELL_ADDRESS_MENU, on );
+	gridKMap->SetCellAdresses( on );
 }
 
 void KarnaughWindow::SetNewShowZeroes( bool on )
 {
-    menuSettings->Check( Menu_Show_Zeros, on );
-	kmap_grid->SetShowZeros( on );
-	truthTable->SetShowZeros( on );
+    mnuSettings->Check( SHOW_ZERO_MENU, on );
+	gridKMap->SetShowZeros( on );
+	gridTruthTable->SetShowZeros( on );
 }
 
 void KarnaughWindow::SetSolutionSelection( GridAddresses addresses )
 {
-	kmap_grid->ResetSelection();
+	gridKMap->ResetSelection();
 
 	for( auto address : addresses )
-		kmap_grid->AddCellToSelection( address.first, address.second );
+		gridKMap->AddCellToSelection( address.first, address.second );
 }
 
-void KarnaughWindow::OnVarsChange( wxSpinEvent& event )
+void KarnaughWindow::OnInputVarChange( wxSpinEvent& event )
 {
-	app.SetInputs( numberOfVariables->GetValue() );
+	app.SetInputs( event.GetPosition() );
 }
 
-void KarnaughWindow::OnTruthTChange( wxGridEvent& event )
+void KarnaughWindow::OnTruthTableChange( wxGridEvent& event )
 {
-	app.SetNewValue( event.GetRow(), truthTable->GetUserInput( event ) );
+	app.SetNewValue( event.GetRow(), gridTruthTable->GetUserInput( event ) );
 }
 
 void KarnaughWindow::OnKMapChange( wxGridEvent& event )
 {
-	app.SetNewValue( event.GetRow(), event.GetCol(), kmap_grid->GetUserInput( event ) );
+	app.SetNewValue( event.GetRow(), event.GetCol(), gridKMap->GetUserInput( event ) );
 }
 
 void KarnaughWindow::OnSolutionTypeChange( wxCommandEvent& event )
@@ -226,7 +221,7 @@ void KarnaughWindow::OnSolutionTypeChange( wxCommandEvent& event )
 	app.SetNewSolutionType( event.GetSelection() ? KarnaughData::POS : KarnaughData::SOP );
 }
 
-void KarnaughWindow::OnSolSelect( wxTreeEvent& event )
+void KarnaughWindow::OnSolutionSelect( wxTreeEvent& event )
 {
 	app.SetSolutionSelection( treeSolution->GetEntryID( event.GetItem() ) );
 }
@@ -241,14 +236,14 @@ void KarnaughWindow::OnSetLanguage( wxCommandEvent& WXUNUSED( event ) )
 	app.SelectLanguage();
 }
 
-void KarnaughWindow::OnCellAdresses( wxCommandEvent& WXUNUSED( event ) )
+void KarnaughWindow::OnShowCellAddress( wxCommandEvent& event )
 {
-	app.SetNewShowAddress( showCellAddress->IsChecked() );
+	app.SetNewShowAddress( event.IsChecked() );
 }
 
-void KarnaughWindow::OnShowZeros( wxCommandEvent& WXUNUSED( event ) )
+void KarnaughWindow::OnShowZero( wxCommandEvent& event )
 {
-	app.SetNewShowZeroes( showZeroMenuItem->IsChecked() );
+	app.SetNewShowZeroes( event.IsChecked() );
 }
 
 void KarnaughWindow::OnAbout( wxCommandEvent& WXUNUSED( event ) )

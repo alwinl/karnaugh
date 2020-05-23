@@ -64,13 +64,13 @@ TruthTableGrid::TruthTableGrid( wxWindow* parent, wxWindowID id, const wxSize& s
 	renderer = new TruthTableGridCellRenderer();
     SetDefaultRenderer( renderer );
 
-    stateMenu = new wxMenu;
+    mnuPopup = new wxMenu;
 
-    stateMenu->Append( new wxMenuItem( 0, MENU_SET1, _( "Set to 1" ) ) );
-    stateMenu->Append( new wxMenuItem( 0, MENU_SET0, _( "Set to 0" ) ) );
-    stateMenu->Append( new wxMenuItem( 0, MENU_SETDC, _( "Set to \"don't care\"" ) ) );
-    stateMenu->AppendSeparator();
-    stateMenu->Append( new wxMenuItem( 0, MENU_SETRAND, _( "Set randomly" ) ) );
+    mnuPopup->Append( new wxMenuItem( 0, MENU_SET1, _( "Set to 1" ) ) );
+    mnuPopup->Append( new wxMenuItem( 0, MENU_SET0, _( "Set to 0" ) ) );
+    mnuPopup->Append( new wxMenuItem( 0, MENU_SETDC, _( "Set to \"don't care\"" ) ) );
+    mnuPopup->AppendSeparator();
+    mnuPopup->Append( new wxMenuItem( 0, MENU_SETRAND, _( "Set randomly" ) ) );
 
     srand( static_cast<unsigned>( time( 0 ) ) );
 }
@@ -166,7 +166,7 @@ void TruthTableGrid::DisplayPopup( wxGridEvent& event )
     ClearSelection();
     SelectRow( event.GetRow() );
 
-    PopupMenu( stateMenu, event.GetPosition() );
+    PopupMenu( mnuPopup, event.GetPosition() );
 }
 
 void TruthTableGrid::SetShowZeros( bool s )

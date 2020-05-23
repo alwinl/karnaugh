@@ -61,7 +61,7 @@ private:
     void GetInstalledLanguages( );
 	bool GetLanguage();
 	void SetLanguage( bool bReset );
-	void set_new_locale( LanguageEntry entry );
+	void SetNewLocale( LanguageEntry entry );
 };
 
 #endif // KARNAUGHCONFIG_H

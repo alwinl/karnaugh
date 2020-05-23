@@ -105,13 +105,13 @@ KMapGrid::KMapGrid( wxWindow* parent, wxWindowID id, const wxSize& size )
 	renderer = new KMapGridCellRenderer();
     SetDefaultRenderer( renderer );
 
-    stateMenu = new wxMenu;
+    mnuPopup = new wxMenu;
 
-    stateMenu->Append( new wxMenuItem( 0, MENU_SET1, _( "Set to 1" ) ) );
-    stateMenu->Append( new wxMenuItem( 0, MENU_SET0, _( "Set to 0" ) ) );
-    stateMenu->Append( new wxMenuItem( 0, MENU_SETDC, _( "Set to \"don't care\"" ) ) );
-    stateMenu->AppendSeparator();
-    stateMenu->Append( new wxMenuItem( 0, MENU_SETRAND, _( "Set randomly" ) ) );
+    mnuPopup->Append( new wxMenuItem( 0, MENU_SET1, _( "Set to 1" ) ) );
+    mnuPopup->Append( new wxMenuItem( 0, MENU_SET0, _( "Set to 0" ) ) );
+    mnuPopup->Append( new wxMenuItem( 0, MENU_SETDC, _( "Set to \"don't care\"" ) ) );
+    mnuPopup->AppendSeparator();
+    mnuPopup->Append( new wxMenuItem( 0, MENU_SETRAND, _( "Set randomly" ) ) );
 
     srand( static_cast<unsigned>( time( 0 ) ) );
 }
@@ -228,7 +228,7 @@ void KMapGrid::DisplayPopup( wxGridEvent& event )
     SelectBlock( event.GetRow(), event.GetCol(), event.GetRow(), event.GetCol() );
     SetGridCursor( event.GetRow(), event.GetCol() );
 
-    PopupMenu( stateMenu, event.GetPosition() );
+    PopupMenu( mnuPopup, event.GetPosition() );
 }
 
 void KMapGrid::SetShowZeros( bool on )

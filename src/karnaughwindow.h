@@ -51,39 +51,26 @@ public:
 	void PostSolverFinish();
 
 private:
-    enum {
-    	Menu_File_Quit = 100,
-		Menu_File_About,
-		Menu_Set_Language,
-		Menu_Cell_Adresses,
-		Menu_Show_Zeros,
-		Vars_Count,
-		Truth_Table,
-		Karnaugh_Map,
-		Sol_Tree,
-		Solution_Type
-	};
+    enum { QUIT_MENU = 100, ABOUT_MENU, SET_LANGUAGE_MENU, SHOW_CELL_ADDRESS_MENU, SHOW_ZERO_MENU,
+							INPUT_VAR_SPINNER, TRUTHTABLE_GRID, KMAP_GRID, SOLUTION_TREE, SOLUTIONTYPE_COMBO };
 
     void OnQuit( wxCommandEvent& event );
     void OnAbout( wxCommandEvent& event );
 	void OnSetLanguage( wxCommandEvent& event );
-    void OnCellAdresses( wxCommandEvent& event );
-    void OnShowZeros( wxCommandEvent& event );
-    void OnVarsChange( wxSpinEvent& event );
-    void OnTruthTChange( wxGridEvent& event );
+    void OnShowCellAddress( wxCommandEvent& event );
+    void OnShowZero( wxCommandEvent& event );
+    void OnInputVarChange( wxSpinEvent& event );
+    void OnTruthTableChange( wxGridEvent& event );
     void OnKMapChange( wxGridEvent& event );
-    void OnSolSelect( wxTreeEvent& event );
+    void OnSolutionSelect( wxTreeEvent& event );
     void OnSolutionTypeChange( wxCommandEvent& event );
 
-    wxMenu *menuLanguage;
-    wxMenu *menuSettings;
-    wxMenuItem * showZeroMenuItem;
-    wxMenuItem * showCellAddress;
-    wxSpinCtrl* numberOfVariables;
-    wxChoice* solutionType;
-    KMapGrid* kmap_grid;
+    wxMenu *mnuSettings;
+    wxSpinCtrl* spnInputVariables;
+    wxChoice* cbxSolutionType;
+    KMapGrid* gridKMap;
+    TruthTableGrid* gridTruthTable;
     SolutionTree * treeSolution;
-    TruthTableGrid* truthTable;
 
     KarnaughApp& app;
 

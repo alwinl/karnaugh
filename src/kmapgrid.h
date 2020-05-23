@@ -52,7 +52,7 @@ private:
     void DisplayPopup( wxGridEvent& event );
     void OnMenuRange( wxCommandEvent& event );
 
-    wxMenu* stateMenu;
+    wxMenu* mnuPopup;
     KMapGridCellRenderer * renderer;
 
     DECLARE_EVENT_TABLE()

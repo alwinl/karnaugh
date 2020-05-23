@@ -125,7 +125,7 @@ void KarnaughConfig::GetInstalledLanguages( )
     }
 }
 
-void KarnaughConfig::set_new_locale( LanguageEntry entry )
+void KarnaughConfig::SetNewLocale( LanguageEntry entry )
 {
 	wxDELETE( m_locale );
 
@@ -154,7 +154,7 @@ bool KarnaughConfig::AskUserForLanguage( wxWindow * parent )
     if( index == -1 )
 		return false;
 
-	set_new_locale( languages[index] );
+	SetNewLocale( languages[index] );
 	return true;
 }
 
@@ -170,7 +170,7 @@ bool KarnaughConfig::GetLanguage()
 
     for( LanguageEntry& entry : languages )
 		if( entry.id == language ) {
-			set_new_locale( entry );
+			SetNewLocale( entry );
 			return true;
 		}
 
