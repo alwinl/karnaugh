@@ -66,7 +66,7 @@ void KarnaughApp::CreateGUI()
     for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col )
 		frame->SetGridLabel( col, data->index_to_greycode_string( col, (no_of_inputs + 1) / 2 ), false );
 
-    frame->SetNewSolutionType( config->GetSolutionType() );
+    frame->SetNewSolutionType( config->GetSolutionType() == KarnaughData::SOP );
 
     for( int index = 0; index < (1 << no_of_inputs ); ++index )
 		frame->SetNewValue( index, data->calc_address(index), data->get_value(index) );

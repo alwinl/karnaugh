@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-17 16:14+1200\n"
+"POT-Creation-Date: 2020-05-23 15:26+1200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,194 +17,127 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/blamframe.cpp:52
+#: karnaughwindow.cpp:45
 msgid "Karnaugh Map Minimizer"
 msgstr ""
 
-#: src/blamframe.cpp:76
-msgid "English (default)"
-msgstr ""
-
-#: src/blamframe.cpp:76
-msgid "Set language to English"
-msgstr ""
-
-#: src/blamframe.cpp:77
-msgid "Croatian"
-msgstr ""
-
-#: src/blamframe.cpp:77
-msgid "Set language to Croatian"
-msgstr ""
-
-#: src/blamframe.cpp:78
-msgid "Dutch"
-msgstr ""
-
-#: src/blamframe.cpp:78
-msgid "Set language to Dutch"
-msgstr ""
-
-#: src/blamframe.cpp:80
-msgid "Show zeros"
-msgstr ""
-
-#: src/blamframe.cpp:80
-msgid "Show / hide zero values"
-msgstr ""
-
-#: src/blamframe.cpp:81
-msgid "Show cell adresses"
-msgstr ""
-
-#: src/blamframe.cpp:81
-msgid "Show / hide cell adresses in the K-map"
-msgstr ""
-
-#: src/blamframe.cpp:83
+#: karnaughwindow.cpp:54
 msgid "&About"
 msgstr ""
 
-#: src/blamframe.cpp:83
+#: karnaughwindow.cpp:54
 msgid "About the program"
 msgstr ""
 
-#: src/blamframe.cpp:85
+#: karnaughwindow.cpp:56
 msgid "E&xit"
 msgstr ""
 
-#: src/blamframe.cpp:85
+#: karnaughwindow.cpp:56
 msgid "Exit the program"
 msgstr ""
 
-#: src/blamframe.cpp:87 src/translationhelper.cpp:78
-msgid "Language"
-msgstr ""
-
-#: src/blamframe.cpp:87
-msgid "Set language (requires restart)"
-msgstr ""
-
-#: src/blamframe.cpp:92
+#: karnaughwindow.cpp:57
 msgid "&Program"
 msgstr ""
 
-#: src/blamframe.cpp:93
+#: karnaughwindow.cpp:60
+msgid "Set language"
+msgstr ""
+
+#: karnaughwindow.cpp:61
+msgid "Show zeros"
+msgstr ""
+
+#: karnaughwindow.cpp:61
+msgid "Show / hide zero values"
+msgstr ""
+
+#: karnaughwindow.cpp:62
+msgid "Show cell adresses"
+msgstr ""
+
+#: karnaughwindow.cpp:62
+msgid "Show / hide cell adresses in the K-map"
+msgstr ""
+
+#: karnaughwindow.cpp:63
 msgid "&Settings"
 msgstr ""
 
-#: src/blamframe.cpp:99
+#: karnaughwindow.cpp:69
 msgid "Welcome to Karnaugh Map Minimizer!"
 msgstr ""
 
-#: src/blamframe.cpp:108
+#: karnaughwindow.cpp:78
 msgid "Karnaugh map"
 msgstr ""
 
-#: src/blamframe.cpp:124
+#: karnaughwindow.cpp:94
 msgid "Sum of products"
 msgstr ""
 
-#: src/blamframe.cpp:125
+#: karnaughwindow.cpp:95
 msgid "Product of sums"
 msgstr ""
 
-#: src/blamframe.cpp:127
+#: karnaughwindow.cpp:97
 msgid "Truth table"
 msgstr ""
 
-#: src/blamframe.cpp:133
+#: karnaughwindow.cpp:103
 msgid "Number of variables: "
 msgstr ""
 
-#: src/blamframe.cpp:135
+#: karnaughwindow.cpp:105
 msgid "Type of solution: "
 msgstr ""
 
-#: src/blamframe.cpp:146
+#: karnaughwindow.cpp:116
 msgid "Solution:"
 msgstr ""
 
-#: src/blamframe.cpp:184
+#: karnaughwindow.cpp:138
 msgid "Solving, please wait..."
 msgstr ""
 
-#: src/blamframe.cpp:196
+#: karnaughwindow.cpp:155
 msgid "Karnaugh map solved!"
 msgstr ""
 
-#: src/blamframe.cpp:309
-msgid "You have to restart the program for this change to take effect."
-msgstr ""
-
-#: src/blamframe.cpp:310
-msgid "Restart required"
-msgstr ""
-
-#: src/blamframe.cpp:326
-msgid ""
-"This is a program for minimizing boolean functions using Karnaugh maps "
-"method.\n"
-"\n"
-"Copyright (C) 2005. Robert Kovacevic"
-msgstr ""
-
-#: src/blamframe.cpp:328
-msgid "About Karnaugh Map Minimizer"
-msgstr ""
-
-#: src/kmapgrid.cpp:127 src/truthtablegrid.cpp:75
-msgid "Set to 1"
-msgstr ""
-
-#: src/kmapgrid.cpp:128 src/truthtablegrid.cpp:76
-msgid "Set to 0"
-msgstr ""
-
-#: src/kmapgrid.cpp:129 src/truthtablegrid.cpp:77
-msgid "Set to \"don't care\""
-msgstr ""
-
-#: src/kmapgrid.cpp:131 src/truthtablegrid.cpp:79
-msgid "Set randomly"
-msgstr ""
-
-#: src/translationhelper.cpp:46
-msgid "Default"
-msgstr ""
-
-#: src/translationhelper.cpp:55
-#, c-format
-msgid "TranslationHelper: Directory found = \"%s\""
-msgstr ""
-
-#: src/translationhelper.cpp:71
-msgid "Array of language names and identifiers should have the same size."
-msgstr ""
-
-#: src/translationhelper.cpp:74
-msgid "No languages are available for selection."
-msgstr ""
-
-#: src/translationhelper.cpp:74
-msgid "Choose Language"
-msgstr ""
-
-#: src/translationhelper.cpp:78
+#: karnaughwindow.cpp:206
 msgid "Select the language"
 msgstr ""
 
-#: src/translationhelper.cpp:89
-#, c-format
-msgid "TranslationHelper: Path Prefix = \"%s\""
+#: karnaughwindow.cpp:206
+msgid "Language"
 msgstr ""
 
-#: src/translationhelper.cpp:90
-#, c-format
-msgid "TranslationHelper: Catalog Name = \"%s\""
+#: karnaughwindow.cpp:260
+msgid ""
+"This is a program for minimizing boolean functions using Karnaugh maps "
+"method.\n"
+"Based on original work from Robert Kovacevic\n"
+"\n"
+"Copyright (C) 2020. Alwin Leerling"
 msgstr ""
 
-#: src/translationhelper.cpp:116
-#, c-format
-msgid "TranslationHelper: Setting language to = \"%s\""
+#: karnaughwindow.cpp:262
+msgid "About Karnaugh Map Minimizer"
+msgstr ""
+
+#: kmapgrid.cpp:110 truthtablegrid.cpp:69
+msgid "Set to 1"
+msgstr ""
+
+#: kmapgrid.cpp:111 truthtablegrid.cpp:70
+msgid "Set to 0"
+msgstr ""
+
+#: kmapgrid.cpp:112 truthtablegrid.cpp:71
+msgid "Set to \"don't care\""
+msgstr ""
+
+#: kmapgrid.cpp:114 truthtablegrid.cpp:73
+msgid "Set randomly"
 msgstr ""

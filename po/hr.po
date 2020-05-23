@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-17 16:14+1200\n"
-"PO-Revision-Date: 2020-05-17 16:33+1200\n"
+"POT-Creation-Date: 2020-05-23 15:26+1200\n"
+"PO-Revision-Date: 2020-05-23 15:33+1200\n"
 "Last-Translator: Robert Kovaèeviæ <robert.kovacevic@etfos.hr>\n"
 "Language-Team: Croatian\n"
 "Language: hr\n"
@@ -17,209 +17,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3\n"
 
-#: src/blamframe.cpp:52
+#: karnaughwindow.cpp:45
 msgid "Karnaugh Map Minimizer"
 msgstr "Karnaugh Map Minimizer"
 
-#: src/blamframe.cpp:76
-msgid "English (default)"
-msgstr "Engleski (english)"
-
-#: src/blamframe.cpp:76
-#, fuzzy
-#| msgid "Set language to english"
-msgid "Set language to English"
-msgstr "Podesi jezik na engleski"
-
-#: src/blamframe.cpp:77
-msgid "Croatian"
-msgstr "Hrvatski"
-
-#: src/blamframe.cpp:77
-#, fuzzy
-#| msgid "Set language to croatian"
-msgid "Set language to Croatian"
-msgstr "Podesi jezik na hrvatski"
-
-#: src/blamframe.cpp:78
-msgid "Dutch"
-msgstr ""
-
-#: src/blamframe.cpp:78
-#, fuzzy
-#| msgid "Set language to english"
-msgid "Set language to Dutch"
-msgstr "Podesi jezik na engleski"
-
-#: src/blamframe.cpp:80
-msgid "Show zeros"
-msgstr "Prikaži nule"
-
-#: src/blamframe.cpp:80
-msgid "Show / hide zero values"
-msgstr "Prikaži / sakrij nule"
-
-#: src/blamframe.cpp:81
-msgid "Show cell adresses"
-msgstr "Prikaži adrese æelija"
-
-#: src/blamframe.cpp:81
-msgid "Show / hide cell adresses in the K-map"
-msgstr "Prikaži / sakrij adrese æelija u K-tablici"
-
-#: src/blamframe.cpp:83
+#: karnaughwindow.cpp:54
 msgid "&About"
 msgstr "&O programu"
 
-#: src/blamframe.cpp:83
+#: karnaughwindow.cpp:54
 msgid "About the program"
 msgstr "O programu"
 
-#: src/blamframe.cpp:85
+#: karnaughwindow.cpp:56
 msgid "E&xit"
 msgstr "I&zlaz"
 
-#: src/blamframe.cpp:85
+#: karnaughwindow.cpp:56
 msgid "Exit the program"
 msgstr "Izlaz iz programa"
 
-#: src/blamframe.cpp:87 src/translationhelper.cpp:78
-msgid "Language"
-msgstr "Jezik"
-
-#: src/blamframe.cpp:87
-msgid "Set language (requires restart)"
-msgstr "Podesi jezik (zahtjeva restart)"
-
-#: src/blamframe.cpp:92
+#: karnaughwindow.cpp:57
 msgid "&Program"
 msgstr "&Program"
 
-#: src/blamframe.cpp:93
+#: karnaughwindow.cpp:60
+msgid "Set language"
+msgstr "Podesi jezik"
+
+#: karnaughwindow.cpp:61
+msgid "Show zeros"
+msgstr "Prikaži nule"
+
+#: karnaughwindow.cpp:61
+msgid "Show / hide zero values"
+msgstr "Prikaži / sakrij nule"
+
+#: karnaughwindow.cpp:62
+msgid "Show cell adresses"
+msgstr "Prikaži adrese æelija"
+
+#: karnaughwindow.cpp:62
+msgid "Show / hide cell adresses in the K-map"
+msgstr "Prikaži / sakrij adrese æelija u K-tablici"
+
+#: karnaughwindow.cpp:63
 msgid "&Settings"
 msgstr "P&ostavke"
 
-#: src/blamframe.cpp:99
+#: karnaughwindow.cpp:69
 msgid "Welcome to Karnaugh Map Minimizer!"
 msgstr "Dobrodošli!"
 
-#: src/blamframe.cpp:108
+#: karnaughwindow.cpp:78
 msgid "Karnaugh map"
 msgstr "Karnaughova tablica"
 
-#: src/blamframe.cpp:124
+#: karnaughwindow.cpp:94
 msgid "Sum of products"
 msgstr "Suma produkata"
 
-#: src/blamframe.cpp:125
+#: karnaughwindow.cpp:95
 msgid "Product of sums"
 msgstr "Produkt suma"
 
-#: src/blamframe.cpp:127
+#: karnaughwindow.cpp:97
 msgid "Truth table"
 msgstr "Tablica stanja"
 
-#: src/blamframe.cpp:133
+#: karnaughwindow.cpp:103
 msgid "Number of variables: "
 msgstr "Broj varijabli: "
 
-#: src/blamframe.cpp:135
+#: karnaughwindow.cpp:105
 msgid "Type of solution: "
 msgstr "Vrsta rješenja: "
 
-#: src/blamframe.cpp:146
+#: karnaughwindow.cpp:116
 msgid "Solution:"
 msgstr "Rješenje:"
 
-#: src/blamframe.cpp:184
+#: karnaughwindow.cpp:138
 msgid "Solving, please wait..."
 msgstr "Rješavanje u tijeku, molim prièekajte..."
 
-#: src/blamframe.cpp:196
+#: karnaughwindow.cpp:155
 msgid "Karnaugh map solved!"
 msgstr "Karnaughova tablica riješena!"
 
-#: src/blamframe.cpp:309
-msgid "You have to restart the program for this change to take effect."
-msgstr "Morate ponovo pokrenuti program da bi promjene bile unesene."
+#: karnaughwindow.cpp:206
+msgid "Select the language"
+msgstr "Izberite jezik"
 
-#: src/blamframe.cpp:310
-msgid "Restart required"
-msgstr "Potreban restart"
+#: karnaughwindow.cpp:206
+msgid "Language"
+msgstr "Jezik"
 
-#: src/blamframe.cpp:326
+#: karnaughwindow.cpp:260
 msgid ""
 "This is a program for minimizing boolean functions using Karnaugh maps "
 "method.\n"
+"Based on original work from Robert Kovacevic\n"
 "\n"
-"Copyright (C) 2005. Robert Kovacevic"
+"Copyright (C) 2020. Alwin Leerling"
 msgstr ""
-"Program za minimizaciju booleovih funkcija metodom Karnaughovih "
-"tablica.\n"
+"Program za minimizaciju booleovih funkcija metodom Karnaughovih tablica.\n"
+"Based on original work from Robert Kovaèeviæ\n"
 "\n"
-"Copyright (C) 2005. Robert Kovaèeviæ"
+"Copyright (C) 2020. Alwin Leerling"
 
-#: src/blamframe.cpp:328
+#: karnaughwindow.cpp:262
 msgid "About Karnaugh Map Minimizer"
 msgstr "O programu"
 
-#: src/kmapgrid.cpp:127 src/truthtablegrid.cpp:75
+#: kmapgrid.cpp:110 truthtablegrid.cpp:69
 msgid "Set to 1"
 msgstr "Podesi na 1"
 
-#: src/kmapgrid.cpp:128 src/truthtablegrid.cpp:76
+#: kmapgrid.cpp:111 truthtablegrid.cpp:70
 msgid "Set to 0"
 msgstr "Podesi na 0"
 
-#: src/kmapgrid.cpp:129 src/truthtablegrid.cpp:77
+#: kmapgrid.cpp:112 truthtablegrid.cpp:71
 msgid "Set to \"don't care\""
 msgstr "Podesi na nespecificirano"
 
-#: src/kmapgrid.cpp:131 src/truthtablegrid.cpp:79
+#: kmapgrid.cpp:114 truthtablegrid.cpp:73
 msgid "Set randomly"
 msgstr "Podesi nasumièno"
 
-#: src/translationhelper.cpp:46
-msgid "Default"
-msgstr ""
+#~ msgid "English (default)"
+#~ msgstr "Engleski (english)"
 
-#: src/translationhelper.cpp:55
-#, c-format
-msgid "TranslationHelper: Directory found = \"%s\""
-msgstr ""
-
-#: src/translationhelper.cpp:71
-msgid "Array of language names and identifiers should have the same size."
-msgstr ""
-
-#: src/translationhelper.cpp:74
-msgid "No languages are available for selection."
-msgstr ""
-
-#: src/translationhelper.cpp:74
 #, fuzzy
-#| msgid "Language"
-msgid "Choose Language"
-msgstr "Jezik"
+#~| msgid "Set language to english"
+#~ msgid "Set language to English"
+#~ msgstr "Podesi jezik na engleski"
 
-#: src/translationhelper.cpp:78
-msgid "Select the language"
-msgstr ""
+#~ msgid "Croatian"
+#~ msgstr "Hrvatski"
 
-#: src/translationhelper.cpp:89
-#, c-format
-msgid "TranslationHelper: Path Prefix = \"%s\""
-msgstr ""
+#, fuzzy
+#~| msgid "Set language to croatian"
+#~ msgid "Set language to Croatian"
+#~ msgstr "Podesi jezik na hrvatski"
 
-#: src/translationhelper.cpp:90
-#, c-format
-msgid "TranslationHelper: Catalog Name = \"%s\""
-msgstr ""
+#~ msgid "Set language (requires restart)"
+#~ msgstr "Podesi jezik (zahtjeva restart)"
 
-#: src/translationhelper.cpp:116
-#, c-format
-msgid "TranslationHelper: Setting language to = \"%s\""
-msgstr ""
+#~ msgid "You have to restart the program for this change to take effect."
+#~ msgstr "Morate ponovo pokrenuti program da bi promjene bile unesene."
+
+#~ msgid "Restart required"
+#~ msgstr "Potreban restart"
+
+#, fuzzy
+#~| msgid "Language"
+#~ msgid "Choose Language"
+#~ msgstr "Jezik"
 
 #~ msgid "Solve"
 #~ msgstr "Riješi"

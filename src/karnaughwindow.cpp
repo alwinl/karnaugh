@@ -258,7 +258,7 @@ void KarnaughWindow::OnShowZero( wxCommandEvent& event )
 void KarnaughWindow::OnAbout( wxCommandEvent& WXUNUSED( event ) )
 {
     wxMessageBox( _( "This is a program for minimizing boolean functions using Karnaugh maps method."
-                     "\n\nCopyright (C) 2020. Alwin Leerling" ),
+                     "\nBased on original work from Robert Kovacevic\n\nCopyright (C) 2020. Alwin Leerling" ),
                   _( "About Karnaugh Map Minimizer" ), wxOK | wxICON_INFORMATION, this );
 }
 
