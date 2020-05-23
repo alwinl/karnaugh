@@ -46,4 +46,6 @@ private:
 	bool delete_me;
 };
 
+typedef std::vector<SolutionEntry> SolutionEntries;
+
 #endif // SOLUTIONENTRY_H

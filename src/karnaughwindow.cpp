@@ -145,11 +145,11 @@ void KarnaughWindow::PreSolver( )
 
 void KarnaughWindow::PostSolverStart( bool isSOP, unsigned int solution_size )
 {
-    treeSolution->RemoveAllItems();
+    treeSolution->RemoveAllItems( isSOP, solution_size );
     kmap_grid->ResetBackgroundColour( isSOP, solution_size );
 }
 
-void KarnaughWindow::PostSolverAdd( SolutionEntry& entry, bool isSOP, SolutionAddresses addresses, unsigned int id )
+void KarnaughWindow::PostSolverAdd( SolutionEntry& entry, bool isSOP, GridAddresses addresses, unsigned int id )
 {
 	kmap_grid->SetBackgroundColour( isSOP, addresses );
 	treeSolution->AddItem( isSOP, entry.GetMask(), entry.GetNumber(), id );
@@ -166,13 +166,13 @@ void KarnaughWindow::SetNewValue( unsigned int adress, GridAddress grid_adress, 
     kmap_grid->SetValue( grid_adress.first, grid_adress.second, new_value );
 }
 
-void KarnaughWindow::SetInputs( unsigned int no_of_inputs )
+void KarnaughWindow::SetInputs( bool isSOP, unsigned int no_of_inputs )
 {
     numberOfVariables->SetValue( no_of_inputs );
     truthTable->SetVars( no_of_inputs );
     kmap_grid->SetVars( no_of_inputs );
 
-    treeSolution->RemoveAllItems();
+    treeSolution->RemoveAllItems( isSOP, 0 );
 }
 
 void KarnaughWindow::SetGridLabel( int index, wxString label, bool isRow )
@@ -198,7 +198,7 @@ void KarnaughWindow::SetNewShowZeroes( bool on )
 	truthTable->SetShowZeros( on );
 }
 
-void KarnaughWindow::SetSolutionSelection( SolutionAddresses addresses )
+void KarnaughWindow::SetSolutionSelection( GridAddresses addresses )
 {
 	kmap_grid->ResetSelection();
 

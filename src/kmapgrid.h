@@ -41,7 +41,7 @@ public:
 	KarnaughData::eCellValues GetUserInput( wxGridEvent& event );
 
     void ResetBackgroundColour( bool isSOP, unsigned int solution_size );
-	void SetBackgroundColour( bool isSOP, SolutionAddresses addresses );
+	void SetBackgroundColour( bool isSOP, GridAddresses addresses );
 
 	void ResetSelection();
 	void AddCellToSelection( unsigned int row, unsigned int col );

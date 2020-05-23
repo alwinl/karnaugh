@@ -28,7 +28,7 @@ class SolutionTree : public wxTreeCtrl
 public:
     SolutionTree( wxWindow *parent, wxWindowID id );
 
-	void RemoveAllItems( );
+	void RemoveAllItems( bool isSOP, unsigned int solution_size );
 	void AddItem( bool isSOP, unsigned int mask, unsigned int number, unsigned long entry_id );
 	unsigned long GetEntryID( const wxTreeItemId & item );
 

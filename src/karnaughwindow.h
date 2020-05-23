@@ -37,17 +37,17 @@ class KarnaughWindow : public wxFrame
 public:
     KarnaughWindow( KarnaughApp& app_init );
 
-	void SetInputs( unsigned int no_of_inputs );
+	void SetInputs( bool isSOP, unsigned int no_of_inputs );
 	void SetGridLabel( int index, wxString label, bool isRow );
 	void SetNewValue( unsigned int adress, GridAddress grid_adress, KarnaughData::eCellValues new_value );
 	void SetNewSolutionType( bool isSOP );
-	void SetSolutionSelection( SolutionAddresses addresses );
+	void SetSolutionSelection( GridAddresses addresses );
 	void SetNewShowAddress( bool on );
 	void SetNewShowZeroes( bool on );
 
 	void PreSolver( );
 	void PostSolverStart( bool isSOP, unsigned int solution_size );
-	void PostSolverAdd( SolutionEntry& entry, bool isSOP, SolutionAddresses addresses, unsigned int id );
+	void PostSolverAdd( SolutionEntry& entry, bool isSOP, GridAddresses addresses, unsigned int id );
 	void PostSolverFinish();
 
 private:

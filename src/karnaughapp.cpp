@@ -58,7 +58,7 @@ void KarnaughApp::CreateGUI()
 
     unsigned int no_of_inputs = config->GetInputs();
 
-	frame->SetInputs( no_of_inputs );
+	frame->SetInputs( config->GetSolutionType() == KarnaughData::SOP, no_of_inputs );
 
     for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
 		frame->SetGridLabel( row, data->index_to_greycode_string( row, no_of_inputs / 2 ), true );
@@ -100,7 +100,7 @@ void KarnaughApp::SetInputs( unsigned int no_of_inputs )
 	config->SetInputs( no_of_inputs );
 	data->set_dimension( no_of_inputs );
 
-	frame->SetInputs( no_of_inputs );
+	frame->SetInputs( data->get_solution_type() == KarnaughData::SOP, no_of_inputs );
 
     for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
 		frame->SetGridLabel( row, data->index_to_greycode_string( row, no_of_inputs / 2 ), true );
@@ -139,13 +139,13 @@ void KarnaughApp::RunSolver( )
 {
 	frame->PreSolver( );
 
-    std::vector<SolutionEntry> solutions = data->FindBestSolution();
+    SolutionEntries solutions = data->find_best_solution();
 
 	frame->PostSolverStart( data->get_solution_type() == KarnaughData::SOP, solutions.size() );
 
     unsigned int id = 0;
 	for( SolutionEntry& entry : solutions ) {
-		frame->PostSolverAdd( entry, data->get_solution_type() == KarnaughData::SOP, data->GetEntryAddresses(entry), id );
+		frame->PostSolverAdd( entry, data->get_solution_type() == KarnaughData::SOP, data->get_entry_addresses(entry), id );
 		++id;
 	}
 
@@ -154,5 +154,5 @@ void KarnaughApp::RunSolver( )
 
 void KarnaughApp::SetSolutionSelection( unsigned int index )
 {
-	frame->SetSolutionSelection( data->GetEntryAddresses( index ) );
+	frame->SetSolutionSelection( data->get_entry_addresses( index ) );
 }

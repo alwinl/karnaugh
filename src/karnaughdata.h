@@ -26,9 +26,8 @@
 
 #include "solutionentry.h"
 
-typedef std::pair<unsigned int, unsigned int> SolutionAddress;
 typedef std::pair<unsigned int, unsigned int> GridAddress;
-typedef std::vector<SolutionAddress> SolutionAddresses;
+typedef std::vector<GridAddress> GridAddresses;
 
 class KarnaughData
 {
@@ -45,16 +44,13 @@ public:
     unsigned int get_dimension( ) const { return no_of_inputs; }
     eSolutionType get_solution_type() const { return solution_type; }
     eCellValues get_value( unsigned int address ) const { return table[address]; };
-    std::vector<SolutionEntry> FindBestSolution( );
+    SolutionEntries find_best_solution( );
 
-	SolutionAddresses GetEntryAddresses( unsigned int index );
-	SolutionAddresses GetEntryAddresses( SolutionEntry& entry );
+	GridAddresses get_entry_addresses( unsigned int index );
+	GridAddresses get_entry_addresses( SolutionEntry& entry );
 
 	unsigned int calc_address( unsigned int row, unsigned int col );
 	GridAddress calc_address( unsigned int address );
-
-	unsigned int calc_row( unsigned int address );
-	unsigned int calc_col( unsigned int address );
 
 	std::string index_to_greycode_string( unsigned int index, unsigned int length );
 
@@ -62,11 +58,11 @@ private:
 	unsigned int no_of_inputs;
 	std::vector<eCellValues> table;
 	eSolutionType solution_type;
-	std::vector<SolutionEntry> the_solution;
+	SolutionEntries the_solution;
 
-	unsigned int GrayEncode( unsigned int number );
+	unsigned int gray_encode( unsigned int number );
 	std::vector<unsigned int> number_to_binaryvector( unsigned int code, unsigned int length );
-	void FindSolution( std::list<SolutionEntry>& solutions );
+	void find_solution( std::list<SolutionEntry>& solutions );
 };
 
 static GridAddress InvalidGridAddress(-1, -1);

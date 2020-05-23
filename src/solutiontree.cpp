@@ -41,11 +41,14 @@ unsigned long SolutionTree::GetEntryID( const wxTreeItemId & item )
 	return ((SolveTreeItemData*)GetItemData( item ))->id;
 }
 
-void SolutionTree::RemoveAllItems()
+void SolutionTree::RemoveAllItems( bool isSOP, unsigned int solution_size )
 {
 	DeleteAllItems();
 
 	RootLabel =  wxT("X = ");
+
+	if( solution_size == 0 )
+		RootLabel.Append( isSOP ? wxT("0") : wxT("1") );
 
 	AddRoot( RootLabel );
 

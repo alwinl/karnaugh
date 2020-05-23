@@ -56,29 +56,7 @@ void KarnaughData::set_solution_type( eSolutionType type )
 
 unsigned int KarnaughData::calc_address( unsigned int row, unsigned int col )
 {
-	return ( GrayEncode(row) << ((no_of_inputs + 1) / 2) ) + GrayEncode(col);
-}
-
-unsigned int KarnaughData::calc_row( unsigned int address )
-{
-	for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
-		for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col ) {
-			if( calc_address( row, col ) == address )
-				return row;
-		}
-
-	return -1;
-}
-
-unsigned int KarnaughData::calc_col( unsigned int address )
-{
-	for( int row = 0; row < (1 << (no_of_inputs / 2)); ++row )
-		for( int col = 0; col < (1 << ((no_of_inputs + 1) / 2)); ++col ) {
-			if( calc_address( row, col ) == address )
-				return col;
-		}
-
-	return -1;
+	return ( gray_encode(row) << ((no_of_inputs + 1) / 2) ) + gray_encode(col);
 }
 
 GridAddress KarnaughData::calc_address( unsigned int address )
@@ -91,7 +69,7 @@ GridAddress KarnaughData::calc_address( unsigned int address )
 	return InvalidGridAddress;
 }
 
-unsigned int KarnaughData::GrayEncode( unsigned int number )
+unsigned int KarnaughData::gray_encode( unsigned int number )
 {
 	return number ^ (number >> 1);
 }
@@ -114,7 +92,7 @@ std::vector<unsigned int> KarnaughData::number_to_binaryvector( unsigned int cod
 
 std::string KarnaughData::index_to_greycode_string( unsigned int index, unsigned int length )
 {
-	unsigned int gray_code = GrayEncode(index);
+	unsigned int gray_code = gray_encode(index);
 
 	if( length == 0 )
 		length = 1;
@@ -130,7 +108,7 @@ std::string KarnaughData::index_to_greycode_string( unsigned int index, unsigned
 	return result;
 }
 
-void KarnaughData::FindSolution( std::list<SolutionEntry>& solutions )
+void KarnaughData::find_solution( std::list<SolutionEntry>& solutions )
 {
 	for( std::list<SolutionEntry>::iterator it = solutions.begin(); it != solutions.end(); ++it ) {
 		for( std::list<SolutionEntry>::iterator it2 = std::next( it, 1); it2 != solutions.end(); ++it2 ) {
@@ -141,10 +119,10 @@ void KarnaughData::FindSolution( std::list<SolutionEntry>& solutions )
 				break;
 			}
 
-			if( (*it).MaskEqual( *it2 ) ) {		// compare the masks
+			if( (*it).MaskEqual( *it2 ) ) {
 				unsigned int xor_number = (*it).ComputeXOR( *it2);
-				/*
-				 * Using Brian Kernighan’s Algorithm to check that there is one and only one bit in a a number
+
+				/* Using Brian Kernighan’s Algorithm to check that there is one and only one bit in a a number
 				 * If one bit and only one bit is set in a number it must be a multiple of 2.
 				 * If you deduct 1 you create a mask for the lower order bits.
 				 * if you AND the original number with that mask the result should be zero.
@@ -164,13 +142,16 @@ void KarnaughData::FindSolution( std::list<SolutionEntry>& solutions )
 	solutions.remove_if(  std::function<bool( const SolutionEntry& )>( [](const SolutionEntry& rhs) { return rhs.IsDeleted(); } )  );
 }
 
-std::vector<SolutionEntry> KarnaughData::FindBestSolution( )
+SolutionEntries KarnaughData::find_best_solution( )
 {
 	std::list<SolutionEntry> solutions;
 	std::vector<unsigned int> dontcares;
 	std::list<SolutionEntry> best_solution;
 
-	// fill list with maxterms
+	the_solution.clear();
+
+	/* fill list with maxterms ( minterms if POS )
+	 */
 	unsigned int mask = (1 << no_of_inputs) - 1;
 
 	for( int address = 0; address < (1 << no_of_inputs); ++address ) {
@@ -181,21 +162,28 @@ std::vector<SolutionEntry> KarnaughData::FindBestSolution( )
 			dontcares.push_back( address );
 	}
 
-	/** @TODO Solution not quite right on all ones or all zeroes */
-	// we better deal with our special case when the solution list is empty
-	//if( solutions.empty() )
-	// if the solution has one one entry, which spans the whole table, delete this entry
+	/*	We have four edge cases:
+	 *	If type is SOP we fill the solution with maxterms, thus if the table is all zeroes
+	 *	(or only zeroes and don't cares) the solution is empty. If the table is all ones
+	 *	( or only ones and don't cares) the solution resolves to one entry spanning the whole table.
+	 *
+	 *	If type is POS we fill the solution with minterms, thus if the table is all ones
+	 *	(or only ones and don't cares) the solution is empty. If the table is all zeroes
+	 *	( or only zeroes and don't cares) the solution resolves to one entry spanning the whole table.
+	 *
+	 *	We can combine two pairs of cases, one where the solution is empty and one where
+	 *	the solution is "full" (ie spans the whole table)
+	 *
+	 *	In the first instance the solution is and remains empty.
+	 *	In the second case the solution has one entry spanning the whole table
+	 */
 	if( solutions.empty() )
-		if( solution_type == POS)
-			solutions.push_back( SolutionEntry(0,0) );
+		return the_solution;
 
-	//	solutions.push_back( SolutionEntry(0, 0 ) );	// Solution entry mask 0, address 0 is the whole table
-
-	// special case, table is all ones or all zeros
-	// when type is sop and table is 1 solutions.size + dontcares.size = 16
-	// when type is pos and table is 1 solutions.size = 0
-	// when type is sop and table is 0 solutions.size = 0
-	// when type is pos and table is 0 solutions.size + dontcares.size = 16
+	if( (solutions.size() + dontcares.size()) == (unsigned int)(1 << no_of_inputs) ) {
+		the_solution.push_back( SolutionEntry(0,0) );
+		return the_solution;
+	}
 
 	/* we need to deal with the don't cares
 	 * the only way I currently know is to brute force all possible scenarios
@@ -204,13 +192,11 @@ std::vector<SolutionEntry> KarnaughData::FindBestSolution( )
 	 * Start from the base solutions list and add a subset of don't care addresses
 	 * Solve, rate and repeat with a different subset
 	 */
-
 	for( int scenario = 0; scenario < (1 << dontcares.size()); ++scenario ) {
 
 		std::list<SolutionEntry> scenario_list( solutions );
 
-		/*
-		 * add the appropriate subset of dont cares
+		/* add the appropriate subset of dont cares
 		 * As it so happens we have a function that transforms a number into a binary vector
 		 * Lets transform the scenario number and add the addresses from the dontcares vector where
 		 * the corresponding binary vector entry is 1
@@ -221,39 +207,34 @@ std::vector<SolutionEntry> KarnaughData::FindBestSolution( )
 			if( add_address[index] )
 				scenario_list.push_back( SolutionEntry(mask, dontcares[index]) );
 
-		FindSolution( scenario_list );
+		find_solution( scenario_list );
 
 		if( best_solution.empty() || scenario_list.size() < best_solution.size() )
 			best_solution = scenario_list;
 	}
 
-	the_solution.clear();
 	the_solution.reserve( best_solution.size() );
 	std::copy( std::begin(best_solution), std::end(best_solution), std::back_inserter(the_solution) );
 
 	return the_solution;
 }
 
-SolutionAddresses KarnaughData::GetEntryAddresses( unsigned int index )
+GridAddresses KarnaughData::get_entry_addresses( SolutionEntry& entry )
 {
-	SolutionAddresses addresses;
+	GridAddresses addresses;
 
-	if( index < the_solution.size() ) {
-		SolutionEntry entry = the_solution[index];
-
-		for( unsigned int adress : entry.GetAddresses( 1 << no_of_inputs ) )
-			addresses.push_back( SolutionAddress( calc_row(adress), calc_col(adress)) );
+	for( unsigned int adress : entry.GetAddresses( 1 << no_of_inputs ) ) {
+		GridAddress grid_address = calc_address( adress );
+		addresses.push_back( GridAddress(grid_address.first, grid_address.second) );
 	}
 
 	return addresses;
 }
 
-SolutionAddresses KarnaughData::GetEntryAddresses( SolutionEntry& entry )
+GridAddresses KarnaughData::get_entry_addresses( unsigned int index )
 {
-	SolutionAddresses addresses;
+	if( index < the_solution.size() )
+		return get_entry_addresses( the_solution[index] );
 
-	for( unsigned int adress : entry.GetAddresses( 1 << no_of_inputs ) )
-		addresses.push_back( SolutionAddress( calc_row(adress), calc_col(adress)) );
-
-	return addresses;
+	return GridAddresses();
 }

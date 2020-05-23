@@ -138,9 +138,9 @@ void KMapGrid::ResetBackgroundColour( bool isSOP, unsigned int solution_size )
     ForceRefresh();
 }
 
-void KMapGrid::SetBackgroundColour( bool isSOP, SolutionAddresses addresses )
+void KMapGrid::SetBackgroundColour( bool isSOP, GridAddresses addresses )
 {
-	for( SolutionAddress address : addresses ) {
+	for( GridAddress address : addresses ) {
 		wxColour current = GetCellBackgroundColour( address.first, address.second );
 		if( isSOP )
 			SetCellBackgroundColour( address.first, address.second, wxColour( current.Red()-40, current.Green()-30, current.Blue() ) );
