@@ -36,15 +36,15 @@ bool KarnaughConfig::GetShowZeroes()
 {
 	wxString ShowZeros;
 
-    if( ! config.Read( wxT( "Show_Zeros" ), &ShowZeros ) )
+    if( ! config.Read( "Show_Zeros", &ShowZeros ) )
 		return false;
 
-	return (ShowZeros == wxT("yes")) ? true : false;
+	return (ShowZeros == "yes") ? true : false;
 }
 
 void KarnaughConfig::SetShowZeroes( bool on )
 {
-	config.Write( wxT( "Show_Zeros" ), on ? wxT( "yes" ) : wxT( "no" ) );
+	config.Write( "Show_Zeros", on ? "yes" : "no" );
 	config.Flush();
 }
 
@@ -52,15 +52,15 @@ bool KarnaughConfig::GetShowAddress()
 {
 	wxString ShowAddress;
 
-    if( ! config.Read( wxT( "Cell_Adresses" ), &ShowAddress ) )
+    if( ! config.Read( "Cell_Adresses", &ShowAddress ) )
 		return false;
 
-	return (ShowAddress == wxT("yes")) ? true : false;
+	return (ShowAddress == "yes") ? true : false;
 }
 
 void KarnaughConfig::SetShowAddress( bool on )
 {
-	config.Write( wxT( "Cell_Adresses" ), on ? wxT( "yes" ) : wxT( "no" ) );
+	config.Write( "Cell_Adresses", on ? "yes" : "no" );
 	config.Flush();
 }
 
@@ -68,7 +68,7 @@ int KarnaughConfig::GetInputs()
 {
 	int inputs;
 
-    if( ! config.Read( wxT( "Inputs" ), &inputs ) )
+    if( ! config.Read( "Inputs", &inputs ) )
 		return 4;
 
 	return inputs;
@@ -76,7 +76,7 @@ int KarnaughConfig::GetInputs()
 
 void KarnaughConfig::SetInputs( int inputs )
 {
-	config.Write( wxT( "Inputs" ), inputs );
+	config.Write( "Inputs", inputs );
 	config.Flush();
 }
 
@@ -84,17 +84,17 @@ KarnaughData::eSolutionType KarnaughConfig::GetSolutionType()
 {
 	wxString type;
 
-	if( !config.Read( wxT( "SolutionType" ), &type ) ) {
+	if( !config.Read( "SolutionType", &type ) ) {
 		SetSolutionType( KarnaughData::SOP );
 		return KarnaughData::SOP;
 	}
 
-	return (type == wxT("SOP") ? KarnaughData::SOP : KarnaughData::POS );
+	return (type == "SOP") ? KarnaughData::SOP : KarnaughData::POS;
 }
 
 void KarnaughConfig::SetSolutionType( KarnaughData::eSolutionType type )
 {
-	config.Write( wxT( "SolutionType" ), (type == KarnaughData::SOP) ? wxT("SOP") : wxT("POS") );
+	config.Write( "SolutionType", (type == KarnaughData::SOP) ? "SOP" : "POS" );
 	config.Flush();
 }
 
@@ -109,12 +109,12 @@ void KarnaughConfig::GetInstalledLanguages( )
 
     for( bool cont = dir.GetFirst( &filename, wxEmptyString, wxDIR_DIRS ); cont; cont = dir.GetNext( &filename ) ) {
 
-        wxLogTrace( wxTraceMask(), _( "TranslationHelper: Directory found = \"%s\"" ), filename.GetData() );
+        //wxLogTrace( wxTraceMask(), _( "TranslationHelper: Directory found = \"%s\"" ), filename.GetData() );
 
 		const wxLanguageInfo * langinfo = wxLocale::FindLanguageInfo( filename );
         if( langinfo != NULL ) {
             if( wxFileExists( dir.GetName() + wxFileName::GetPathSeparator() + filename
-												+ wxFileName::GetPathSeparator() + m_app.GetAppName() + wxT( ".mo" ) ) ) {
+												+ wxFileName::GetPathSeparator() + m_app.GetAppName() + ".mo" ) ) {
 
 				LanguageEntry entry;
 				entry.id = langinfo->Language;
@@ -135,9 +135,9 @@ void KarnaughConfig::SetNewLocale( LanguageEntry entry )
 	m_locale->AddCatalogLookupPathPrefix( wxPathOnly( m_app.argv[0] ) );
 	m_locale->AddCatalog( m_app.GetAppName() );
 
-	wxLogTrace( wxTraceMask(), _( "TranslationHelper: Path Prefix = \"%s\"" ), wxPathOnly( m_app.argv[0] ).GetData() );
-	wxLogTrace( wxTraceMask(), _( "TranslationHelper: Catalog Name = \"%s\"" ), m_app.GetAppName().GetData() );
-	wxLogTrace( wxTraceMask(), _( "TranslationHelper: Setting language to = \"%s\"" ), entry.name );
+	//wxLogTrace( wxTraceMask(), _( "TranslationHelper: Path Prefix = \"%s\"" ), wxPathOnly( m_app.argv[0] ).GetData() );
+	//wxLogTrace( wxTraceMask(), _( "TranslationHelper: Catalog Name = \"%s\"" ), m_app.GetAppName().GetData() );
+	//wxLogTrace( wxTraceMask(), _( "TranslationHelper: Setting language to = \"%s\"" ), entry.name );
 
 	SetLanguage( false );
 }
@@ -162,7 +162,7 @@ bool KarnaughConfig::GetLanguage()
 {
     long language;
 
-    if( !config.Read( wxT( "Language" ), &language, wxLANGUAGE_UNKNOWN ) )
+    if( !config.Read( "Language", &language, wxLANGUAGE_UNKNOWN ) )
         return false;
 
     if( language == wxLANGUAGE_UNKNOWN )
@@ -184,6 +184,6 @@ void KarnaughConfig::SetLanguage( bool bReset )
 	if( !bReset && m_locale )
 		language = m_locale->GetLanguage();
 
-	config.Write( wxT( "Language" ), language );
+	config.Write( "Language", language );
 	config.Flush();
 }

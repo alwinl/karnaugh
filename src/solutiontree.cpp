@@ -45,10 +45,10 @@ void SolutionTree::RemoveAllItems( bool isSOP, unsigned int solution_size )
 {
 	DeleteAllItems();
 
-	RootLabel =  wxT("X = ");
+	RootLabel = "X = ";
 
 	if( solution_size == 0 )
-		RootLabel.Append( isSOP ? wxT("0") : wxT("1") );
+		RootLabel.Append( isSOP ? "0" : "1" );
 
 	AddRoot( RootLabel );
 
@@ -80,17 +80,17 @@ void SolutionTree::AddItem( bool isSOP, unsigned int mask, unsigned int number, 
 	}
 
 	if( result.empty() ) {			// there are no unique variables for this solution, this means that the solve is either X = 0 or X = 1, depending on the solution type
-		RootLabel.Append( isSOP ? wxT("1") : wxT("0") );
+		RootLabel.Append( isSOP ? "1" : "0" );
 	} else {
 		if( isSOP ) {
-			if( RootLabel != wxT("X = ") )
-				RootLabel.Append( wxT(" + ") );
+			if( RootLabel != "X = " )
+				RootLabel.Append( " + " );
 
 			RootLabel.Append( result );
 		} else {
-			RootLabel.Append( wxT("(") );
+			RootLabel.Append( "(" );
 			RootLabel.Append( result );
-			RootLabel.Append( wxT(")") );
+			RootLabel.Append( ")" );
 		}
 
 		AppendItem( GetRootItem(), result, -1, -1, new SolveTreeItemData( entry_id ) );

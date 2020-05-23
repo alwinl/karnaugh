@@ -48,7 +48,7 @@ void TruthTableGridCellRenderer::Draw( wxGrid& grid, wxGridCellAttr& attr, wxDC&
 
 	SetTextColoursAndFont( grid, attr, dc, isSelected );
 
-	if( do_draw_zeros || grid.GetCellValue(row, col) != wxT("0") )
+	if( do_draw_zeros || grid.GetCellValue(row, col) != "0" )
 		grid.DrawTextRectangle( dc, grid.GetCellValue(row, col), newRect, wxALIGN_CENTER );
 }
 
@@ -78,9 +78,9 @@ TruthTableGrid::TruthTableGrid( wxWindow* parent, wxWindowID id, const wxSize& s
 void TruthTableGrid::SetValue( unsigned int row, unsigned int col, KarnaughData::eCellValues value )
 {
 	switch( value ) {
-	case KarnaughData::ZERO : SetCellValue( row, col, wxT("0") ); break;
-	case KarnaughData::ONE : SetCellValue( row, col, wxT("1") ); break;
-	case KarnaughData::DONTCARE : SetCellValue( row, col, wxT("?") ); break;
+	case KarnaughData::ZERO : SetCellValue( row, col, "0" ); break;
+	case KarnaughData::ONE : SetCellValue( row, col, "1" ); break;
+	case KarnaughData::DONTCARE : SetCellValue( row, col, "?" ); break;
 	}
 }
 
@@ -103,13 +103,13 @@ void TruthTableGrid::SetVars( int vars )
     if( GetNumberRows() > height ) DeleteRows( 0, GetNumberRows() - height );
 
     for( int col = 0; col < (GetNumberCols() - 1); ++col )
-        SetColLabelValue( col, wxString::Format( wxT( "%c" ), 'A' + vars - (col + 1) ) ) ;
+        SetColLabelValue( col, wxString::Format( "%c", 'A' + vars - (col + 1) ) ) ;
 
-    SetColLabelValue( vars, wxT( "X" ) );
+    SetColLabelValue( vars, "X" );
 
     for( int row = 0; row < GetNumberRows(); ++row ) {
 
-        SetRowLabelValue( row, wxString::Format( wxT( "%d" ), row ) );
+        SetRowLabelValue( row, wxString::Format( "%d", row ) );
 
         for( int col = 0; col < (GetNumberCols() - 1); ++col ) {
 
@@ -137,10 +137,10 @@ KarnaughData::eCellValues TruthTableGrid::GetUserInput( wxGridEvent& event )
 {
     wxString value = GetCellValue( event.GetRow(), GetNumberCols() - 1 );
 
-    if( ( value == wxT( "0" ) ) )
+    if( value == "0" )
         return KarnaughData::ZERO;
 
-    if( value == wxT( "1" ) )
+    if( value == "1" )
         return KarnaughData::ONE;
 
     return KarnaughData::DONTCARE;

@@ -51,7 +51,7 @@ private:
 KMapGridCellRenderer::KMapGridCellRenderer()
 {
     font = new wxFont( 7, wxDEFAULT, wxNORMAL, wxNORMAL );
-    font->SetFaceName( wxT( "sans" ) );
+    font->SetFaceName( "sans" );
     do_show_greycode = true;
     do_draw_zeros = true;
 }
@@ -70,7 +70,7 @@ void KMapGridCellRenderer::Draw( wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, c
 
 	SetTextColoursAndFont( grid, attr, dc, isSelected );
 
-	if( do_draw_zeros || grid.GetCellValue(row, col) != wxT("0") )
+	if( do_draw_zeros || grid.GetCellValue(row, col) != "0" )
 		grid.DrawTextRectangle( dc, grid.GetCellValue(row, col), newRect, wxALIGN_CENTER );
 
     if( do_show_greycode ) {
@@ -89,8 +89,8 @@ void KMapGridCellRenderer::Draw( wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, c
 
 		unsigned int grey_code = ( GrayEncode(row) << i ) + GrayEncode(col);
 
-		dc.GetTextExtent( wxString::Format( wxT( "%d" ), grey_code ), &w, &h );
-		dc.DrawText( wxString::Format( wxT( "%d" ), grey_code ), rect.GetX()+rect.GetWidth()-w-2, rect.GetY()+rect.GetHeight()-h-1 );
+		dc.GetTextExtent( wxString::Format( "%d", grey_code ), &w, &h );
+		dc.DrawText( wxString::Format( "%d", grey_code ), rect.GetX()+rect.GetWidth()-w-2, rect.GetY()+rect.GetHeight()-h-1 );
     }
 }
 
@@ -119,9 +119,9 @@ KMapGrid::KMapGrid( wxWindow* parent, wxWindowID id, const wxSize& size )
 void KMapGrid::SetValue( unsigned int row, unsigned int col, KarnaughData::eCellValues value )
 {
 	switch( value ) {
-	case KarnaughData::ZERO : SetCellValue( row, col, wxT("0") ); break;
-	case KarnaughData::ONE : SetCellValue( row, col, wxT("1") ); break;
-	case KarnaughData::DONTCARE : SetCellValue( row, col, wxT("?") ); break;
+	case KarnaughData::ZERO : SetCellValue( row, col, "0" ); break;
+	case KarnaughData::ONE : SetCellValue( row, col, "1" ); break;
+	case KarnaughData::DONTCARE : SetCellValue( row, col, "?" ); break;
 	}
 }
 
@@ -197,10 +197,10 @@ KarnaughData::eCellValues KMapGrid::GetUserInput( wxGridEvent& event )
 {
 	wxString value = GetCellValue( event.GetRow(), event.GetCol() );
 
-	if( (value == wxT("0")) || (value == wxT("")) )
+	if( value == "0" )
 		return KarnaughData::ZERO;
 
-	if( value == wxT("1") )
+	if( value == "1" )
 		return KarnaughData::ONE;
 
 	return KarnaughData::DONTCARE;
