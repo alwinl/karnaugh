@@ -24,10 +24,19 @@
 
 IMPLEMENT_APP( KarnaughApp )
 
+KarnaughApp::KarnaughApp() : wxApp()
+{
+	data = nullptr;
+	config = nullptr;
+	frame = nullptr;
+}
+
 bool KarnaughApp::OnInit()
 {
 	config = new KarnaughConfig( *this );
-	data = new KarnaughData( config->GetInputs() );
+	data = new KarnaughData;
+
+	data->set_dimension( config->GetInputs() );
 
 	CreateGUI();
 

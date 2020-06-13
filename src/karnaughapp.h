@@ -30,6 +30,8 @@ class KarnaughConfig;
 class KarnaughApp : public wxApp
 {
 public:
+	KarnaughApp();
+
     void SelectLanguage();
 	void CreateGUI();
 

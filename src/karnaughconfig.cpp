@@ -19,6 +19,8 @@
 
 #include "karnaughconfig.h"
 
+#include <algorithm>
+
 #include <wx/dir.h>
 #include <wx/filename.h>
 #include <wx/config.h>
@@ -26,7 +28,7 @@
 
 #include "karnaughapp.h"
 
-KarnaughConfig::KarnaughConfig( wxApp& app ) : m_app(app), config( app.GetAppName() )
+KarnaughConfig::KarnaughConfig( wxApp& app ) : m_app(app), m_locale(nullptr), config( app.GetAppName() )
 {
 	GetInstalledLanguages();
 	GetLanguage();
@@ -153,21 +155,21 @@ wxArrayString KarnaughConfig::GetLanguages( )
 
 bool KarnaughConfig::GetLanguage()
 {
-    long language;
+	long language;
 
-    if( !config.Read( "Language", &language, wxLANGUAGE_UNKNOWN ) )
-        return false;
+	if( !config.Read( "Language", &language, wxLANGUAGE_UNKNOWN ) )
+		return false;
 
-    if( language == wxLANGUAGE_UNKNOWN )
-        return false;
+	if( language == wxLANGUAGE_UNKNOWN )
+		return false;
 
-    for( LanguageEntry& entry : languages )
-		if( entry.id == language ) {
-			SetNewLocale( entry );
-			return true;
-		}
+	std::vector<LanguageEntry>::iterator lang_entry = std::find_if( languages.begin(), languages.end(), [language](const LanguageEntry& entry){ return (entry.id == language); } );
 
-	return false;
+	if( lang_entry == languages.end() )
+		return false;
+
+	SetNewLocale( *lang_entry );
+	return true;
 }
 
 void KarnaughConfig::SetLanguage( bool bReset )

@@ -48,6 +48,7 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename=".gitignore" />
 		<Unit filename="README" />
 		<Unit filename="po/en.po" />
 		<Unit filename="po/hr.po" />
@@ -70,10 +71,7 @@
 		<Unit filename="src/truthtablegrid.cpp" />
 		<Unit filename="src/truthtablegrid.h" />
 		<Extensions>
-			<envvars />
-			<code_completion />
 			<lib_finder disable_auto="1" />
-			<debugger />
 			<wxsmith version="1">
 				<gui name="wxWidgets" src="" main="" init_handlers="necessary" language="CPP" />
 			</wxsmith>

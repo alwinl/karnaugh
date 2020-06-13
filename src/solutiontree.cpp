@@ -22,7 +22,7 @@
 class SolveTreeItemData : public wxTreeItemData
 {
 public:
-    SolveTreeItemData( unsigned int id ) : wxTreeItemData() { this->id = id; };
+    explicit SolveTreeItemData( unsigned int id ) : wxTreeItemData() { this->id = id; };
 
     unsigned int id;
 };
@@ -38,7 +38,7 @@ unsigned long SolutionTree::GetEntryID( const wxTreeItemId & item )
 	if( GetRootItem() == item )
 		return -1;
 
-	return ((SolveTreeItemData*)GetItemData( item ))->id;
+	return (static_cast<SolveTreeItemData*>( GetItemData( item ) ))->id;
 }
 
 void SolutionTree::RemoveAllItems( bool isSOP, unsigned int solution_size )

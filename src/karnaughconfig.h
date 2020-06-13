@@ -33,7 +33,7 @@ class wxApp;
 class KarnaughConfig
 {
 public:
-    KarnaughConfig( wxApp& app );
+    explicit KarnaughConfig( wxApp& app );
 
     void SetShowZeroes( bool on );
     void SetShowAddress( bool on );

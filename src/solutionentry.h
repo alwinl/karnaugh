@@ -27,7 +27,7 @@ class SolutionEntry
 public:
 	SolutionEntry( unsigned int mask, unsigned int number );
 
-	unsigned int ComputeXOR( SolutionEntry& rhs ) const;
+	unsigned int ComputeXOR( const SolutionEntry& rhs ) const;
 	std::vector<unsigned int> GetAddresses( unsigned int max_address ) const;
 	void MarkForDeletion();
 	SolutionEntry ComputeNewEntry( unsigned int xor_number ) const;
@@ -35,10 +35,10 @@ public:
 	unsigned int GetMask() const { return mask; }
 	unsigned int GetNumber() const { return number; }
 
-	bool MaskEqual( SolutionEntry& rhs ) const;
+	bool MaskEqual( const SolutionEntry& rhs ) const;
 	bool IsDeleted() const;
-	bool operator==( SolutionEntry& rhs ) const;
-	bool operator!=( SolutionEntry& rhs ) const { return ! operator==( rhs ); };
+	bool operator==( const SolutionEntry& rhs ) const;
+	bool operator!=( const SolutionEntry& rhs ) const { return ! operator==( rhs ); };
 
 private:
 	unsigned int mask;

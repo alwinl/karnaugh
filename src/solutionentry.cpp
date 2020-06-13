@@ -26,12 +26,12 @@ SolutionEntry::SolutionEntry( unsigned int mask, unsigned int number )
 	delete_me = false;
 }
 
-bool SolutionEntry::MaskEqual( SolutionEntry& rhs ) const
+bool SolutionEntry::MaskEqual( const SolutionEntry& rhs ) const
 {
 	return mask == rhs.mask;
 }
 
-unsigned int SolutionEntry::ComputeXOR( SolutionEntry& rhs ) const
+unsigned int SolutionEntry::ComputeXOR( const SolutionEntry& rhs ) const
 {
 	return (number ^ rhs.number) & mask;
 }
@@ -54,7 +54,7 @@ bool SolutionEntry::IsDeleted() const
 	return delete_me;
 }
 
-bool SolutionEntry::operator==( SolutionEntry& rhs ) const
+bool SolutionEntry::operator==( const SolutionEntry& rhs ) const
 {
 	return (mask == rhs.mask) && (number == rhs.number);
 }

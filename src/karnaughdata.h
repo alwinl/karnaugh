@@ -32,7 +32,7 @@ typedef std::vector<GridAddress> GridAddresses;
 class KarnaughData
 {
 public:
-    KarnaughData( unsigned int no_of_inputs );
+    KarnaughData();
 
 	enum eCellValues { ZERO, ONE, DONTCARE };
 	enum eSolutionType { SOP, POS };
@@ -47,7 +47,7 @@ public:
     SolutionEntries find_best_solution( );
 
 	GridAddresses get_entry_addresses( unsigned int index );
-	GridAddresses get_entry_addresses( SolutionEntry& entry );
+	GridAddresses get_entry_addresses( const SolutionEntry& entry );
 
 	unsigned int calc_address( unsigned int row, unsigned int col );
 	GridAddress calc_address( unsigned int address );

@@ -23,11 +23,13 @@
 
 #include "solutionentry.h"
 
-KarnaughData::KarnaughData( unsigned int no_of_inputs )
+KarnaughData::KarnaughData()
 {
+	no_of_inputs = 0;
 	table.resize( 1 << 8, ZERO );
-    set_dimension( no_of_inputs );
-    solution_type = SOP;
+	solution_type = SOP;
+	the_solution.clear();
+
 }
 
 void KarnaughData::set_value( unsigned int address, KarnaughData::eCellValues new_value )
@@ -45,8 +47,7 @@ void KarnaughData::set_dimension( unsigned int no_of_inputs )
 
 	this->no_of_inputs = no_of_inputs;
 
-	for( eCellValues& cell : table )
-		cell = ZERO;
+	std::fill( table.begin(), table.end(), ZERO );
 }
 
 void KarnaughData::set_solution_type( eSolutionType type )
@@ -219,7 +220,7 @@ SolutionEntries KarnaughData::find_best_solution( )
 	return the_solution;
 }
 
-GridAddresses KarnaughData::get_entry_addresses( SolutionEntry& entry )
+GridAddresses KarnaughData::get_entry_addresses( const SolutionEntry& entry )
 {
 	GridAddresses addresses;
 

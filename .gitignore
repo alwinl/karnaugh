@@ -3,4 +3,4 @@ obj
 *.depend
 *.layout
 *.mo
-
+CppCheckResults.xml

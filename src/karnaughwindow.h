@@ -35,7 +35,7 @@ class SolutionTree;
 class KarnaughWindow : public wxFrame
 {
 public:
-    KarnaughWindow( KarnaughApp& app_init );
+    explicit KarnaughWindow( KarnaughApp& app_init );
 
 	void SetInputs( bool isSOP, unsigned int no_of_inputs );
 	void SetGridLabel( int index, wxString label, bool isRow );
