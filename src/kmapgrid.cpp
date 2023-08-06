@@ -30,8 +30,7 @@ END_EVENT_TABLE()
 class KMapGridCellRenderer : public wxGridCellStringRenderer
 {
 public:
-	KMapGridCellRenderer( );
-	~KMapGridCellRenderer();
+	KMapGridCellRenderer( ) : font( wxFontInfo(7).Family( wxFONTFAMILY_MODERN ) ), do_show_greycode( true ), do_draw_zeros( true ) {};
 
 	void show_greycode( bool on ) { do_show_greycode = on; };
 	void draw_zeros( bool on ) { do_draw_zeros = on; };
@@ -40,26 +39,10 @@ protected:
     virtual void Draw( wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, const wxRect& rect, int row, int col, bool isSelected );
 
 private:
-	wxFont* font;
-
+	wxFont font;
 	bool do_show_greycode;
 	bool do_draw_zeros;
-
-	unsigned int GrayEncode( unsigned int number ) { return number ^ (number >> 1); }
 };
-
-KMapGridCellRenderer::KMapGridCellRenderer()
-{
-    font = new wxFont( 7, wxDEFAULT, wxNORMAL, wxNORMAL );
-    font->SetFaceName( "sans" );
-    do_show_greycode = true;
-    do_draw_zeros = true;
-}
-
-KMapGridCellRenderer::~KMapGridCellRenderer()
-{
-	delete font;
-}
 
 void KMapGridCellRenderer::Draw( wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, const wxRect& rect, int row, int col, bool isSelected )
 {
@@ -75,7 +58,7 @@ void KMapGridCellRenderer::Draw( wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, c
 
     if( do_show_greycode ) {
 
-		dc.SetFont( *font );
+		dc.SetFont( font );
 		dc.SetTextForeground( wxColour( 150, 150, 150 ) );
 
 		dc.SetPen( *wxGREY_PEN );
@@ -87,7 +70,9 @@ void KMapGridCellRenderer::Draw( wxGrid& grid, wxGridCellAttr& attr, wxDC& dc, c
 		for( i = 0; (1 << i) < grid.GetNumberCols(); ++i )
 			;
 
-		unsigned int grey_code = ( GrayEncode(row) << i ) + GrayEncode(col);
+		auto GreyEncode = []( unsigned int number ) { return number ^ (number >> 1); };
+
+		unsigned int grey_code = ( GreyEncode(row) << i ) + GreyEncode(col);
 
 		dc.GetTextExtent( wxString::Format( "%d", grey_code ), &w, &h );
 		dc.DrawText( wxString::Format( "%d", grey_code ), rect.GetX()+rect.GetWidth()-w-2, rect.GetY()+rect.GetHeight()-h-1 );
