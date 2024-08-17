@@ -59,7 +59,7 @@ KarnaughWindow::KarnaughWindow( KarnaughApp& app_init )
     mnuSettings = new wxMenu;
     mnuSettings->Append( new wxMenuItem( 0, SET_LANGUAGE_MENU, _( "Set language" ), _( "Set language" ) ) );
     mnuSettings->Append( new wxMenuItem( 0, SHOW_ZERO_MENU, _( "Show zeros" ), _( "Show / hide zero values" ), wxITEM_CHECK ) );
-    mnuSettings->Append( new wxMenuItem( 0, SHOW_CELL_ADDRESS_MENU, _( "Show cell adresses" ), _( "Show / hide cell adresses in the K-map" ), wxITEM_CHECK ) );
+    mnuSettings->Append( new wxMenuItem( 0, SHOW_CELL_ADDRESS_MENU, _( "Show cell addresses" ), _( "Show / hide cell addresses in the K-map" ), wxITEM_CHECK ) );
     menuBar->Append( mnuSettings, _( "&Settings" ) );
 
     SetMenuBar( menuBar );

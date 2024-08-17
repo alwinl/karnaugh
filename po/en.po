@@ -55,11 +55,11 @@ msgid "Show / hide zero values"
 msgstr ""
 
 #: karnaughwindow.cpp:62
-msgid "Show cell adresses"
+msgid "Show cell addresses"
 msgstr ""
 
 #: karnaughwindow.cpp:62
-msgid "Show / hide cell adresses in the K-map"
+msgid "Show / hide cell addresses in the K-map"
 msgstr ""
 
 #: karnaughwindow.cpp:63

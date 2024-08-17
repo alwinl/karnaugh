@@ -54,11 +54,11 @@ msgid "Show / hide zero values"
 msgstr "Prikaži / sakrij nule"
 
 #: karnaughwindow.cpp:62
-msgid "Show cell adresses"
+msgid "Show cell addresses"
 msgstr "Prikaži adrese æelija"
 
 #: karnaughwindow.cpp:62
-msgid "Show / hide cell adresses in the K-map"
+msgid "Show / hide cell addresses in the K-map"
 msgstr "Prikaži / sakrij adrese æelija u K-tablici"
 
 #: karnaughwindow.cpp:63
